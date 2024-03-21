@@ -118,7 +118,6 @@ struct ContentView: View {
     private func isValidSelection(x row: Int, y column: Int) -> Bool {
         guard let focusedCoordinate else { return false }
         if let selectionDirection {
-            print(selectionDirection)
             switch selectionDirection {
             case .vertical:
                 if isValidNeighbour(x: row, y: column, given: selectionDirection) && focusedCoordinate.y - column == .zero { return true }
