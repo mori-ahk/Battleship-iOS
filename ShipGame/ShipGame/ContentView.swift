@@ -8,6 +8,7 @@
 import SwiftUI
 
 let MAX_SELECTION_COUNT: Int = 3
+let MAX_SHIPS_COUNT: Int = 3
 let GRID_SIZE: Int = 5
 enum GeneralDirection {
     case vertical
@@ -65,12 +66,22 @@ struct ContentView: View {
             
             HStack {
                 Button {
+                    guard currentlySelectedCoordinates.count == 3 else { return }
                     gameGrid.placeShips(on: currentlySelectedCoordinates)
                     resetSelection()
                 } label: {
-                    Text("S")
+                    Text("3S")
                 }
                 .buttonStyle(.borderedProminent)
+                Button {
+                    guard currentlySelectedCoordinates.count == 2 else { return }
+                    gameGrid.placeShips(on: currentlySelectedCoordinates)
+                    resetSelection()
+                } label: {
+                    Text("2S")
+                }
+                .buttonStyle(.borderedProminent)
+                Spacer()
                 Spacer()
                 Button {
                     resetSelection()

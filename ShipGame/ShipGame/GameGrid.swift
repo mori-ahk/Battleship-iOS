@@ -10,6 +10,7 @@ import Foundation
 struct GameGrid: Equatable {
     let size: Int
     var coordinates: [[Coordinate]]
+    var ships: [Ship] = []
     
     init(size: Int) {
         self.size = size
@@ -72,6 +73,8 @@ struct GameGrid: Equatable {
         for coordinate in selectedCoordinates {
             coordinates[coordinate.x][coordinate.y].state = .occupied
         }
+        ships.append(Ship(coordinates: selectedCoordinates))
+        print(ships)
     }
     
     mutating func clear() {
@@ -100,6 +103,22 @@ struct Coordinate: Equatable {
     mutating func reset() {
         state = .empty
     }
+}
+
+struct Ship: Equatable {
+    var coordinates: [Coordinate]
+    
+    init(coordinates: [Coordinate]) {
+        self.coordinates = coordinates
+        for (index, coordinate) in self.coordinates.enumerated() {
+            self.coordinates[index].state = .occupied
+        }
+    }
+    
+    var isSunk: Bool {
+        coordinates.allSatisfy { $0.state == .hit }
+    }
+    var size: Int { coordinates.count }
 }
 
 enum Direction: String, CaseIterable {
