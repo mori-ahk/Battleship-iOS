@@ -83,10 +83,15 @@ struct GameGrid: Equatable {
                 coordinates[row][column].reset()
             }
         }
+        ships.removeAll(keepingCapacity: true)
     }
     
     func isOccupied(_ coordinate: Coordinate) -> Bool {
         return coordinates[coordinate.x][coordinate.y].state == .occupied
+    }
+    
+    func shipsCount(of size: Ship.Size) -> Int {
+        ships.filter { $0.size == size }.count
     }
 }
 
@@ -110,7 +115,7 @@ struct Ship: Equatable {
     
     init(coordinates: [Coordinate]) {
         self.coordinates = coordinates
-        for (index, coordinate) in self.coordinates.enumerated() {
+        for (index, _) in self.coordinates.enumerated() {
             self.coordinates[index].state = .occupied
         }
     }
@@ -118,7 +123,34 @@ struct Ship: Equatable {
     var isSunk: Bool {
         coordinates.allSatisfy { $0.state == .hit }
     }
-    var size: Int { coordinates.count }
+    
+    var size: Size {
+        switch coordinates.count {
+        case 2:
+            return .small
+        case 3:
+            return .large
+        default:
+            return .unknown
+        }
+    }
+    
+    enum Size {
+        case unknown
+        case small
+        case large
+        
+        var size: Int {
+            switch self {
+            case .small:
+                return 2
+            case .large:
+                return 3
+            case .unknown:
+                return -1
+            }
+        }
+    }
 }
 
 enum Direction: String, CaseIterable {

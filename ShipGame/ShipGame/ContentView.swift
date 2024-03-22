@@ -73,6 +73,7 @@ struct ContentView: View {
                     Text("3S")
                 }
                 .buttonStyle(.borderedProminent)
+                .disabled(gameGrid.shipsCount(of: .large) == 2)
                 Button {
                     guard currentlySelectedCoordinates.count == 2 else { return }
                     gameGrid.placeShips(on: currentlySelectedCoordinates)
@@ -81,6 +82,7 @@ struct ContentView: View {
                     Text("2S")
                 }
                 .buttonStyle(.borderedProminent)
+                .disabled(gameGrid.shipsCount(of: .small) == 1)
                 Spacer()
                 Spacer()
                 Button {
