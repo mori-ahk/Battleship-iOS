@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-let MAX_SELECTION_COUNT: Int = 3
+let MAX_SELECTION_COUNT: Int = 4
 let MAX_SHIPS_COUNT: Int = 3
 let GRID_SIZE: Int = 5
 enum GeneralDirection {
@@ -20,11 +20,21 @@ struct ContentView: View {
     @State private var currentlySelectedCoordinates: [Coordinate] = []
     @State private var focusedCoordinate: Coordinate?
     @State private var selectionDirection: GeneralDirection?
-    
+    @State private var shouldShowInstructions: Bool = false
     var body: some View {
-        VStack {
-            if let directionInstruction {
-                Text(directionInstruction)
+        VStack(spacing: 24) {
+            VStack(alignment: .leading) {
+                Button {
+                    shouldShowInstructions.toggle()
+                } label: {
+                    Text("Show Instructions")
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                }
+                if shouldShowInstructions {
+                    ForEach(Array(Instruction.all.enumerated()), id: \.offset) { (index, element) in
+                        Text("\(index). \(element.description)")
+                    }
+                }
             }
             Grid {
                 ForEach(0 ..< gameGrid.size, id: \.self) { row in
@@ -63,35 +73,13 @@ struct ContentView: View {
                     }
                 }
             }
-            
             HStack {
-                Button {
-                    guard currentlySelectedCoordinates.count == 3 else { return }
-                    gameGrid.placeShips(on: currentlySelectedCoordinates)
-                    resetSelection()
-                } label: {
-                    Text("3S")
-                }
-                .buttonStyle(.borderedProminent)
-                .disabled(gameGrid.shipsCount(of: .large) == 2)
-                Button {
-                    guard currentlySelectedCoordinates.count == 2 else { return }
-                    gameGrid.placeShips(on: currentlySelectedCoordinates)
-                    resetSelection()
-                } label: {
-                    Text("2S")
-                }
-                .buttonStyle(.borderedProminent)
-                .disabled(gameGrid.shipsCount(of: .small) == 1)
-                Spacer()
-                Spacer()
                 Button {
                     resetSelection()
                 } label: {
                     Text("Reset Selection")
                 }
                 .buttonStyle(.borderedProminent)
-                Spacer()
                 Button {
                     clearGrid()
                 } label: {
@@ -99,11 +87,26 @@ struct ContentView: View {
                 }
                 .buttonStyle(.borderedProminent)
             }
-            .padding()
+           
+            HStack {
+                ForEach(Ship.Kind.allCases) { ship in
+                    Button {
+                        guard currentlySelectedCoordinates.count == ship.size else { return }
+                        gameGrid.placeShips(on: currentlySelectedCoordinates)
+                        resetSelection()
+                    } label: {
+                        Text(ship.name)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(gameGrid.shipsCount(of: ship) == 1)
+                }
+            }
         }
+        .frame(maxHeight: .infinity, alignment: .topLeading)
         .animation(.default, value: focusedCoordinate)
         .animation(.default, value: gameGrid)
         .animation(.default, value: currentlySelectedCoordinates)
+        .animation(.default, value: shouldShowInstructions)
         .padding()
     }
     
@@ -189,4 +192,17 @@ struct ContentView: View {
         gameGrid.clear()
         resetSelection()
     }
+}
+
+struct Instruction: Identifiable {
+    var id: String { description }
+    let description: String
+    
+    static let all: [Instruction] = [
+        .init(description: "Placing your ships on the grid board vertically or horizontally, but not diagonally. Ships cannot overlap or extend off the grid"),
+        .init(description: "Once all ships are placed, players take turns guessing coordinates on their opponent's grid to try and hit and sink their ships"),
+        .init(description: "When all squares occupied by a ship have been hit, that ship is considered sunk."),
+        .init(description: "The game continues until one player sinks all of their opponent's ships")
+        
+    ]
 }

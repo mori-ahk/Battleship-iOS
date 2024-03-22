@@ -90,8 +90,8 @@ struct GameGrid: Equatable {
         return coordinates[coordinate.x][coordinate.y].state == .occupied
     }
     
-    func shipsCount(of size: Ship.Size) -> Int {
-        ships.filter { $0.size == size }.count
+    func shipsCount(of kind: Ship.Kind) -> Int {
+        ships.filter { $0.kind == kind }.count
     }
 }
 
@@ -124,31 +124,34 @@ struct Ship: Equatable {
         coordinates.allSatisfy { $0.state == .hit }
     }
     
-    var size: Size {
+    var kind: Kind? {
         switch coordinates.count {
-        case 2:
-            return .small
-        case 3:
-            return .large
-        default:
-            return .unknown
+        case 4: return .battleShip
+        case 3: return .cruiser
+        case 2: return .destroyer
+        default: return nil
         }
     }
     
-    enum Size {
-        case unknown
-        case small
-        case large
+    enum Kind: String, CaseIterable, Identifiable {
+        var id: String { name }
+        case battleShip
+        case cruiser
+        case destroyer
         
         var size: Int {
             switch self {
-            case .small:
-                return 2
-            case .large:
+            case .battleShip:
+                return 4
+            case .cruiser:
                 return 3
-            case .unknown:
-                return -1
+            case .destroyer:
+                return 2
             }
+        }
+        
+        var name: String {
+            "\(rawValue.capitalized) (\(size.description))"
         }
     }
 }
