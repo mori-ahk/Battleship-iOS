@@ -10,17 +10,20 @@ import SwiftUI
 let MAX_SELECTION_COUNT: Int = 4
 let MAX_SHIPS_COUNT: Int = 3
 let GRID_SIZE: Int = 5
+
 enum GeneralDirection {
     case vertical
     case horizontal
 }
 
 struct ContentView: View {
+    @State private var roomId: String = ""
     @State private var gameGrid = GameGrid(size: GRID_SIZE)
     @State private var currentlySelectedCoordinates: [Coordinate] = []
     @State private var focusedCoordinate: Coordinate?
     @State private var selectionDirection: GeneralDirection?
     @State private var shouldShowInstructions: Bool = false
+    @StateObject private var webSocketManager = WebSocketManager()
     var body: some View {
         VStack(spacing: 24) {
             VStack(alignment: .leading) {
@@ -101,6 +104,23 @@ struct ContentView: View {
                     .disabled(gameGrid.shipsCount(of: ship) == 1)
                 }
             }
+            
+            VStack {
+                TextField("Room Id", text: $roomId)
+                Button {
+                    webSocketManager.join(to: roomId)
+                } label: {
+                    Text("join")
+                }
+                
+                Button {
+                    webSocketManager.join(to: roomId)
+                } label: {
+                    Text("ready")
+                }
+            }
+            
+            Text(webSocketManager.texts)
         }
         .frame(maxHeight: .infinity, alignment: .topLeading)
         .animation(.default, value: focusedCoordinate)

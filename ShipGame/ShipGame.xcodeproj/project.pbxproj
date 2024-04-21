@@ -12,6 +12,7 @@
 		822B2E4C2BA920EF00CCF448 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 822B2E4B2BA920EF00CCF448 /* Assets.xcassets */; };
 		822B2E502BA920EF00CCF448 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 822B2E4F2BA920EF00CCF448 /* Preview Assets.xcassets */; };
 		822B2E572BA9340F00CCF448 /* GameGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822B2E562BA9340F00CCF448 /* GameGrid.swift */; };
+		82F305CA2BB461CC00F633FA /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F305C92BB461CC00F633FA /* WebSocketManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		822B2E4D2BA920EF00CCF448 /* ShipGame.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShipGame.entitlements; sourceTree = "<group>"; };
 		822B2E4F2BA920EF00CCF448 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		822B2E562BA9340F00CCF448 /* GameGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGrid.swift; sourceTree = "<group>"; };
+		82F305C92BB461CC00F633FA /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				822B2E4D2BA920EF00CCF448 /* ShipGame.entitlements */,
 				822B2E4E2BA920EF00CCF448 /* Preview Content */,
 				822B2E562BA9340F00CCF448 /* GameGrid.swift */,
+				82F305C92BB461CC00F633FA /* WebSocketManager.swift */,
 			);
 			path = ShipGame;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 				822B2E572BA9340F00CCF448 /* GameGrid.swift in Sources */,
 				822B2E4A2BA920ED00CCF448 /* ContentView.swift in Sources */,
 				822B2E482BA920ED00CCF448 /* ShipGameApp.swift in Sources */,
+				82F305CA2BB461CC00F633FA /* WebSocketManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
