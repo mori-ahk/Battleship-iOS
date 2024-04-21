@@ -10,6 +10,8 @@ import SwiftUI
 struct LandingView: View {
     @StateObject private var landingViewModel = LandingViewModel()
     @State private var shouldShowGrid: Bool = false
+    @State private var shouldShowRoomIdAlert: Bool = false
+    @State private var roomId: String = String()
     
     var body: some View {
         ZStack {
@@ -20,6 +22,11 @@ struct LandingView: View {
                     } label: {
                         Text("Create")
                     }
+                    Button {
+                        shouldShowRoomIdAlert = true
+                    } label: {
+                        Text("Join")
+                    }
                 }
             } else {
                 if let roomId = landingViewModel.roomId {
@@ -27,8 +34,15 @@ struct LandingView: View {
                 }
             }
         }
+        .alert("Enter room Id", isPresented: $shouldShowRoomIdAlert) {
+            TextField("Enter room Id", text: $roomId)
+            Button("join") {
+                guard !roomId.isEmpty else { return }
+                landingViewModel.joinGame(to: roomId)
+            }
+        }
         .onReceive(landingViewModel.$roomId) { roomId in
-            guard let roomId else { return }
+            guard roomId != nil else { return }
             self.shouldShowGrid = true
         }
         .animation(.default, value: shouldShowGrid)

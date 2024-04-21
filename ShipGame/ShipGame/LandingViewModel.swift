@@ -36,4 +36,8 @@ class LandingViewModel: ObservableObject {
     func createGame() {
         webSocket.subscribe()
     }
+    
+    func joinGame(to roomId: String) {
+        webSocket.join(to: roomId)
+    }
 }

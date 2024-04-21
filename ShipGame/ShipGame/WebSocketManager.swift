@@ -36,7 +36,7 @@ class WebSocketManager: ObservableObject {
                         decoder.dataDecodingStrategy = .base64
                         print("receiving text: \(text)")
                         guard let data = text.data(using: .utf8) else { break }
-                        if let pingPacket = try? decoder.decode(PingPacket.self, from: data) { break }
+                        if (try? decoder.decode(PingPacket.self, from: data)) != nil { break }
                         do {
                             let transmittedData = try decoder.decode(TransmittedData.self, from: data)
                             guard let action = Action(packet: transmittedData.message) else { break }
