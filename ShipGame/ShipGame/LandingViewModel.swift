@@ -6,12 +6,34 @@
 //
 
 import Foundation
+import Combine
 
 class LandingViewModel: ObservableObject {
-    
+    private var cancellables = Set<AnyCancellable>()
     private let webSocket = WebSocketManager()
+    @Published var roomId: String?
     
-    func createGame() -> String {
-        
+    init() {
+        listen()
+    }
+    
+    func listen() {
+        webSocket.resultPipeline
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("finished")
+                case .failure(let failure):
+                    print(failure)
+                }
+            }, receiveValue: { message in
+                self.roomId = message?.message.payload.roomId
+            })
+            .store(in: &cancellables)
+    }
+    
+    func createGame() {
+        webSocket.subscribe()
     }
 }

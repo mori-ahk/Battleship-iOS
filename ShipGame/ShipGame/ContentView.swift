@@ -16,14 +16,13 @@ enum GeneralDirection {
     case horizontal
 }
 
-struct ContentView: View {
-    @State private var roomId: String = ""
+struct GridView: View {
     @State private var gameGrid = GameGrid(size: GRID_SIZE)
     @State private var currentlySelectedCoordinates: [Coordinate] = []
     @State private var focusedCoordinate: Coordinate?
     @State private var selectionDirection: GeneralDirection?
     @State private var shouldShowInstructions: Bool = false
-    @StateObject private var webSocketManager = WebSocketManager()
+    var roomId: String
     var body: some View {
         VStack(spacing: 24) {
             VStack(alignment: .leading) {
@@ -105,22 +104,9 @@ struct ContentView: View {
                 }
             }
             
-            VStack {
-                TextField("Room Id", text: $roomId)
-                Button {
-                    webSocketManager.join(to: roomId)
-                } label: {
-                    Text("join")
-                }
-                
-                Button {
-                    webSocketManager.join(to: roomId)
-                } label: {
-                    Text("ready")
-                }
-            }
-            
-            Text(webSocketManager.texts)
+            Text("Room Id: \(roomId)")
+                .font(.title2)
+                .fontWeight(.semibold)
         }
         .frame(maxHeight: .infinity, alignment: .topLeading)
         .animation(.default, value: focusedCoordinate)

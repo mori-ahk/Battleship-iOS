@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LandingView: View {
+    @StateObject private var landingViewModel = LandingViewModel()
     @State private var shouldShowGrid: Bool = false
     
     var body: some View {
@@ -15,19 +16,21 @@ struct LandingView: View {
             if !shouldShowGrid {
                 VStack {
                     Button {
-                        
+                        landingViewModel.createGame()
                     } label: {
                         Text("Create")
                     }
-                    Button {
-                        
-                    } label: {
-                        Text("Join")
-                    }
                 }
             } else {
-                
+                if let roomId = landingViewModel.roomId {
+                    GridView(roomId: roomId)
+                }
             }
         }
+        .onReceive(landingViewModel.$roomId) { roomId in
+            guard let roomId else { return }
+            self.shouldShowGrid = true
+        }
+        .animation(.default, value: shouldShowGrid)
     }
 }

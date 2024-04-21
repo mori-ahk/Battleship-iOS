@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import Combine
 
 class WebSocketManager: ObservableObject {
     private var webSocketTask: URLSessionWebSocketTask?
+    var resultPipeline = PassthroughSubject<IncomingMessage<InviteMessage>?, Never>()
+    @Published var message: (any Codable)?
     
     private func connect() {
         guard let url = URL(string: "ws://127.0.0.1:3000/cable") else { return }
@@ -28,17 +31,27 @@ class WebSocketManager: ObservableObject {
                 case .success(let message):
                     switch message {
                     case .string(let text):
+                        let decoder = JSONDecoder()
+                        decoder.keyDecodingStrategy = .convertFromSnakeCase
+                        decoder.dataDecodingStrategy = .base64
                         print("receiving text: \(text)")
+                        guard let data = text.data(using: .utf8) else { break }
+                        if let pingPacket = try? decoder.decode(PingPacket.self, from: data) { break }
+                        do {
+                            let transmittedData = try decoder.decode(TransmittedData.self, from: data)
+                            guard let action = Action(packet: transmittedData.message) else { break }
+                            switch action {
+                            case .invite:
+                                let inviteMessage = try? JSONDecoder().decode(IncomingMessage<InviteMessage>.self, from: data)
+                                self.resultPipeline.send(inviteMessage)
+                            case .select:
+                                print(action)
+                            }
+                        } catch {
+                            print(error)
+                        }
                     case .data(let data):
                         print("receiving data: \(data)")
-                        let message = try? JSONDecoder().decode(Message.self, from: data)
-                        if let signal = Signal(message: message) {
-                            switch signal {
-                            case .select:
-                                print(signal)
-                            }
-                        }
-                        
                         break
                     @unknown default:
                         break
@@ -46,7 +59,6 @@ class WebSocketManager: ObservableObject {
                     self.receiveMessage()
                 }
             }
-            
         }
     }
     
@@ -104,16 +116,22 @@ class WebSocketManager: ObservableObject {
     }
 }
 
-struct Message: Codable {
-    var message: Int
+struct Message<T: Codable>: Codable {
+    var action: Action
+    var payload: T
 }
 
-enum Signal: Int, Codable {
-    case select = 0
+struct Packet: Codable {
+    var action: Int
+}
+
+enum Action: Int, Codable {
+    case invite = 0
+    case select = 1
     
-    init?(message: Message?) {
-        if let message, let signal = Signal(rawValue: message.message) {
-            self = signal
+    init?(packet: Packet?) {
+        if let packet, let action = Action(rawValue: packet.action) {
+            self = action
         } else { return nil }
     }
 }
@@ -139,7 +157,7 @@ struct RoomId: Encodable {
     let roomId = UUID()
 }
 
-struct Channel: Encodable {
+struct Channel: Codable {
     var channel: String
 }
 
@@ -148,7 +166,20 @@ struct JoinMessage: Encodable {
     let roomId: String
 }
 
-struct S: Codable {
+struct InviteMessage: Codable {
+    var roomId: String
+}
+
+struct TransmittedData: Codable {
+    let identifier: String
+    let message: Packet
+}
+
+struct IncomingMessage<T: Codable>: Codable {
+    let message: Message<T>
+}
+
+struct PingPacket: Codable {
     let type: String
-    let message: Double? = .zero
+    let message: Double
 }
