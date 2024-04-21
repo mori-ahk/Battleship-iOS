@@ -7,18 +7,8 @@
 
 import SwiftUI
 
-@MainActor
 class WebSocketManager: ObservableObject {
     private var webSocketTask: URLSessionWebSocketTask?
-    @Published var texts: String = ""
-    init() {
-        self.connect()
-        let message = message(.subscribe)
-        guard let messageData = try? JSONSerialization.data(withJSONObject: message) else { return }
-        guard let messageString = String(data: messageData, encoding: .utf8) else { return }
-        
-        sendMessage(messageString)
-    }
     
     private func connect() {
         guard let url = URL(string: "ws://127.0.0.1:3000/cable") else { return }
@@ -35,7 +25,6 @@ class WebSocketManager: ObservableObject {
                 switch result {
                 case .failure(let error):
                     print(error.localizedDescription)
-                    self.texts = error.localizedDescription
                 case .success(let message):
                     switch message {
                     case .string(let text):
@@ -52,7 +41,6 @@ class WebSocketManager: ObservableObject {
                         
                         break
                     @unknown default:
-                        self.texts = "unknown default"
                         break
                     }
                     self.receiveMessage()
@@ -60,6 +48,14 @@ class WebSocketManager: ObservableObject {
             }
             
         }
+    }
+    
+    func subscribe() {
+        self.connect()
+        let message = message(.subscribe)
+        guard let messageData = try? JSONSerialization.data(withJSONObject: message) else { return }
+        guard let messageString = String(data: messageData, encoding: .utf8) else { return }
+        sendMessage(messageString)
     }
     
     func sendMessage(_ message: String) {
