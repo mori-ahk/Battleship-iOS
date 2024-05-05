@@ -14,7 +14,8 @@ class LandingViewModel: ObservableObject {
     @Published var roomId: String?
     
     init() {
-        listen()
+        webSocket.connect()
+//        listen()
     }
     
     func listen() {
@@ -28,16 +29,15 @@ class LandingViewModel: ObservableObject {
                     print(failure)
                 }
             }, receiveValue: { message in
-                self.roomId = message?.message.payload.roomId
+                self.roomId = message?.payload?.gameUuid
             })
             .store(in: &cancellables)
     }
     
     func createGame() {
-        webSocket.subscribe()
+        webSocket.create()
     }
     
     func joinGame(to roomId: String) {
-        webSocket.join(to: roomId)
     }
 }
