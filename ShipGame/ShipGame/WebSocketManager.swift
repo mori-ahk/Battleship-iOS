@@ -6,22 +6,15 @@
 //
 
 import SwiftUI
+import Combine
 
-@MainActor
 class WebSocketManager: ObservableObject {
     private var webSocketTask: URLSessionWebSocketTask?
-    @Published var texts: String = ""
-    init() {
-        self.connect()
-        let message = message(.subscribe)
-        guard let messageData = try? JSONSerialization.data(withJSONObject: message) else { return }
-        guard let messageString = String(data: messageData, encoding: .utf8) else { return }
-        
-        sendMessage(messageString)
-    }
+    var resultPipeline = PassthroughSubject<Message<InviteMessage>?, Never>()
+    @Published var message: (any Codable)?
     
-    private func connect() {
-        guard let url = URL(string: "ws://127.0.0.1:3000/cable") else { return }
+    func connect() {
+        guard let url = URL(string: "ws://localhost:9191/battleship") else { return }
         var request = URLRequest(url: url)
         request.addValue("ws://", forHTTPHeaderField: "Origin")
         webSocketTask = URLSession.shared.webSocketTask(with: request)
@@ -35,31 +28,43 @@ class WebSocketManager: ObservableObject {
                 switch result {
                 case .failure(let error):
                     print(error.localizedDescription)
-                    self.texts = error.localizedDescription
                 case .success(let message):
                     switch message {
                     case .string(let text):
+                        let decoder = JSONDecoder()
+                        decoder.keyDecodingStrategy = .convertFromSnakeCase
                         print("receiving text: \(text)")
+                        guard let data = text.data(using: .utf8) else { break }
+                        do {
+                            let packet = try decoder.decode(Packet.self, from: data)
+                            guard let code = Code(packet: packet) else { break }
+                            switch code {
+                            case .invite:
+                                let inviteMessage = try? decoder.decode(Message<InviteMessage>.self, from: data)
+                                self.resultPipeline.send(inviteMessage)
+                            case .create:
+                                print(code)
+                            }
+                        } catch {
+                            print(error)
+                        }
                     case .data(let data):
                         print("receiving data: \(data)")
-                        let message = try? JSONDecoder().decode(Message.self, from: data)
-                        if let signal = Signal(message: message) {
-                            switch signal {
-                            case .select:
-                                print(signal)
-                            }
-                        }
-                        
                         break
                     @unknown default:
-                        self.texts = "unknown default"
                         break
                     }
                     self.receiveMessage()
                 }
             }
-            
         }
+    }
+    
+    func create() {
+        let message = Message<Packet>(code: .create)
+        guard let messageData = try? JSONEncoder().encode(message) else { return }
+        guard let messageString = String(data: messageData, encoding: .utf8) else { return }
+        sendMessage(messageString)
     }
     
     func sendMessage(_ message: String) {
@@ -70,89 +75,30 @@ class WebSocketManager: ObservableObject {
             }
         }
     }
-   
-    func join(to roomId: String) {
-        let message = payload(.message, data: JoinMessage(roomId: roomId))
-        guard let messageData = try? JSONSerialization.data(withJSONObject: message) else { return }
-        guard let messageString = String(data: messageData, encoding: .utf8) else { return }
-        sendMessage(messageString)
-    }
-    
-    func ready(to roomId: String, from playerId: String) {
-        
-    }
-    
-    
-    private func identifierJsonString() -> String {
-        let identifier = Channel(channel: "RoomChannel")
-        guard let identifierData = try? JSONEncoder().encode(identifier) else { return "" }
-        guard let identifierString = String(data: identifierData, encoding: .utf8) else { return "" }
-        return identifierString
-    }
-    
-    private func message(_ command: Command) -> [String : Any] {
-        return [
-            "command": command.text,
-            "identifier": identifierJsonString(),
-        ] as [String : Any]
-    }
-    
-    private func payload(_ command: Command, data: Encodable) -> [String : Any] {
-        guard let data = try? JSONEncoder().encode(data) else { return [:] }
-        guard let dataString = String(data: data, encoding: .utf8) else { return [:] }
-        return [
-            "command": command.text,
-            "identifier": identifierJsonString(),
-            "data": dataString
-        ] as [String : Any]
-    }
 }
 
-struct Message: Codable {
-    var message: Int
+struct Message<T: Codable>: Codable {
+    var code: Code
+    var payload: T?
 }
 
-enum Signal: Int, Codable {
-    case select = 0
+struct Packet: Codable {
+    var code: Int
+}
+
+enum Code: Int, Codable {
+    case create = 0
+    case invite = 1
     
-    init?(message: Message?) {
-        if let message, let signal = Signal(rawValue: message.message) {
-            self = signal
+    init?(packet: Packet?) {
+        if let packet, let code = Code(rawValue: packet.code) {
+            self = code
         } else { return nil }
     }
 }
 
-enum Command: Encodable {
-    case subscribe
-    case unsubscribe
-    case message
-    
-    var text: String {
-        switch self {
-        case .subscribe:
-            return "subscribe"
-        case .unsubscribe:
-            return "unsubscribe"
-        case .message:
-            return "message"
-        }
-    }
+struct InviteMessage: Codable {
+    let gameUuid: String
+    let hostUuid: String
 }
 
-struct RoomId: Encodable {
-    let roomId = UUID()
-}
-
-struct Channel: Encodable {
-    var channel: String
-}
-
-struct JoinMessage: Encodable {
-    let command: String = "join"
-    let roomId: String
-}
-
-struct S: Codable {
-    let type: String
-    let message: Double? = .zero
-}
