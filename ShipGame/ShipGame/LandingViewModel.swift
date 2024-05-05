@@ -15,7 +15,7 @@ class LandingViewModel: ObservableObject {
     
     init() {
         webSocket.connect()
-//        listen()
+        listen()
     }
     
     func listen() {

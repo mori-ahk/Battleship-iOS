@@ -40,7 +40,7 @@ class WebSocketManager: ObservableObject {
                             guard let code = Code(packet: packet) else { break }
                             switch code {
                             case .invite:
-                                let inviteMessage = try? JSONDecoder().decode(Message<InviteMessage>.self, from: data)
+                                let inviteMessage = try? decoder.decode(Message<InviteMessage>.self, from: data)
                                 self.resultPipeline.send(inviteMessage)
                             case .create:
                                 print(code)
@@ -101,3 +101,4 @@ struct InviteMessage: Codable {
     let gameUuid: String
     let hostUuid: String
 }
+
