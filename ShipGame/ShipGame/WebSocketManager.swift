@@ -14,7 +14,7 @@ class WebSocketManager: ObservableObject {
     @Published var message: (any Codable)?
     
     func connect() {
-        guard let url = URL(string: "ws://localhost:9191/battleship") else { return }
+        guard let url = URL(string: "ws://localhost:8080/battleship") else { return }
         var request = URLRequest(url: url)
         request.addValue("ws://", forHTTPHeaderField: "Origin")
         webSocketTask = URLSession.shared.webSocketTask(with: request)
@@ -39,11 +39,13 @@ class WebSocketManager: ObservableObject {
                             let packet = try decoder.decode(Packet.self, from: data)
                             guard let code = Code(packet: packet) else { break }
                             switch code {
+                            case .create:
+                                print(code)
                             case .invite:
                                 let inviteMessage = try? decoder.decode(Message<InviteMessage>.self, from: data)
                                 self.resultPipeline.send(inviteMessage)
-                            case .create:
-                                print(code)
+                            case .join:
+                                
                             }
                         } catch {
                             print(error)
@@ -80,6 +82,12 @@ class WebSocketManager: ObservableObject {
 struct Message<T: Codable>: Codable {
     var code: Code
     var payload: T?
+    var error: MessageError?
+}
+
+struct MessageError: Codable {
+    let errorDetails: String
+    let message: String
 }
 
 struct Packet: Codable {
@@ -89,6 +97,7 @@ struct Packet: Codable {
 enum Code: Int, Codable {
     case create = 0
     case invite = 1
+    case join = 2
     
     init?(packet: Packet?) {
         if let packet, let code = Code(rawValue: packet.code) {
