@@ -11,6 +11,12 @@ import Combine
 class WebSocketManager: ObservableObject {
     private var webSocketTask: URLSessionWebSocketTask?
     var resultPipeline = PassthroughSubject<Message<InviteMessage>?, Never>()
+    let decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return decoder
+    }()
+    
     @Published var message: (any Codable)?
     
     func connect() {
@@ -23,41 +29,35 @@ class WebSocketManager: ObservableObject {
     }
     
     private func receiveMessage() {
-        webSocketTask?.receive { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .success(let message):
-                    switch message {
-                    case .string(let text):
-                        let decoder = JSONDecoder()
-                        decoder.keyDecodingStrategy = .convertFromSnakeCase
-                        print("receiving text: \(text)")
-                        guard let data = text.data(using: .utf8) else { break }
-                        do {
-                            let packet = try decoder.decode(Packet.self, from: data)
-                            guard let code = Code(packet: packet) else { break }
-                            switch code {
-                            case .create:
-                                print(code)
-                            case .invite:
-                                let inviteMessage = try? decoder.decode(Message<InviteMessage>.self, from: data)
-                                self.resultPipeline.send(inviteMessage)
-                            case .join:
-                                
-                            }
-                        } catch {
-                            print(error)
+        webSocketTask?.receive { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .success(let message):
+                switch message {
+                case .string(let text):
+                    print("receiving text: \(text)")
+                    guard let data = text.data(using: .utf8) else { break }
+                    do {
+                        let packet = try decoder.decode(Packet.self, from: data)
+                        guard let code = Code(packet: packet) else { break }
+                        switch code {
+                        case .create:
+                            print(code)
+                        case .invite:
+                            let inviteMessage = try? decoder.decode(Message<InviteMessage>.self, from: data)
+                            resultPipeline.send(inviteMessage)
+                        case .join:
+                            
                         }
-                    case .data(let data):
-                        print("receiving data: \(data)")
-                        break
-                    @unknown default:
-                        break
+                    } catch {
+                        print(error)
                     }
-                    self.receiveMessage()
+                default:
+                    break
                 }
+                receiveMessage()
             }
         }
     }
@@ -78,36 +78,3 @@ class WebSocketManager: ObservableObject {
         }
     }
 }
-
-struct Message<T: Codable>: Codable {
-    var code: Code
-    var payload: T?
-    var error: MessageError?
-}
-
-struct MessageError: Codable {
-    let errorDetails: String
-    let message: String
-}
-
-struct Packet: Codable {
-    var code: Int
-}
-
-enum Code: Int, Codable {
-    case create = 0
-    case invite = 1
-    case join = 2
-    
-    init?(packet: Packet?) {
-        if let packet, let code = Code(rawValue: packet.code) {
-            self = code
-        } else { return nil }
-    }
-}
-
-struct InviteMessage: Codable {
-    let gameUuid: String
-    let hostUuid: String
-}
-
