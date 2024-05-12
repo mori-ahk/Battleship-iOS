@@ -11,7 +11,7 @@ import Combine
 class WebSocketManager: ObservableObject {
     private var webSocketTask: URLSessionWebSocketTask?
     var resultPipeline = PassthroughSubject<Message<InviteMessage>?, Never>()
-    let decoder: JSONDecoder = {
+    lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
@@ -49,7 +49,7 @@ class WebSocketManager: ObservableObject {
                             let inviteMessage = try? decoder.decode(Message<InviteMessage>.self, from: data)
                             resultPipeline.send(inviteMessage)
                         case .join:
-                            
+                            print(code)
                         }
                     } catch {
                         print(error)
@@ -64,6 +64,13 @@ class WebSocketManager: ObservableObject {
     
     func create() {
         let message = Message<Packet>(code: .create)
+        guard let messageData = try? JSONEncoder().encode(message) else { return }
+        guard let messageString = String(data: messageData, encoding: .utf8) else { return }
+        sendMessage(messageString)
+    }
+    
+    func join(gameUuid: String) {
+        let message = Message<JoinMessage>(code: .join, payload: JoinMessage(gameUuid: gameUuid))
         guard let messageData = try? JSONEncoder().encode(message) else { return }
         guard let messageString = String(data: messageData, encoding: .utf8) else { return }
         sendMessage(messageString)

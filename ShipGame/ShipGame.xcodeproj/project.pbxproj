@@ -18,6 +18,7 @@
 		823C5BD32BE95B0F00112962 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823C5BD22BE95B0F00112962 /* Message.swift */; };
 		823C5BD52BE95B2400112962 /* Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823C5BD42BE95B2400112962 /* Code.swift */; };
 		823C5BD72BE95B3A00112962 /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823C5BD62BE95B3A00112962 /* Packet.swift */; };
+		823C5BD92BF124BD00112962 /* JoinMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823C5BD82BF124BD00112962 /* JoinMessage.swift */; };
 		82F305CA2BB461CC00F633FA /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F305C92BB461CC00F633FA /* WebSocketManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		823C5BD22BE95B0F00112962 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		823C5BD42BE95B2400112962 /* Code.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Code.swift; sourceTree = "<group>"; };
 		823C5BD62BE95B3A00112962 /* Packet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Packet.swift; sourceTree = "<group>"; };
+		823C5BD82BF124BD00112962 /* JoinMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinMessage.swift; sourceTree = "<group>"; };
 		82F305C92BB461CC00F633FA /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,6 +99,7 @@
 				823C5BD22BE95B0F00112962 /* Message.swift */,
 				823C5BD42BE95B2400112962 /* Code.swift */,
 				823C5BD62BE95B3A00112962 /* Packet.swift */,
+				823C5BD82BF124BD00112962 /* JoinMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				823C5BD72BE95B3A00112962 /* Packet.swift in Sources */,
 				823C5BD52BE95B2400112962 /* Code.swift in Sources */,
 				82F305CA2BB461CC00F633FA /* WebSocketManager.swift in Sources */,
+				823C5BD92BF124BD00112962 /* JoinMessage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
