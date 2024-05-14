@@ -70,15 +70,13 @@ class WebSocketManager: ObservableObject {
     
     func create() {
         let message = Message<Packet>(code: .create)
-        guard let messageData = try? encoder.encode(message) else { return }
-        guard let messageString = String(data: messageData, encoding: .utf8) else { return }
+        guard let messageString = jsonString(of: message) else { return }
         sendMessage(messageString)
     }
     
     func join(gameId: String) {
         let message = Message<JoinMessage>(code: .join, payload: JoinMessage(gameUuid: gameId))
-        guard let messageData = try? encoder.encode(message) else { return }
-        guard let messageString = String(data: messageData, encoding: .utf8) else { return }
+        guard let messageString = jsonString(of: message) else { return }
         sendMessage(messageString)
     }
     
@@ -89,5 +87,10 @@ class WebSocketManager: ObservableObject {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    private func jsonString<T: Codable>(of message: T) -> String? {
+        guard let messageData = try? encoder.encode(message) else { return nil }
+        return String(data: messageData, encoding: .utf8)
     }
 }
