@@ -11,7 +11,7 @@ struct LandingView: View {
     @StateObject private var landingViewModel = LandingViewModel()
     @State private var shouldShowGrid: Bool = false
     @State private var shouldShowRoomIdAlert: Bool = false
-    @State private var roomId: String = String()
+    @State private var gameId: String = String()
     
     var body: some View {
         ZStack {
@@ -29,19 +29,19 @@ struct LandingView: View {
                     }
                 }
             } else {
-                if let roomId = landingViewModel.roomId {
-                    GridView(roomId: roomId)
+                if let gameId = landingViewModel.gameId {
+                    GridView(gameId: gameId)
                 }
             }
         }
-        .alert("Enter room Id", isPresented: $shouldShowRoomIdAlert) {
-            TextField("Enter room Id", text: $roomId)
+        .alert("Enter game Id", isPresented: $shouldShowRoomIdAlert) {
+            TextField("Enter game Id", text: $gameId)
             Button("join") {
-                guard !roomId.isEmpty else { return }
-                landingViewModel.joinGame(to: roomId)
+                guard !gameId.isEmpty else { return }
+                landingViewModel.joinGame(to: gameId)
             }
         }
-        .onReceive(landingViewModel.$roomId) { roomId in
+        .onReceive(landingViewModel.$gameId) { roomId in
             guard roomId != nil else { return }
             self.shouldShowGrid = true
         }

@@ -22,7 +22,7 @@ struct GridView: View {
     @State private var focusedCoordinate: Coordinate?
     @State private var selectionDirection: GeneralDirection?
     @State private var shouldShowInstructions: Bool = false
-    var roomId: String
+    var gameId: String
     var body: some View {
         VStack(spacing: 24) {
             VStack(alignment: .leading) {
@@ -104,7 +104,7 @@ struct GridView: View {
                 }
             }
             
-            Text("Room Id: \(roomId)")
+            Text("Game Id: \(gameId)")
                 .font(.title2)
                 .fontWeight(.semibold)
         }

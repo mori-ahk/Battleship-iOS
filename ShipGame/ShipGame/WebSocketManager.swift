@@ -17,6 +17,12 @@ class WebSocketManager: ObservableObject {
         return decoder
     }()
     
+    lazy var encoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        return encoder
+    }()
+    
     @Published var message: (any Codable)?
     
     func connect() {
@@ -64,14 +70,14 @@ class WebSocketManager: ObservableObject {
     
     func create() {
         let message = Message<Packet>(code: .create)
-        guard let messageData = try? JSONEncoder().encode(message) else { return }
+        guard let messageData = try? encoder.encode(message) else { return }
         guard let messageString = String(data: messageData, encoding: .utf8) else { return }
         sendMessage(messageString)
     }
     
-    func join(gameUuid: String) {
-        let message = Message<JoinMessage>(code: .join, payload: JoinMessage(gameUuid: gameUuid))
-        guard let messageData = try? JSONEncoder().encode(message) else { return }
+    func join(gameId: String) {
+        let message = Message<JoinMessage>(code: .join, payload: JoinMessage(gameUuid: gameId))
+        guard let messageData = try? encoder.encode(message) else { return }
         guard let messageString = String(data: messageData, encoding: .utf8) else { return }
         sendMessage(messageString)
     }
