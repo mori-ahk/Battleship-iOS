@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct InviteMessage: Codable {
+struct CreateMessage: Codable {
     let gameUuid: String
     let hostUuid: String
 }

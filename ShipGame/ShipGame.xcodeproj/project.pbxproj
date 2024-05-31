@@ -14,7 +14,7 @@
 		822B2E572BA9340F00CCF448 /* GameGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822B2E562BA9340F00CCF448 /* GameGrid.swift */; };
 		8238E70D2BD5825A00C85144 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8238E70C2BD5825A00C85144 /* LandingView.swift */; };
 		8238E70F2BD5833100C85144 /* LandingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8238E70E2BD5833100C85144 /* LandingViewModel.swift */; };
-		823C5BD12BE95AF100112962 /* InviteMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823C5BD02BE95AF100112962 /* InviteMessage.swift */; };
+		823C5BD12BE95AF100112962 /* CreateMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823C5BD02BE95AF100112962 /* CreateMessage.swift */; };
 		823C5BD32BE95B0F00112962 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823C5BD22BE95B0F00112962 /* Message.swift */; };
 		823C5BD52BE95B2400112962 /* Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823C5BD42BE95B2400112962 /* Code.swift */; };
 		823C5BD72BE95B3A00112962 /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823C5BD62BE95B3A00112962 /* Packet.swift */; };
@@ -32,7 +32,7 @@
 		822B2E562BA9340F00CCF448 /* GameGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGrid.swift; sourceTree = "<group>"; };
 		8238E70C2BD5825A00C85144 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		8238E70E2BD5833100C85144 /* LandingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewModel.swift; sourceTree = "<group>"; };
-		823C5BD02BE95AF100112962 /* InviteMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteMessage.swift; sourceTree = "<group>"; };
+		823C5BD02BE95AF100112962 /* CreateMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMessage.swift; sourceTree = "<group>"; };
 		823C5BD22BE95B0F00112962 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		823C5BD42BE95B2400112962 /* Code.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Code.swift; sourceTree = "<group>"; };
 		823C5BD62BE95B3A00112962 /* Packet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Packet.swift; sourceTree = "<group>"; };
@@ -95,7 +95,7 @@
 		823C5BCF2BE95AE700112962 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				823C5BD02BE95AF100112962 /* InviteMessage.swift */,
+				823C5BD02BE95AF100112962 /* CreateMessage.swift */,
 				823C5BD22BE95B0F00112962 /* Message.swift */,
 				823C5BD42BE95B2400112962 /* Code.swift */,
 				823C5BD62BE95B3A00112962 /* Packet.swift */,
@@ -177,7 +177,7 @@
 				822B2E572BA9340F00CCF448 /* GameGrid.swift in Sources */,
 				8238E70D2BD5825A00C85144 /* LandingView.swift in Sources */,
 				822B2E4A2BA920ED00CCF448 /* ContentView.swift in Sources */,
-				823C5BD12BE95AF100112962 /* InviteMessage.swift in Sources */,
+				823C5BD12BE95AF100112962 /* CreateMessage.swift in Sources */,
 				822B2E482BA920ED00CCF448 /* ShipGameApp.swift in Sources */,
 				823C5BD32BE95B0F00112962 /* Message.swift in Sources */,
 				8238E70F2BD5833100C85144 /* LandingViewModel.swift in Sources */,

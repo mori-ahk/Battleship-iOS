@@ -51,8 +51,7 @@ class WebSocketManager: ObservableObject {
                         switch code {
                         case .create:
                             print(code)
-                        case .invite:
-                            let inviteMessage = try? decoder.decode(Message<InviteMessage>.self, from: data)
+                            let inviteMessage = try? decoder.decode(Message<CreateMessage>.self, from: data)
                             resultPipeline.send(inviteMessage)
                         case .join:
                             print(code)

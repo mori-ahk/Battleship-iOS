@@ -9,8 +9,7 @@ import Foundation
 
 enum Code: Int, Codable {
     case create = 0
-    case invite = 1
-    case join = 5
+    case join
     
     init?(packet: Packet?) {
         if let packet, let code = Code(rawValue: packet.code) {
