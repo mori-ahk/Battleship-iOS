@@ -57,59 +57,42 @@ struct BattleshipGridView: View {
     }
     
     private func isFocusedCoordinate(_ row: Int, _ column: Int) -> Bool {
-        if let focusedCoordinate {
-            return focusedCoordinate.x == row && focusedCoordinate.y == column
-        } else {
-            return false
-        }
+        focusedCoordinate?.x == row && focusedCoordinate?.y == column
     }
     
     private func isCurrentlySelected(_ coordinate: Coordinate) -> Bool {
-        return currentlySelectedCoordinates.contains(coordinate)
+        currentlySelectedCoordinates.contains(coordinate)
     }
     
     private func findDirection() -> GeneralDirection? {
-        if let lastSelectedCoordinate = currentlySelectedCoordinates.last,
-           let fistSelectedCoordinate = currentlySelectedCoordinates.first {
-            if abs(lastSelectedCoordinate.x - fistSelectedCoordinate.x) == 1 {
-                return .vertical
-            }
-            
-            if abs(lastSelectedCoordinate.y - fistSelectedCoordinate.y) == 1 {
-                return .horizontal
-            }
-            
-            return nil
-        } else {
+        guard let lastSelectedCoordinate = currentlySelectedCoordinates.last,
+              let firstSelectedCoordinate = currentlySelectedCoordinates.first else {
             return nil
         }
+        
+        if abs(lastSelectedCoordinate.x - firstSelectedCoordinate.x) == 1 {
+            return .vertical
+        }
+        
+        if abs(lastSelectedCoordinate.y - firstSelectedCoordinate.y) == 1 {
+            return .horizontal
+        }
+        
+        return nil
     }
     
     private func isValidSelection(x row: Int, y column: Int) -> Bool {
         guard let focusedCoordinate else { return false }
-        if let selectionDirection {
-            switch selectionDirection {
-            case .vertical:
-                if isValidNeighbour(
-                    x: row,
-                    y: column,
-                    given: selectionDirection
-                ) && focusedCoordinate.y - column == .zero { return true }
-                return false
-            case .horizontal:
-                if isValidNeighbour(
-                    x: row,
-                    y: column,
-                    given: selectionDirection
-                ) && focusedCoordinate.x - row == .zero { return true }
-                return false
-            }
+        if let direction = selectionDirection {
+            return isValidNeighbour(x: row, y: column, given: direction) &&
+            isAlignedWithDirection(
+                focusedCoordinate,
+                x: row,
+                y: column,
+                direction: direction
+            )
         } else {
-            if abs(focusedCoordinate.x - row) == 1 && 
-                focusedCoordinate.y - column == .zero { return true }
-            if abs(focusedCoordinate.y - column) == 1 && 
-                focusedCoordinate.x - row == .zero { return true }
-            return false
+            return isAdjacent(focusedCoordinate, x: row, y: column)
         }
     }
    
@@ -118,15 +101,36 @@ struct BattleshipGridView: View {
         y column: Int,
         given direction: GeneralDirection
     ) -> Bool {
-        for coordinate in currentlySelectedCoordinates {
+        currentlySelectedCoordinates.contains { coordinate in
             switch direction {
             case .vertical:
-                if abs(coordinate.x - row) == 1 { return true }
+                return abs(coordinate.x - row) == 1
             case .horizontal:
-                if abs(coordinate.y - column) == 1 { return true }
+                return abs(coordinate.y - column) == 1
             }
         }
-        return false
     }
     
+    private func isAlignedWithDirection(
+        _ coordinate: Coordinate,
+        x row: Int,
+        y column: Int,
+        direction: GeneralDirection
+    ) -> Bool {
+        switch direction {
+        case .vertical:
+            return coordinate.y == column
+        case .horizontal:
+            return coordinate.x == row
+        }
+    }
+    
+    private func isAdjacent(
+        _ coordinate: Coordinate,
+        x row: Int,
+        y column: Int
+    ) -> Bool {
+        (abs(coordinate.x - row) == 1 && coordinate.y == column) ||
+        (abs(coordinate.y - column) == 1 && coordinate.x == row)
+    }
 }
