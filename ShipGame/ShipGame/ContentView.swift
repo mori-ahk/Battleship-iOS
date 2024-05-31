@@ -91,16 +91,7 @@ struct GridView: View {
         let coordinate = Coordinate(x: row, y: column)
         return currentlySelectedCoordinates.contains(coordinate)
     }
-   
-    private var directionInstruction: String? {
-        guard let focusedCoordinate else { return nil }
-        let validDirections = gameGrid.validDirection(for: focusedCoordinate)
-        return validDirections
-            .map { $0.description }
-            .joined(separator: ",")
-    }
     
-  
     private func resetSelection() {
         currentlySelectedCoordinates.removeAll(keepingCapacity: true)
         focusedCoordinate = nil
