@@ -10,11 +10,23 @@ import Combine
 
 class WebSocketManager: ObservableObject {
     private var webSocketTask: URLSessionWebSocketTask?
-    var resultPipeline = PassthroughSubject<Message<InviteMessage>?, Never>()
+    var resultPipeline = PassthroughSubject<MessageType?, Never>()
+    lazy var decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return decoder
+    }()
+    
+    lazy var encoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        return encoder
+    }()
+    
     @Published var message: (any Codable)?
     
     func connect() {
-        guard let url = URL(string: "ws://localhost:9191/battleship") else { return }
+        guard let url = URL(string: "ws://localhost:8080/battleship") else { return }
         var request = URLRequest(url: url)
         request.addValue("ws://", forHTTPHeaderField: "Origin")
         webSocketTask = URLSession.shared.webSocketTask(with: request)
@@ -23,47 +35,53 @@ class WebSocketManager: ObservableObject {
     }
     
     private func receiveMessage() {
-        webSocketTask?.receive { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .success(let message):
-                    switch message {
-                    case .string(let text):
-                        let decoder = JSONDecoder()
-                        decoder.keyDecodingStrategy = .convertFromSnakeCase
-                        print("receiving text: \(text)")
-                        guard let data = text.data(using: .utf8) else { break }
-                        do {
-                            let packet = try decoder.decode(Packet.self, from: data)
-                            guard let code = Code(packet: packet) else { break }
-                            switch code {
-                            case .invite:
-                                let inviteMessage = try? decoder.decode(Message<InviteMessage>.self, from: data)
-                                self.resultPipeline.send(inviteMessage)
-                            case .create:
-                                print(code)
-                            }
-                        } catch {
-                            print(error)
+        webSocketTask?.receive { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .success(let message):
+                switch message {
+                case .string(let text):
+                    print("receiving text: \(text)")
+                    guard let data = text.data(using: .utf8) else { break }
+                    do {
+                        let packet = try decoder.decode(Packet.self, from: data)
+                        guard let code = Code(packet: packet) else { break }
+                        switch code {
+                        case .create:
+                            guard let inviteMessage = try? decoder.decode(
+                                Message<CreateMessage>.self,
+                                from: data
+                            ), let payload = inviteMessage.payload else { return }
+                            resultPipeline.send(.create(payload.gameUuid, payload.hostUuid))
+                        case .join:
+                            guard let joinMessage = try? decoder.decode(
+                                Message<RespJoinMessage>.self,
+                                from: data
+                            ), let payload = joinMessage.payload else { return }
+                            resultPipeline.send(.join(payload.playerUuid))
                         }
-                    case .data(let data):
-                        print("receiving data: \(data)")
-                        break
-                    @unknown default:
-                        break
+                    } catch {
+                        print(error)
                     }
-                    self.receiveMessage()
+                default:
+                    break
                 }
+                receiveMessage()
             }
         }
     }
     
     func create() {
         let message = Message<Packet>(code: .create)
-        guard let messageData = try? JSONEncoder().encode(message) else { return }
-        guard let messageString = String(data: messageData, encoding: .utf8) else { return }
+        guard let messageString = jsonString(of: message) else { return }
+        sendMessage(messageString)
+    }
+    
+    func join(gameId: String) {
+        let message = Message<ReqJoinMessage>(code: .join, payload: ReqJoinMessage(gameUuid: gameId))
+        guard let messageString = jsonString(of: message) else { return }
         sendMessage(messageString)
     }
     
@@ -75,30 +93,9 @@ class WebSocketManager: ObservableObject {
             }
         }
     }
-}
-
-struct Message<T: Codable>: Codable {
-    var code: Code
-    var payload: T?
-}
-
-struct Packet: Codable {
-    var code: Int
-}
-
-enum Code: Int, Codable {
-    case create = 0
-    case invite = 1
     
-    init?(packet: Packet?) {
-        if let packet, let code = Code(rawValue: packet.code) {
-            self = code
-        } else { return nil }
+    private func jsonString<T: Codable>(of message: T) -> String? {
+        guard let messageData = try? encoder.encode(message) else { return nil }
+        return String(data: messageData, encoding: .utf8)
     }
 }
-
-struct InviteMessage: Codable {
-    let gameUuid: String
-    let hostUuid: String
-}
-

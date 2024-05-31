@@ -11,7 +11,8 @@ import Combine
 class LandingViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let webSocket = WebSocketManager()
-    @Published var roomId: String?
+    @Published var gameId: String?
+    @Published var joinPlayerUuid: String?
     
     init() {
         webSocket.connect()
@@ -28,8 +29,15 @@ class LandingViewModel: ObservableObject {
                 case .failure(let failure):
                     print(failure)
                 }
-            }, receiveValue: { message in
-                self.roomId = message?.payload?.gameUuid
+            }, receiveValue: { messageType in
+                switch messageType {
+                case .create(let gameUuid, let hostPlayerUuid):
+                    self.gameId = gameUuid
+                case .join(let joinPlayerUuid):
+                    print("Join Player Uuid: \(joinPlayerUuid)")
+                    self.joinPlayerUuid = joinPlayerUuid
+                default: break
+                }
             })
             .store(in: &cancellables)
     }
@@ -38,6 +46,7 @@ class LandingViewModel: ObservableObject {
         webSocket.create()
     }
     
-    func joinGame(to roomId: String) {
+    func joinGame(to gameId: String) {
+        webSocket.join(gameId: gameId)
     }
 }
