@@ -22,7 +22,8 @@ struct GridView: View {
     @State private var focusedCoordinate: Coordinate?
     @State private var selectionDirection: GeneralDirection?
     @State private var shouldShowInstructions: Bool = false
-    var gameId: String
+    var gameId: String?
+    
     var body: some View {
         VStack(spacing: 24) {
             VStack(alignment: .leading) {
@@ -103,10 +104,12 @@ struct GridView: View {
                     .disabled(gameGrid.shipsCount(of: ship) == 1)
                 }
             }
-            
-            Text("Game Id: \(gameId)")
-                .font(.title2)
-                .fontWeight(.semibold)
+           
+            if let gameId {
+                Text("Game Id: \(gameId)")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+            }
         }
         .frame(maxHeight: .infinity, alignment: .topLeading)
         .animation(.default, value: focusedCoordinate)

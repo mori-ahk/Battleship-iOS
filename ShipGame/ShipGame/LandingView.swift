@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct LandingView: View {
     @StateObject private var landingViewModel = LandingViewModel()
@@ -29,9 +30,7 @@ struct LandingView: View {
                     }
                 }
             } else {
-                if let gameId = landingViewModel.gameId {
-                    GridView(gameId: gameId)
-                }
+                GridView(gameId: landingViewModel.gameId)
             }
         }
         .alert("Enter game Id", isPresented: $shouldShowRoomIdAlert) {
@@ -41,8 +40,13 @@ struct LandingView: View {
                 landingViewModel.joinGame(to: gameId)
             }
         }
-        .onReceive(landingViewModel.$gameId) { roomId in
-            guard roomId != nil else { return }
+        .onReceive(
+            Publishers.CombineLatest(
+                landingViewModel.$gameId,
+                landingViewModel.$joinPlayerUuid
+            )
+        ) { (gameId, joinPlayerUuid) in
+            guard gameId != nil || joinPlayerUuid != nil else { return }
             self.shouldShowGrid = true
         }
         .animation(.default, value: shouldShowGrid)

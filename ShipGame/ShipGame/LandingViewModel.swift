@@ -12,6 +12,7 @@ class LandingViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let webSocket = WebSocketManager()
     @Published var gameId: String?
+    @Published var joinPlayerUuid: String?
     
     init() {
         webSocket.connect()
@@ -30,10 +31,11 @@ class LandingViewModel: ObservableObject {
                 }
             }, receiveValue: { messageType in
                 switch messageType {
-                case .create(let gameUuid, _):
+                case .create(let gameUuid, let hostPlayerUuid):
                     self.gameId = gameUuid
-                case .join(let gameUuid):
-                    
+                case .join(let joinPlayerUuid):
+                    print("Join Player Uuid: \(joinPlayerUuid)")
+                    self.joinPlayerUuid = joinPlayerUuid
                 default: break
                 }
             })
