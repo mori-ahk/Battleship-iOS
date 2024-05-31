@@ -7,6 +7,10 @@
 
 import Foundation
 
-struct JoinMessage: Codable {
+struct ReqJoinMessage: Codable {
     let gameUuid: String
+}
+
+struct RespJoinMessage: Codable {
+    let playerUuid: String
 }

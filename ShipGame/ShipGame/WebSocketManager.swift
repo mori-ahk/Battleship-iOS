@@ -10,7 +10,7 @@ import Combine
 
 class WebSocketManager: ObservableObject {
     private var webSocketTask: URLSessionWebSocketTask?
-    var resultPipeline = PassthroughSubject<Message<InviteMessage>?, Never>()
+    var resultPipeline = PassthroughSubject<MessageType?, Never>()
     lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -50,11 +50,17 @@ class WebSocketManager: ObservableObject {
                         guard let code = Code(packet: packet) else { break }
                         switch code {
                         case .create:
-                            print(code)
-                            let inviteMessage = try? decoder.decode(Message<CreateMessage>.self, from: data)
-                            resultPipeline.send(inviteMessage)
+                            guard let inviteMessage = try? decoder.decode(
+                                Message<CreateMessage>.self,
+                                from: data
+                            ), let payload = inviteMessage.payload else { return }
+                            resultPipeline.send(.create(payload.gameUuid, payload.hostUuid))
                         case .join:
-                            print(code)
+                            guard let joinMessage = try? decoder.decode(
+                                Message<RespJoinMessage>.self,
+                                from: data
+                            ), let payload = joinMessage.payload else { return }
+                            resultPipeline.send(.join(payload.playerUuid))
                         }
                     } catch {
                         print(error)
@@ -74,7 +80,7 @@ class WebSocketManager: ObservableObject {
     }
     
     func join(gameId: String) {
-        let message = Message<JoinMessage>(code: .join, payload: JoinMessage(gameUuid: gameId))
+        let message = Message<ReqJoinMessage>(code: .join, payload: ReqJoinMessage(gameUuid: gameId))
         guard let messageString = jsonString(of: message) else { return }
         sendMessage(messageString)
     }

@@ -28,8 +28,14 @@ class LandingViewModel: ObservableObject {
                 case .failure(let failure):
                     print(failure)
                 }
-            }, receiveValue: { message in
-                self.gameId = message?.payload?.gameUuid
+            }, receiveValue: { messageType in
+                switch messageType {
+                case .create(let gameUuid, _):
+                    self.gameId = gameUuid
+                case .join(let gameUuid):
+                    
+                default: break
+                }
             })
             .store(in: &cancellables)
     }
