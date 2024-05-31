@@ -7,12 +7,14 @@
 
 import Foundation
 
+fileprivate let GRID_SIZE: Int = 5
+
 struct GameGrid: Equatable {
     let size: Int
     var coordinates: [[Coordinate]]
     var ships: [Ship] = []
     
-    init(size: Int) {
+    init(size: Int = GRID_SIZE) {
         self.size = size
         self.coordinates = Array(repeating: [], count: size)
         for row in 0 ..< size {
