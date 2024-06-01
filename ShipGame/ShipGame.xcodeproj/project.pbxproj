@@ -24,6 +24,7 @@
 		82EFD9A02C0A69D200EAAF86 /* BattleshipGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99F2C0A69D200EAAF86 /* BattleshipGridView.swift */; };
 		82EFD9A32C0A7C3800EAAF86 /* InstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD9A22C0A7C3800EAAF86 /* InstructionsView.swift */; };
 		82EFD9A52C0A7C8100EAAF86 /* ShipsButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD9A42C0A7C8000EAAF86 /* ShipsButtonView.swift */; };
+		82EFD9A72C0BBC7B00EAAF86 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD9A62C0BBC7B00EAAF86 /* MessageView.swift */; };
 		82F305CA2BB461CC00F633FA /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F305C92BB461CC00F633FA /* WebSocketManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		82EFD99F2C0A69D200EAAF86 /* BattleshipGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipGridView.swift; sourceTree = "<group>"; };
 		82EFD9A22C0A7C3800EAAF86 /* InstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsView.swift; sourceTree = "<group>"; };
 		82EFD9A42C0A7C8000EAAF86 /* ShipsButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipsButtonView.swift; sourceTree = "<group>"; };
+		82EFD9A62C0BBC7B00EAAF86 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		82F305C92BB461CC00F633FA /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +125,7 @@
 				822B2E492BA920ED00CCF448 /* GameView.swift */,
 				82EFD9A22C0A7C3800EAAF86 /* InstructionsView.swift */,
 				82EFD9A42C0A7C8000EAAF86 /* ShipsButtonView.swift */,
+				82EFD9A62C0BBC7B00EAAF86 /* MessageView.swift */,
 			);
 			path = Battleship;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				8238E70D2BD5825A00C85144 /* LandingView.swift in Sources */,
 				822B2E4A2BA920ED00CCF448 /* GameView.swift in Sources */,
 				82EFD99C2C0A60A300EAAF86 /* MessageType.swift in Sources */,
+				82EFD9A72C0BBC7B00EAAF86 /* MessageView.swift in Sources */,
 				823C5BD12BE95AF100112962 /* CreateMessage.swift in Sources */,
 				822B2E482BA920ED00CCF448 /* ShipGameApp.swift in Sources */,
 				823C5BD32BE95B0F00112962 /* Message.swift in Sources */,

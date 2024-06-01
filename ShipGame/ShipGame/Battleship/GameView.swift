@@ -13,13 +13,12 @@ enum GeneralDirection {
 }
 
 struct GameView: View {
+    @EnvironmentObject private var gameViewModel: GameViewModel
     @State private var gameGrid = GameGrid()
     @State private var currentlySelectedCoordinates: [Coordinate] = []
     @State private var focusedCoordinate: Coordinate?
     @State private var selectionDirection: GeneralDirection?
 
-    var gameId: String?
-    
     var body: some View {
         VStack(spacing: 24) {
             InstructionsView()
@@ -52,12 +51,8 @@ struct GameView: View {
                 gameGrid.placeShips(on: currentlySelectedCoordinates)
                 resetSelection()
             }
-            
-            if let gameId {
-                Text("Game Id: \(gameId)")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-            }
+                
+            MessageView(message: gameViewModel.message)
         }
         .frame(maxHeight: .infinity, alignment: .topLeading)
         .animation(.default, value: focusedCoordinate)
