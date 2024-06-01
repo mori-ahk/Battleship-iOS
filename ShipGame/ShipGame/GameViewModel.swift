@@ -25,14 +25,15 @@ class GameViewModel: ObservableObject {
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { messageType in
-                switch messageType {
-                case .create(let gameUuid, let hostPlayerUuid):
-                    self.gameId = gameUuid
-                case .join(let joinPlayerUuid):
-                    self.joinPlayerUuid = joinPlayerUuid
-                default: break
+                    switch messageType {
+                    case .create(let gameUuid, let hostPlayerUuid):
+                        self.gameId = gameUuid
+                    case .join(let joinPlayerUuid):
+                        self.joinPlayerUuid = joinPlayerUuid
+                    default: break
+                    }
                 }
-            })
+            )
             .store(in: &cancellables)
     }
     
