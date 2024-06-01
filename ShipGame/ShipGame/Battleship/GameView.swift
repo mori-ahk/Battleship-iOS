@@ -47,12 +47,14 @@ struct GameView: View {
                 .buttonStyle(.borderedProminent)
             }
            
-            ShipsButtonView(isDisabled: { ship in gameGrid.shipsCount(of: ship) == 1 }) { ship in
+            ShipsButtonView(
+                isDisabled: { ship in gameGrid.shipsCount(of: ship) == 1 }
+            ) { ship in
                 guard currentlySelectedCoordinates.count == ship.size else { return }
                 gameGrid.placeShips(on: currentlySelectedCoordinates)
                 resetSelection()
             }
-           
+            
             if let gameId {
                 Text("Game Id: \(gameId)")
                     .font(.title2)
@@ -64,11 +66,6 @@ struct GameView: View {
         .animation(.default, value: gameGrid)
         .animation(.default, value: currentlySelectedCoordinates)
         .padding()
-    }
-    
-    private func isSelectedCoordinate(_ row: Int, _ column: Int) -> Bool {
-        let coordinate = Coordinate(x: row, y: column)
-        return currentlySelectedCoordinates.contains(coordinate)
     }
     
     private func resetSelection() {

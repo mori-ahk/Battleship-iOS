@@ -20,13 +20,8 @@ struct ShipsButtonView: View {
                     Text(ship.name)
                 }
                 .buttonStyle(.borderedProminent)
-//                .disabled(gameGrid.shipsCount(of: ship) == 1)
                 .disabled(isDisabled(ship))
             }
         }
     }
-    
-//                    guard currentlySelectedCoordinates.count == ship.size else { return }
-//                    gameGrid.placeShips(on: currentlySelectedCoordinates)
-//                    resetSelection()
 }
