@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 struct LandingView: View {
-    @StateObject private var landingViewModel = LandingViewModel()
+    @StateObject private var landingViewModel = GameViewModel()
     @State private var shouldShowGrid: Bool = false
     @State private var shouldShowRoomIdAlert: Bool = false
     @State private var gameId: String = String()

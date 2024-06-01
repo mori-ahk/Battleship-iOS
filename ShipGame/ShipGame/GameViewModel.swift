@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class LandingViewModel: ObservableObject {
+class GameViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let webSocket = WebSocketManager()
     @Published var gameId: String?

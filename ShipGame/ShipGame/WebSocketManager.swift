@@ -23,8 +23,6 @@ class WebSocketManager: ObservableObject {
         return encoder
     }()
     
-    @Published var message: (any Codable)?
-    
     func connect() {
         guard let url = URL(string: "ws://localhost:8080/battleship") else { return }
         var request = URLRequest(url: url)
@@ -53,14 +51,17 @@ class WebSocketManager: ObservableObject {
                             guard let inviteMessage = try? decoder.decode(
                                 Message<CreateMessage>.self,
                                 from: data
-                            ), let payload = inviteMessage.payload else { return }
+                            ), let payload = inviteMessage.payload else { break }
                             resultPipeline.send(.create(payload.gameUuid, payload.hostUuid))
                         case .join:
                             guard let joinMessage = try? decoder.decode(
                                 Message<RespJoinMessage>.self,
                                 from: data
-                            ), let payload = joinMessage.payload else { return }
+                            ), let payload = joinMessage.payload else { break }
                             resultPipeline.send(.join(payload.playerUuid))
+                        case .select:
+                            resultPipeline.send(.select)
+                        default: break
                         }
                     } catch {
                         print(error)
