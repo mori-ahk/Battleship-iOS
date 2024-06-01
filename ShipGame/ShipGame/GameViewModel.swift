@@ -22,19 +22,13 @@ class GameViewModel: ObservableObject {
     func listen() {
         webSocket.resultPipeline
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    print("finished")
-                case .failure(let failure):
-                    print(failure)
-                }
-            }, receiveValue: { messageType in
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { messageType in
                 switch messageType {
                 case .create(let gameUuid, let hostPlayerUuid):
                     self.gameId = gameUuid
                 case .join(let joinPlayerUuid):
-                    print("Join Player Uuid: \(joinPlayerUuid)")
                     self.joinPlayerUuid = joinPlayerUuid
                 default: break
                 }
