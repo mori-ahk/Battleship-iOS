@@ -30,7 +30,7 @@ struct LandingView: View {
                     }
                 }
             } else {
-                GridView(gameId: landingViewModel.gameId)
+                GameView(gameId: landingViewModel.gameId)
             }
         }
         .alert("Enter game Id", isPresented: $shouldShowRoomIdAlert) {
