@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 enum GeneralDirection {
     case vertical
     case horizontal
@@ -24,7 +23,6 @@ struct GameView: View {
     var body: some View {
         VStack(spacing: 24) {
             InstructionsView()
-            
             BattleshipGridView(
                 currentlySelectedCoordinates: $currentlySelectedCoordinates,
                 focusedCoordinate: $focusedCoordinate,
