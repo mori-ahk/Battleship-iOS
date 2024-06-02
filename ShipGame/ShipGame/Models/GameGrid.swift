@@ -104,6 +104,7 @@ struct Coordinate: Equatable {
         case empty = 0
         case occupied
         case hit
+        case miss
     }
     
     mutating func reset() {

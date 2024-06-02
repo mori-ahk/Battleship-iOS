@@ -20,7 +20,13 @@ struct GameView: View {
     @State private var shouldStartGame: Bool = false
     var body: some View {
         VStack(spacing: 24) {
-            InstructionsView()
+//            InstructionsView()
+            if shouldStartGame {
+                BattleshipAttackGridView()
+                    .transition(.move(edge: .top))
+                Divider()
+            }
+           
             BattleshipDefendGridView(
                 currentlySelectedCoordinates: $currentlySelectedCoordinates,
                 focusedCoordinate: $focusedCoordinate,
@@ -46,16 +52,20 @@ struct GameView: View {
                             gameViewModel.ready(readyMessage)
                     }
                 }
-            } else {
-                VStack {
-                    
-                }
             }
-            boardOptionsView
         }
         .frame(maxHeight: .infinity, alignment: .topLeading)
         .animation(.default, value: focusedCoordinate)
         .animation(.default, value: currentlySelectedCoordinates)
+        .animation(.default, value: shouldStartGame)
+        .onReceive(gameViewModel.$message) { output in
+            guard let output else { return }
+            switch output {
+            case .start:
+                self.shouldStartGame = true
+            default: break
+            }
+        }
         .padding()
     }
     

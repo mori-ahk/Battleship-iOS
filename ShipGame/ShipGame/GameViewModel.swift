@@ -59,7 +59,7 @@ class GameViewModel: ObservableObject {
             }
         )
         
-        webSocket.ready(message)
+        webSocket.ready(readyMessage)
     }
     
     func isPlayerReady() -> Bool {
