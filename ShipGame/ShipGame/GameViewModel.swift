@@ -48,7 +48,17 @@ class GameViewModel: ObservableObject {
         webSocket.join(gameId: gameId)
     }
     
-    func ready(_ message: ReadyMessage) {
+    func ready(coordinates: [[Coordinate]]) {
+        let readyMessage = ReadyMessage(
+            gameUuid: gameInfo.gameUuid!,
+            playerUuid: gameInfo.playerUuid!,
+            defenceGrid: coordinates.map {
+                coordinate in coordinate.map {
+                    $0.state.rawValue
+                }
+            }
+        )
+        
         webSocket.ready(message)
     }
     

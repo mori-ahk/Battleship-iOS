@@ -1,5 +1,5 @@
 //
-//  BattleshipGridView.swift
+//  BattleshipDefendGridView.swift
 //  ShipGame
 //
 //  Created by Mori Ahmadi on 2024-05-31.

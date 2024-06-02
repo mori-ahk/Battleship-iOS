@@ -61,6 +61,8 @@ class WebSocketManager: ObservableObject {
                             resultPipeline.send(.join(payload.playerUuid))
                         case .select:
                             resultPipeline.send(.select)
+                        case .start:
+                            resultPipeline.send(.start)
                         default: break
                         }
                     } catch {
