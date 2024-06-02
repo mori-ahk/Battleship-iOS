@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 struct LandingView: View {
-    @StateObject private var landingViewModel = LandingViewModel()
+    @StateObject private var gameViewModel = GameViewModel()
     @State private var shouldShowGrid: Bool = false
     @State private var shouldShowRoomIdAlert: Bool = false
     @State private var gameId: String = String()
@@ -19,7 +19,7 @@ struct LandingView: View {
             if !shouldShowGrid {
                 VStack {
                     Button {
-                        landingViewModel.createGame()
+                        gameViewModel.createGame()
                     } label: {
                         Text("Create")
                     }
@@ -30,23 +30,19 @@ struct LandingView: View {
                     }
                 }
             } else {
-                GridView(gameId: landingViewModel.gameId)
+                GameView()
+                    .environmentObject(gameViewModel)
             }
         }
         .alert("Enter game Id", isPresented: $shouldShowRoomIdAlert) {
             TextField("Enter game Id", text: $gameId)
             Button("join") {
                 guard !gameId.isEmpty else { return }
-                landingViewModel.joinGame(to: gameId)
+                gameViewModel.joinGame(to: gameId)
             }
         }
-        .onReceive(
-            Publishers.CombineLatest(
-                landingViewModel.$gameId,
-                landingViewModel.$joinPlayerUuid
-            )
-        ) { (gameId, joinPlayerUuid) in
-            guard gameId != nil || joinPlayerUuid != nil else { return }
+        .onReceive(gameViewModel.$message) { message in
+            guard let message = message else { return }
             self.shouldShowGrid = true
         }
         .animation(.default, value: shouldShowGrid)
