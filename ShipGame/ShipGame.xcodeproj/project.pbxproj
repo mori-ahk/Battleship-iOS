@@ -25,6 +25,7 @@
 		82EFD9A32C0A7C3800EAAF86 /* InstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD9A22C0A7C3800EAAF86 /* InstructionsView.swift */; };
 		82EFD9A52C0A7C8100EAAF86 /* ShipsButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD9A42C0A7C8000EAAF86 /* ShipsButtonView.swift */; };
 		82EFD9A72C0BBC7B00EAAF86 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD9A62C0BBC7B00EAAF86 /* MessageView.swift */; };
+		82EFD9A92C0D08AA00EAAF86 /* ReadyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD9A82C0D08AA00EAAF86 /* ReadyMessage.swift */; };
 		82F305CA2BB461CC00F633FA /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F305C92BB461CC00F633FA /* WebSocketManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		82EFD9A22C0A7C3800EAAF86 /* InstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsView.swift; sourceTree = "<group>"; };
 		82EFD9A42C0A7C8000EAAF86 /* ShipsButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipsButtonView.swift; sourceTree = "<group>"; };
 		82EFD9A62C0BBC7B00EAAF86 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		82EFD9A82C0D08AA00EAAF86 /* ReadyMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadyMessage.swift; sourceTree = "<group>"; };
 		82F305C92BB461CC00F633FA /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,6 +116,7 @@
 				823C5BD82BF124BD00112962 /* JoinMessage.swift */,
 				82EFD99B2C0A60A300EAAF86 /* MessageType.swift */,
 				82EFD99D2C0A696D00EAAF86 /* Instruction.swift */,
+				82EFD9A82C0D08AA00EAAF86 /* ReadyMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 				82EFD99C2C0A60A300EAAF86 /* MessageType.swift in Sources */,
 				82EFD9A72C0BBC7B00EAAF86 /* MessageView.swift in Sources */,
 				823C5BD12BE95AF100112962 /* CreateMessage.swift in Sources */,
+				82EFD9A92C0D08AA00EAAF86 /* ReadyMessage.swift in Sources */,
 				822B2E482BA920ED00CCF448 /* ShipGameApp.swift in Sources */,
 				823C5BD32BE95B0F00112962 /* Message.swift in Sources */,
 				8238E70F2BD5833100C85144 /* GameViewModel.swift in Sources */,
