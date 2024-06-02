@@ -63,7 +63,6 @@ struct GameView: View {
                     }
                 )
                 
-                print(readyMessage)
                 gameViewModel.ready(readyMessage)
             }
         }
