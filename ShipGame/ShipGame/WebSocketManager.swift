@@ -85,6 +85,12 @@ class WebSocketManager: ObservableObject {
         guard let messageString = jsonString(of: message) else { return }
         sendMessage(messageString)
     }
+   
+    func ready(_ message: ReadyMessage) {
+        let message = Message<ReadyMessage>(code: .ready, payload: message)
+        guard let messageString = jsonString(of: message) else { return }
+        sendMessage(messageString)
+    }
     
     func sendMessage(_ message: String) {
         print("sending: \(message)")
