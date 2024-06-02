@@ -11,4 +11,5 @@ enum MessageType {
     case create(String, String)
     case join(String)
     case select
+    case start
 }
