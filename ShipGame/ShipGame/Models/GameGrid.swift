@@ -91,8 +91,8 @@ struct GameGrid: Equatable {
         return coordinates[coordinate.x][coordinate.y].state == .occupied
     }
     
-    func shipsCount(of kind: Ship.Kind) -> Int {
-        ships.filter { $0.kind == kind }.count
+    func shipAlreadyUsed(_ kind: Ship.Kind) -> Bool {
+        ships.filter { $0.kind == kind }.count == 1
     }
 }
 

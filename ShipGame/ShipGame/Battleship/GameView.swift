@@ -45,7 +45,7 @@ struct GameView: View {
             }
            
             ShipsButtonView(
-                isDisabled: { ship in gameGrid.shipsCount(of: ship) == 1 }
+                isDisabled: { ship in gameGrid.shipAlreadyUsed(ship) }
             ) { ship in
                 guard currentlySelectedCoordinates.count == ship.size else { return }
                 gameGrid.placeShips(on: currentlySelectedCoordinates)
