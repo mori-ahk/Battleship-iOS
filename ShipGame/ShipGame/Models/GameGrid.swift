@@ -76,7 +76,6 @@ struct GameGrid: Equatable {
             coordinates[coordinate.x][coordinate.y].state = .occupied
         }
         ships.append(Ship(coordinates: selectedCoordinates))
-        print(ships)
     }
     
     mutating func clear() {
@@ -101,10 +100,10 @@ struct Coordinate: Equatable {
     let x: Int
     let y: Int
     var state: State = .empty
-    enum State {
-        case hit
+    enum State: Int {
+        case empty = 0
         case occupied
-        case empty
+        case hit
     }
     
     mutating func reset() {

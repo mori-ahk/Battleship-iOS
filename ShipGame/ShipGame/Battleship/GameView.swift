@@ -53,7 +53,18 @@ struct GameView: View {
             }
                 
             MessageView(message: gameViewModel.message) {
-                print("ready")
+                let readyMessage = ReadyMessage(
+                    gameUuid: gameViewModel.gameInfo.gameUuid!,
+                    playerUuid: gameViewModel.gameInfo.playerUuid!,
+                    defenceGrid: gameGrid.coordinates.map {
+                        coordinate in coordinate.map {
+                            $0.state.rawValue
+                        }
+                    }
+                )
+                
+                print(readyMessage)
+                gameViewModel.ready(readyMessage)
             }
         }
         .frame(maxHeight: .infinity, alignment: .topLeading)
