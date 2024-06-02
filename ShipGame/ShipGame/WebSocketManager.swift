@@ -93,6 +93,12 @@ class WebSocketManager: ObservableObject {
         guard let messageString = jsonString(of: message) else { return }
         sendMessage(messageString)
     }
+   
+    func attack(_ message: ReqAttackMessage) {
+        let message = Message<ReqAttackMessage>(code: .attack, payload: message)
+        guard let messageString = jsonString(of: message) else { return }
+        sendMessage(messageString)
+    }
     
     func sendMessage(_ message: String) {
         print("sending: \(message)")

@@ -17,13 +17,24 @@ struct GameView: View {
     @State private var currentlySelectedCoordinates: [Coordinate] = []
     @State private var focusedCoordinate: Coordinate?
     @State private var selectionDirection: GeneralDirection?
+    @State private var selectedAttackCoordinate: Coordinate?
     @State private var shouldStartGame: Bool = false
     var body: some View {
         VStack(spacing: 24) {
 //            InstructionsView()
             if shouldStartGame {
-                BattleshipAttackGridView()
-                    .transition(.move(edge: .top))
+                VStack {
+                    BattleshipAttackGridView(selectedAttackCoordinate: $selectedAttackCoordinate)
+                        .transition(.move(edge: .top))
+                    Button {
+                        guard let selectedAttackCoordinate else { return }
+                        gameViewModel.attack(coordinate: selectedAttackCoordinate)
+                    } label: {
+                        Text("Attack")
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(selectedAttackCoordinate == nil)
+                }
                 Divider()
             }
            

@@ -79,5 +79,14 @@ class GameViewModel: ObservableObject {
         }
     }
     
-    func
+    func attack(coordinate: Coordinate) {
+        let attackMessage = ReqAttackMessage(
+            gameUuid: gameInfo.gameUuid!,
+            playerUuid: gameInfo.playerUuid!,
+            x: coordinate.x,
+            y: coordinate.y
+        )
+        
+        webSocket.attack(attackMessage)
+    }
 }
