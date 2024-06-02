@@ -52,7 +52,9 @@ struct GameView: View {
                 resetSelection()
             }
                 
-            MessageView(message: gameViewModel.message)
+            MessageView(message: gameViewModel.message) {
+                print("ready")
+            }
         }
         .frame(maxHeight: .infinity, alignment: .topLeading)
         .animation(.default, value: focusedCoordinate)

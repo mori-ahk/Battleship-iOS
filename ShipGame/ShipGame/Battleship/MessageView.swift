@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MessageView: View {
     var message: MessageType?
-    
+    var action: (() -> Void)? = nil
     var body: some View {
         if let message {
             VStack {
@@ -19,7 +19,15 @@ struct MessageView: View {
                 case .join(_):
                     EmptyView()
                 case .select:
-                    Text("Select your grid")
+                    VStack {
+                        Text("Select your grid and press ready.")
+                        Button {
+                           action?()
+                        } label: {
+                            Text("Ready")
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
                 }
             }
             .font(.title2)
