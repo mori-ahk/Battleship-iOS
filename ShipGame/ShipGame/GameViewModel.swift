@@ -11,6 +11,7 @@ import Combine
 class GameViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let webSocket = WebSocketManager()
+    var gameInfo = GameInfo()
     @Published var message: MessageType?
     
     init() {
@@ -24,6 +25,13 @@ class GameViewModel: ObservableObject {
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { message in
+                    switch message {
+                    case .create(let gameUuid, let hostPlayerUuid):
+                        self.gameInfo = GameInfo(gameUuid: gameUuid, playerUuid: hostPlayerUuid)
+                    case .join(let joinPlayerUuid):
+                        self.gameInfo.playerUuid = joinPlayerUuid
+                    default: break
+                    }
                     self.message = message
                 }
             )
@@ -35,6 +43,11 @@ class GameViewModel: ObservableObject {
     }
     
     func joinGame(to gameId: String) {
+        gameInfo.gameUuid = gameId
         webSocket.join(gameId: gameId)
+    }
+    
+    func ready(_ message: ReadyMessage) {
+        webSocket.ready(message)
     }
 }

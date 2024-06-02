@@ -45,7 +45,7 @@ struct GameView: View {
             }
            
             ShipsButtonView(
-                isDisabled: { ship in gameGrid.shipsCount(of: ship) == 1 }
+                isDisabled: { ship in gameGrid.shipAlreadyUsed(ship) }
             ) { ship in
                 guard currentlySelectedCoordinates.count == ship.size else { return }
                 gameGrid.placeShips(on: currentlySelectedCoordinates)
@@ -53,7 +53,17 @@ struct GameView: View {
             }
                 
             MessageView(message: gameViewModel.message) {
-                print("ready")
+                let readyMessage = ReadyMessage(
+                    gameUuid: gameViewModel.gameInfo.gameUuid!,
+                    playerUuid: gameViewModel.gameInfo.playerUuid!,
+                    defenceGrid: gameGrid.coordinates.map {
+                        coordinate in coordinate.map {
+                            $0.state.rawValue
+                        }
+                    }
+                )
+                
+                gameViewModel.ready(readyMessage)
             }
         }
         .frame(maxHeight: .infinity, alignment: .topLeading)
