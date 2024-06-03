@@ -8,11 +8,11 @@
 import Foundation
 
 struct GameInfo: Codable {
-    var gameUuid: String?
+    var game: Game
     var playerUuid: String?
     
-    init(gameUuid: String? = nil, playerUuid: String? = nil) {
-        self.gameUuid = gameUuid
+    init(gameId: String, playerUuid: String? = nil) {
+        self.game = Game(id: gameId)
         self.playerUuid = playerUuid
     }
 }
