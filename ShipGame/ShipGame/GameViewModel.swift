@@ -11,6 +11,7 @@ import Combine
 class GameViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let webSocket = WebSocketManager()
+    @Published var gameGrid = GameGrid()
     @Published var gameInfo: GameInfo?
     @Published var message: MessageType?
     
@@ -59,4 +60,14 @@ class GameViewModel: ObservableObject {
     func readyUp() {
         gameInfo?.player?.readyUp()
     }
+    
+    func defenceGrid() -> [[Int]] {
+        gameGrid.coordinates.map {
+            coordinate in coordinate.map {
+                $0.state.rawValue
+            }
+        }
+    }
+    
+    func
 }
