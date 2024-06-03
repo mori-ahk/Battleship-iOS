@@ -9,10 +9,12 @@ import Foundation
 
 struct GameInfo: Codable {
     var game: Game
-    var playerUuid: String?
+    var player: Player?
     
-    init(gameId: String, playerUuid: String? = nil) {
+    init(gameId: String, playerId: String? = nil, isHost: Bool = false) {
         self.game = Game(id: gameId)
-        self.playerUuid = playerUuid
+        if let playerId {
+            self.player = Player(id: playerId, isHost: false)
+        }
     }
 }

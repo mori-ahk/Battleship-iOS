@@ -26,10 +26,10 @@ class GameViewModel: ObservableObject {
                 receiveCompletion: { _ in },
                 receiveValue: { message in
                     switch message {
-                    case .create(let gameId, let hostPlayerUuid):
-                        self.gameInfo = GameInfo(gameId: gameId, playerUuid: hostPlayerUuid)
-                    case .join(let joinPlayerUuid):
-                        self.gameInfo?.playerUuid = joinPlayerUuid
+                    case .create(let gameId, let hostPlayerId):
+                        self.gameInfo = GameInfo(gameId: gameId, playerId: hostPlayerId, isHost: true)
+                    case .join(let joinPlayerId):
+                        self.gameInfo?.player = Player(id: joinPlayerId, isHost: false)
                     default: break
                     }
                     self.message = message

@@ -28,6 +28,7 @@
 		82EFD9A92C0D08AA00EAAF86 /* ReadyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD9A82C0D08AA00EAAF86 /* ReadyMessage.swift */; };
 		82EFD9AB2C0D09A400EAAF86 /* GameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD9AA2C0D09A400EAAF86 /* GameInfo.swift */; };
 		82EFD9B12C0D5B9300EAAF86 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD9B02C0D5B9300EAAF86 /* Game.swift */; };
+		82EFD9B32C0D5D1700EAAF86 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD9B22C0D5D1700EAAF86 /* Player.swift */; };
 		82F305CA2BB461CC00F633FA /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F305C92BB461CC00F633FA /* WebSocketManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		82EFD9A82C0D08AA00EAAF86 /* ReadyMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadyMessage.swift; sourceTree = "<group>"; };
 		82EFD9AA2C0D09A400EAAF86 /* GameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfo.swift; sourceTree = "<group>"; };
 		82EFD9B02C0D5B9300EAAF86 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		82EFD9B22C0D5D1700EAAF86 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		82F305C92BB461CC00F633FA /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +125,7 @@
 				82EFD9A82C0D08AA00EAAF86 /* ReadyMessage.swift */,
 				82EFD9AA2C0D09A400EAAF86 /* GameInfo.swift */,
 				82EFD9B02C0D5B9300EAAF86 /* Game.swift */,
+				82EFD9B22C0D5D1700EAAF86 /* Player.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				82EFD9A32C0A7C3800EAAF86 /* InstructionsView.swift in Sources */,
 				8238E70D2BD5825A00C85144 /* LandingView.swift in Sources */,
 				822B2E4A2BA920ED00CCF448 /* GameView.swift in Sources */,
+				82EFD9B32C0D5D1700EAAF86 /* Player.swift in Sources */,
 				82EFD99C2C0A60A300EAAF86 /* MessageType.swift in Sources */,
 				82EFD9A72C0BBC7B00EAAF86 /* MessageView.swift in Sources */,
 				823C5BD12BE95AF100112962 /* CreateMessage.swift in Sources */,
