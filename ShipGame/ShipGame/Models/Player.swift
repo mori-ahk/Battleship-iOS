@@ -10,5 +10,10 @@ import Foundation
 struct Player {
     let id: String
     let isHost: Bool
-    let isTurn: Bool = false
+    var isTurn: Bool = false
+    var isReady: Bool = false
+    
+    mutating func readyUp() {
+        isReady = true
+    }
 }

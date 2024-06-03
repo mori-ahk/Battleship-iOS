@@ -52,7 +52,10 @@ struct GameView: View {
                 resetSelection()
             }
                 
-            MessageView(message: gameViewModel.message) {
+            MessageView(
+                message: gameViewModel.message,
+                isReady: gameViewModel.isPlayerReady()
+            ) {
                 if let gameInfo = gameViewModel.gameInfo {
                     let readyMessage = ReadyMessage(
                         gameUuid: gameInfo.game.id,
@@ -63,6 +66,7 @@ struct GameView: View {
                             }
                         }
                     )
+                    gameViewModel.readyUp()
                     gameViewModel.ready(readyMessage)
                 }
             }

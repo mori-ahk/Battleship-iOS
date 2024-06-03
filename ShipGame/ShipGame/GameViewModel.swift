@@ -11,7 +11,7 @@ import Combine
 class GameViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let webSocket = WebSocketManager()
-    var gameInfo: GameInfo?
+    @Published var gameInfo: GameInfo?
     @Published var message: MessageType?
     
     init() {
@@ -49,5 +49,14 @@ class GameViewModel: ObservableObject {
     
     func ready(_ message: ReadyMessage) {
         webSocket.ready(message)
+    }
+    
+    func isPlayerReady() -> Bool {
+        guard let player = gameInfo?.player else { return false }
+        return player.isReady
+    }
+    
+    func readyUp() {
+        gameInfo?.player?.readyUp()
     }
 }
