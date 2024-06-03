@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GameInfo: Codable {
+struct GameInfo {
     var game: Game
     var player: Player?
     

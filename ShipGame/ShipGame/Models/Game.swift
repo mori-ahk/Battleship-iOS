@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct Game: Codable {
+struct Game {
     let id: String
-    
-    private enum CodingKeys: String, CodingKey {
-        case id = "game_uuid"
-    }
 }
