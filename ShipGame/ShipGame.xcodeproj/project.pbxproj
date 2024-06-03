@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8207C1872C0E1DB500449FFB /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8207C1862C0E1DB500449FFB /* Coordinate.swift */; };
+		8207C1892C0E1DEF00449FFB /* Ship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8207C1882C0E1DEF00449FFB /* Ship.swift */; };
 		822B2E482BA920ED00CCF448 /* ShipGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822B2E472BA920ED00CCF448 /* ShipGameApp.swift */; };
 		822B2E4A2BA920ED00CCF448 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822B2E492BA920ED00CCF448 /* GameView.swift */; };
 		822B2E4C2BA920EF00CCF448 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 822B2E4B2BA920EF00CCF448 /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		8207C1862C0E1DB500449FFB /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
+		8207C1882C0E1DEF00449FFB /* Ship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ship.swift; sourceTree = "<group>"; };
 		822B2E442BA920ED00CCF448 /* ShipGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShipGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		822B2E472BA920ED00CCF448 /* ShipGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipGameApp.swift; sourceTree = "<group>"; };
 		822B2E492BA920ED00CCF448 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				82EFD9B02C0D5B9300EAAF86 /* Game.swift */,
 				82EFD9B22C0D5D1700EAAF86 /* Player.swift */,
 				8207C1862C0E1DB500449FFB /* Coordinate.swift */,
+				8207C1882C0E1DEF00449FFB /* Ship.swift */,
 			);
 			path = Battleship;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				82EFD99C2C0A60A300EAAF86 /* MessageType.swift in Sources */,
 				82EFD9A72C0BBC7B00EAAF86 /* MessageView.swift in Sources */,
 				823C5BD12BE95AF100112962 /* CreateMessage.swift in Sources */,
+				8207C1892C0E1DEF00449FFB /* Ship.swift in Sources */,
 				82EFD9A92C0D08AA00EAAF86 /* ReadyMessage.swift in Sources */,
 				82EFD9AB2C0D09A400EAAF86 /* GameInfo.swift in Sources */,
 				8207C1872C0E1DB500449FFB /* Coordinate.swift in Sources */,
