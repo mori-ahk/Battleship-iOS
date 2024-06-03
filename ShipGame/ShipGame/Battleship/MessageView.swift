@@ -30,6 +30,7 @@ struct MessageView: View {
                         .buttonStyle(.borderedProminent)
                         .disabled(isReady)
                     }
+                default: EmptyView()
                 }
             }
             .font(.title2)

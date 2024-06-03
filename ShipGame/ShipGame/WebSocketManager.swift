@@ -61,6 +61,8 @@ class WebSocketManager: ObservableObject {
                             resultPipeline.send(.join(payload.playerUuid))
                         case .select:
                             resultPipeline.send(.select)
+                        case .start:
+                            resultPipeline.send(.start)
                         default: break
                         }
                     } catch {
@@ -88,6 +90,12 @@ class WebSocketManager: ObservableObject {
    
     func ready(_ message: ReadyMessage) {
         let message = Message<ReadyMessage>(code: .ready, payload: message)
+        guard let messageString = jsonString(of: message) else { return }
+        sendMessage(messageString)
+    }
+   
+    func attack(_ message: ReqAttackMessage) {
+        let message = Message<ReqAttackMessage>(code: .attack, payload: message)
         guard let messageString = jsonString(of: message) else { return }
         sendMessage(messageString)
     }

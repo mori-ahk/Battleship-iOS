@@ -42,7 +42,7 @@ struct LandingView: View {
             }
         }
         .onReceive(gameViewModel.$message) { message in
-            guard let message = message else { return }
+            guard message != nil else { return }
             self.shouldShowGrid = true
         }
         .animation(.default, value: shouldShowGrid)
