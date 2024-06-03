@@ -23,7 +23,9 @@ struct GameGrid: Equatable {
             }
         }
     }
-    
+}
+
+extension GameGrid {
     mutating func placeShips(on selectedCoordinates: [Coordinate]) {
         for coordinate in selectedCoordinates {
             coordinates[coordinate.x][coordinate.y].state = .occupied
@@ -41,7 +43,7 @@ struct GameGrid: Equatable {
     }
     
     func isOccupied(_ coordinate: Coordinate) -> Bool {
-        return coordinates[coordinate.x][coordinate.y].state == .occupied
+        return coordinates[coordinate.x][coordinate.y].isOccupied()
     }
     
     func shipAlreadyUsed(_ kind: Ship.Kind) -> Bool {

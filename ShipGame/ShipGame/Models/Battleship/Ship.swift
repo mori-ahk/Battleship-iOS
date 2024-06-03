@@ -17,19 +17,6 @@ struct Ship: Equatable {
         }
     }
     
-    var isSunk: Bool {
-        coordinates.allSatisfy { $0.state == .hit }
-    }
-    
-    var kind: Kind? {
-        switch coordinates.count {
-        case 4: return .battleShip
-        case 3: return .cruiser
-        case 2: return .destroyer
-        default: return nil
-        }
-    }
-    
     enum Kind: String, CaseIterable, Identifiable {
         var id: String { name }
         case battleShip
@@ -49,6 +36,21 @@ struct Ship: Equatable {
         
         var name: String {
             "\(rawValue.capitalized) (\(size.description))"
+        }
+    }
+}
+
+extension Ship {
+    var isSunk: Bool {
+        coordinates.allSatisfy { $0.state == .hit }
+    }
+    
+    var kind: Kind? {
+        switch coordinates.count {
+        case 4: return .battleShip
+        case 3: return .cruiser
+        case 2: return .destroyer
+        default: return nil
         }
     }
 }

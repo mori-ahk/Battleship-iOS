@@ -18,8 +18,9 @@ struct Coordinate: Equatable {
         case hit
         case miss
     }
-    
-    mutating func reset() {
-        state = .empty
-    }
+}
+
+extension Coordinate {
+    mutating func reset() { state = .empty }
+    func isOccupied() -> Bool { state == .occupied }
 }
