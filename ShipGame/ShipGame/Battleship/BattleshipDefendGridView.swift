@@ -10,7 +10,7 @@ import SwiftUI
 fileprivate let MAX_SELECTION_COUNT: Int = 4
 fileprivate let MAX_SHIPS_COUNT: Int = 3
 
-struct BattleshipGridView: View {
+struct BattleshipDefendGridView: View {
     @EnvironmentObject private var gameViewModel: GameViewModel
     @Binding var currentlySelectedCoordinates: [Coordinate]
     @Binding var focusedCoordinate: Coordinate?

@@ -48,17 +48,14 @@ class GameViewModel: ObservableObject {
         webSocket.join(gameId: gameId)
     }
     
-    func ready(coordinates: [[Coordinate]]) {
+    func ready() {
+        guard let gameInfo else { return }
         let readyMessage = ReadyMessage(
-            gameUuid: gameInfo.gameUuid!,
-            playerUuid: gameInfo.playerUuid!,
-            defenceGrid: coordinates.map {
-                coordinate in coordinate.map {
-                    $0.state.rawValue
-                }
-            }
+            gameUuid: gameInfo.game.id,
+            playerUuid: gameInfo.player!.id,
+            defenceGrid: defenceGrid()
         )
-        
+        readyUp()
         webSocket.ready(readyMessage)
     }
     
@@ -67,11 +64,11 @@ class GameViewModel: ObservableObject {
         return player.isReady
     }
     
-    func readyUp() {
+    private func readyUp() {
         gameInfo?.player?.readyUp()
     }
     
-    func defenceGrid() -> [[Int]] {
+    private func defenceGrid() -> [[Int]] {
         gameGrid.coordinates.map {
             coordinate in coordinate.map {
                 $0.state.rawValue
@@ -80,9 +77,10 @@ class GameViewModel: ObservableObject {
     }
     
     func attack(coordinate: Coordinate) {
+        guard let gameInfo else { return }
         let attackMessage = ReqAttackMessage(
-            gameUuid: gameInfo.gameUuid!,
-            playerUuid: gameInfo.playerUuid!,
+            gameUuid: gameInfo.game.id,
+            playerUuid: gameInfo.player!.id,
             x: coordinate.x,
             y: coordinate.y
         )

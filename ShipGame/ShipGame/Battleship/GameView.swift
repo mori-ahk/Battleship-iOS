@@ -47,8 +47,9 @@ struct GameView: View {
             
             if !shouldStartGame {
                 VStack {
+                    boardOptionsView
                     ShipsButtonView(
-                        isDisabled: { ship in gameGrid.shipAlreadyUsed(ship) }
+                        isDisabled: { ship in gameViewModel.gameGrid.shipAlreadyUsed(ship) }
                     ) { ship in
                         guard currentlySelectedCoordinates.count == ship.size else { return }
                         gameViewModel.gameGrid.placeShips(on: currentlySelectedCoordinates)
@@ -56,11 +57,10 @@ struct GameView: View {
                     }
                     
                     MessageView(
-                            message: gameViewModel.message,
-                            isReady: gameViewModel.isPlayerReady()
-                            ) {
-                        gameViewModel.readyUp()
-                            gameViewModel.ready(readyMessage)
+                        message: gameViewModel.message,
+                        isReady: gameViewModel.isPlayerReady()
+                    ) {
+                        gameViewModel.ready()
                     }
                 }
             }
