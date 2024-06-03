@@ -7,12 +7,14 @@
 
 import Foundation
 
-struct GameInfo: Codable {
-    var gameUuid: String?
-    var playerUuid: String?
+struct GameInfo {
+    var game: Game
+    var player: Player?
     
-    init(gameUuid: String? = nil, playerUuid: String? = nil) {
-        self.gameUuid = gameUuid
-        self.playerUuid = playerUuid
+    init(gameId: String, playerId: String? = nil, isHost: Bool = false) {
+        self.game = Game(id: gameId)
+        if let playerId {
+            self.player = Player(id: playerId, isHost: false)
+        }
     }
 }

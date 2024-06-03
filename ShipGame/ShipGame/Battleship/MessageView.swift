@@ -9,7 +9,8 @@ import SwiftUI
 
 struct MessageView: View {
     var message: MessageType?
-    var action: (() -> Void)? = nil
+    var isReady: Bool
+    var onReady: (() -> Void)? = nil
     var body: some View {
         if let message {
             VStack {
@@ -20,13 +21,14 @@ struct MessageView: View {
                     EmptyView()
                 case .select:
                     VStack {
-                        Text("Select your grid and press ready.")
+                        Text("Place your ships, and press ready when you're done")
                         Button {
-                           action?()
+                            onReady?()
                         } label: {
                             Text("Ready")
                         }
                         .buttonStyle(.borderedProminent)
+                        .disabled(isReady)
                     }
                 }
             }

@@ -11,7 +11,8 @@ import Combine
 class GameViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let webSocket = WebSocketManager()
-    var gameInfo = GameInfo()
+    @Published var gameGrid = GameGrid()
+    @Published var gameInfo: GameInfo?
     @Published var message: MessageType?
     
     init() {
@@ -26,10 +27,10 @@ class GameViewModel: ObservableObject {
                 receiveCompletion: { _ in },
                 receiveValue: { message in
                     switch message {
-                    case .create(let gameUuid, let hostPlayerUuid):
-                        self.gameInfo = GameInfo(gameUuid: gameUuid, playerUuid: hostPlayerUuid)
-                    case .join(let joinPlayerUuid):
-                        self.gameInfo.playerUuid = joinPlayerUuid
+                    case .create(let gameId, let hostPlayerId):
+                        self.gameInfo = GameInfo(gameId: gameId, playerId: hostPlayerId, isHost: true)
+                    case .join(let joinPlayerId):
+                        self.gameInfo?.player = Player(id: joinPlayerId, isHost: false)
                     default: break
                     }
                     self.message = message
@@ -43,11 +44,30 @@ class GameViewModel: ObservableObject {
     }
     
     func joinGame(to gameId: String) {
-        gameInfo.gameUuid = gameId
+        gameInfo = GameInfo(gameId: gameId)
         webSocket.join(gameId: gameId)
     }
     
     func ready(_ message: ReadyMessage) {
         webSocket.ready(message)
     }
+    
+    func isPlayerReady() -> Bool {
+        guard let player = gameInfo?.player else { return false }
+        return player.isReady
+    }
+    
+    func readyUp() {
+        gameInfo?.player?.readyUp()
+    }
+    
+    func defenceGrid() -> [[Int]] {
+        gameGrid.coordinates.map {
+            coordinate in coordinate.map {
+                $0.state.rawValue
+            }
+        }
+    }
+    
+    func
 }

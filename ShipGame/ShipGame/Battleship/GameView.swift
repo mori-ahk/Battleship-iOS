@@ -14,7 +14,6 @@ enum GeneralDirection {
 
 struct GameView: View {
     @EnvironmentObject private var gameViewModel: GameViewModel
-    @State private var gameGrid = GameGrid()
     @State private var currentlySelectedCoordinates: [Coordinate] = []
     @State private var focusedCoordinate: Coordinate?
     @State private var selectionDirection: GeneralDirection?
@@ -25,9 +24,9 @@ struct GameView: View {
             BattleshipGridView(
                 currentlySelectedCoordinates: $currentlySelectedCoordinates,
                 focusedCoordinate: $focusedCoordinate,
-                selectionDirection: $selectionDirection,
-                gameGrid: gameGrid
+                selectionDirection: $selectionDirection
             )
+            .environmentObject(gameViewModel)
             
             HStack {
                 Button {
@@ -45,30 +44,30 @@ struct GameView: View {
             }
            
             ShipsButtonView(
-                isDisabled: { ship in gameGrid.shipAlreadyUsed(ship) }
+                isDisabled: { ship in gameViewModel.gameGrid.shipAlreadyUsed(ship) }
             ) { ship in
                 guard currentlySelectedCoordinates.count == ship.size else { return }
-                gameGrid.placeShips(on: currentlySelectedCoordinates)
+                gameViewModel.gameGrid.placeShips(on: currentlySelectedCoordinates)
                 resetSelection()
             }
                 
-            MessageView(message: gameViewModel.message) {
-                let readyMessage = ReadyMessage(
-                    gameUuid: gameViewModel.gameInfo.gameUuid!,
-                    playerUuid: gameViewModel.gameInfo.playerUuid!,
-                    defenceGrid: gameGrid.coordinates.map {
-                        coordinate in coordinate.map {
-                            $0.state.rawValue
-                        }
-                    }
-                )
-                
-                gameViewModel.ready(readyMessage)
+            MessageView(
+                message: gameViewModel.message,
+                isReady: gameViewModel.isPlayerReady()
+            ) {
+                if let gameInfo = gameViewModel.gameInfo {
+                    let readyMessage = ReadyMessage(
+                        gameUuid: gameInfo.game.id,
+                        playerUuid: gameInfo.player!.id,
+                        defenceGrid: gameViewModel.defenceGrid()
+                    )
+                    gameViewModel.readyUp()
+                    gameViewModel.ready(readyMessage)
+                }
             }
         }
         .frame(maxHeight: .infinity, alignment: .topLeading)
         .animation(.default, value: focusedCoordinate)
-        .animation(.default, value: gameGrid)
         .animation(.default, value: currentlySelectedCoordinates)
         .padding()
     }
@@ -80,7 +79,7 @@ struct GameView: View {
     }
     
     private func clearGrid() {
-        gameGrid.clear()
+        gameViewModel.gameGrid.clear()
         resetSelection()
     }
 }
