@@ -96,22 +96,6 @@ struct GameGrid: Equatable {
     }
 }
 
-struct Coordinate: Equatable {
-    let x: Int
-    let y: Int
-    var state: State = .empty
-    enum State: Int {
-        case empty = 0
-        case occupied
-        case hit
-        case miss
-    }
-    
-    mutating func reset() {
-        state = .empty
-    }
-}
-
 struct Ship: Equatable {
     var coordinates: [Coordinate]
     
