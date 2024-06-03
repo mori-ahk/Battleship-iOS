@@ -45,6 +45,6 @@ struct GameGrid: Equatable {
     }
     
     func shipAlreadyUsed(_ kind: Ship.Kind) -> Bool {
-        ships.filter { $0.kind == kind }.count == 1
+        !ships.filter { $0.kind == kind }.isEmpty
     }
 }
