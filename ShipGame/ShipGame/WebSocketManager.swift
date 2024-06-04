@@ -48,17 +48,25 @@ class WebSocketManager: ObservableObject {
                         guard let code = Code(packet: packet) else { break }
                         switch code {
                         case .create:
-                            guard let inviteMessage = try? decoder.decode(
+                            guard let createMessage = try? decoder.decode(
                                 Message<CreateMessage>.self,
                                 from: data
-                            ), let payload = inviteMessage.payload else { break }
-                            resultPipeline.send(.create(payload.gameUuid, payload.hostUuid))
+                            ), let payload = createMessage.payload else { break }
+                            resultPipeline.send(
+                                .create(
+                                    GameInfo(gameId: payload.gameUuid, playerId: payload.hostUuid)
+                                )
+                            )
                         case .join:
                             guard let joinMessage = try? decoder.decode(
                                 Message<RespJoinMessage>.self,
                                 from: data
                             ), let payload = joinMessage.payload else { break }
-                            resultPipeline.send(.join(payload.playerUuid))
+                            resultPipeline.send(
+                                .join(
+                                    RespJoinMessage(playerUuid: payload.playerUuid)
+                                )
+                            )
                         case .select:
                             resultPipeline.send(.select)
                         case .start:

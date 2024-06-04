@@ -8,8 +8,8 @@
 import Foundation
 
 enum RespMessageType {
-    case create(String, String)
-    case join(String)
+    case create(GameInfo)
+    case join(RespJoinMessage)
     case select
     case start
 }
