@@ -13,7 +13,7 @@ class GameViewModel: ObservableObject {
     private let webSocket = WebSocketManager()
     @Published var gameGrid = GameGrid()
     @Published var gameInfo: GameInfo?
-    @Published var message: MessageType?
+    @Published var message: RespMessageType?
     
     init() {
         webSocket.connect()

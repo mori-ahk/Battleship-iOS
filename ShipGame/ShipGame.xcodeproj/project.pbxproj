@@ -134,7 +134,6 @@
 				822B2E4E2BA920EF00CCF448 /* Preview Content */,
 				82F305C92BB461CC00F633FA /* WebSocketManager.swift */,
 				8238E70C2BD5825A00C85144 /* LandingView.swift */,
-				8238E70E2BD5833100C85144 /* GameViewModel.swift */,
 			);
 			path = ShipGame;
 			sourceTree = "<group>";
@@ -160,6 +159,7 @@
 		82EFD9A12C0A7C0700EAAF86 /* Battleship */ = {
 			isa = PBXGroup;
 			children = (
+				8238E70E2BD5833100C85144 /* GameViewModel.swift */,
 				82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */,
 				822B2E492BA920ED00CCF448 /* GameView.swift */,
 				82EFD9A22C0A7C3800EAAF86 /* InstructionsView.swift */,

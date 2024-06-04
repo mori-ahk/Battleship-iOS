@@ -7,9 +7,16 @@
 
 import Foundation
 
-enum MessageType {
+enum RespMessageType {
     case create(String, String)
     case join(String)
     case select
+    case start
+}
+
+enum ReqMessageType {
+    case create
+    case join(ReqJoinMessage)
+    case ready(ReadyMessage)
     case start
 }

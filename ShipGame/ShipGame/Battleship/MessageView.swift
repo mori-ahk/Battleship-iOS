@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MessageView: View {
-    var message: MessageType?
+    var message: RespMessageType?
     var isReady: Bool
     var onReady: (() -> Void)? = nil
     var body: some View {

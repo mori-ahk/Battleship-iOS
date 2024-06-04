@@ -10,7 +10,7 @@ import Combine
 
 class WebSocketManager: ObservableObject {
     private var webSocketTask: URLSessionWebSocketTask?
-    var resultPipeline = PassthroughSubject<MessageType?, Never>()
+    var resultPipeline = PassthroughSubject<RespMessageType?, Never>()
     lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
