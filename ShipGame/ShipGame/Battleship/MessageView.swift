@@ -15,8 +15,8 @@ struct MessageView: View {
         if let message {
             VStack {
                 switch message {
-                case .create(let gameUuid, _):
-                    Text("Game Id: \(gameUuid)")
+                case .create(let gameInfo):
+                    Text("Game Id: \(gameInfo.game.id)")
                 case .join(_):
                     EmptyView()
                 case .select:

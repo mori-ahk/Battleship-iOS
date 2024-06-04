@@ -29,10 +29,47 @@ class WebSocketManager: ObservableObject {
         request.addValue("ws://", forHTTPHeaderField: "Origin")
         webSocketTask = URLSession.shared.webSocketTask(with: request)
         webSocketTask?.resume()
-        receiveMessage()
+        receive()
     }
     
-    private func receiveMessage() {
+    func create() {
+        let message = Message<Packet>(code: .create)
+        send(message)
+    }
+    
+    func join(gameId: String) {
+        let message = Message<ReqJoinMessage>(code: .join, payload: ReqJoinMessage(gameUuid: gameId))
+        send(message)
+    }
+   
+    func ready(_ message: ReadyMessage) {
+        let message = Message<ReadyMessage>(code: .ready, payload: message)
+        send(message)
+    }
+   
+    func attack(_ message: ReqAttackMessage) {
+        let message = Message<ReqAttackMessage>(code: .attack, payload: message)
+        send(message)
+    }
+    
+    private func jsonString<T: Codable>(of message: T) -> String? {
+        guard let messageData = try? encoder.encode(message) else { return nil }
+        return String(data: messageData, encoding: .utf8)
+    }
+}
+
+extension WebSocketManager: WebSocketService {
+    func send(_ message: WebSocketMessage) {
+        print("sending: \(message)")
+        guard let messageString = jsonString(of: message) else { return }
+        webSocketTask?.send(.string(messageString)) { error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func receive() {
         webSocketTask?.receive { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -79,46 +116,8 @@ class WebSocketManager: ObservableObject {
                 default:
                     break
                 }
-                receiveMessage()
+                receive()
             }
         }
-    }
-    
-    func create() {
-        let message = Message<Packet>(code: .create)
-        guard let messageString = jsonString(of: message) else { return }
-        sendMessage(messageString)
-    }
-    
-    func join(gameId: String) {
-        let message = Message<ReqJoinMessage>(code: .join, payload: ReqJoinMessage(gameUuid: gameId))
-        guard let messageString = jsonString(of: message) else { return }
-        sendMessage(messageString)
-    }
-   
-    func ready(_ message: ReadyMessage) {
-        let message = Message<ReadyMessage>(code: .ready, payload: message)
-        guard let messageString = jsonString(of: message) else { return }
-        sendMessage(messageString)
-    }
-   
-    func attack(_ message: ReqAttackMessage) {
-        let message = Message<ReqAttackMessage>(code: .attack, payload: message)
-        guard let messageString = jsonString(of: message) else { return }
-        sendMessage(messageString)
-    }
-    
-    func sendMessage(_ message: String) {
-        print("sending: \(message)")
-        webSocketTask?.send(.string(message)) { error in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    private func jsonString<T: Codable>(of message: T) -> String? {
-        guard let messageData = try? encoder.encode(message) else { return nil }
-        return String(data: messageData, encoding: .utf8)
     }
 }

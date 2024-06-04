@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8207C1872C0E1DB500449FFB /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8207C1862C0E1DB500449FFB /* Coordinate.swift */; };
 		8207C1892C0E1DEF00449FFB /* Ship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8207C1882C0E1DEF00449FFB /* Ship.swift */; };
+		8207C18E2C0F8E4000449FFB /* WebSocketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8207C18D2C0F8E4000449FFB /* WebSocketService.swift */; };
 		822B2E482BA920ED00CCF448 /* ShipGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822B2E472BA920ED00CCF448 /* ShipGameApp.swift */; };
 		822B2E4A2BA920ED00CCF448 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822B2E492BA920ED00CCF448 /* GameView.swift */; };
 		822B2E4C2BA920EF00CCF448 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 822B2E4B2BA920EF00CCF448 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		8207C1862C0E1DB500449FFB /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		8207C1882C0E1DEF00449FFB /* Ship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ship.swift; sourceTree = "<group>"; };
+		8207C18D2C0F8E4000449FFB /* WebSocketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketService.swift; sourceTree = "<group>"; };
 		822B2E442BA920ED00CCF448 /* ShipGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShipGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		822B2E472BA920ED00CCF448 /* ShipGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipGameApp.swift; sourceTree = "<group>"; };
 		822B2E492BA920ED00CCF448 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -107,6 +109,15 @@
 			path = Battleship;
 			sourceTree = "<group>";
 		};
+		8207C18C2C0F8E1B00449FFB /* WebSocketLayer */ = {
+			isa = PBXGroup;
+			children = (
+				82F305C92BB461CC00F633FA /* WebSocketManager.swift */,
+				8207C18D2C0F8E4000449FFB /* WebSocketService.swift */,
+			);
+			path = WebSocketLayer;
+			sourceTree = "<group>";
+		};
 		822B2E3B2BA920ED00CCF448 = {
 			isa = PBXGroup;
 			children = (
@@ -132,7 +143,7 @@
 				822B2E4B2BA920EF00CCF448 /* Assets.xcassets */,
 				822B2E4D2BA920EF00CCF448 /* ShipGame.entitlements */,
 				822B2E4E2BA920EF00CCF448 /* Preview Content */,
-				82F305C92BB461CC00F633FA /* WebSocketManager.swift */,
+				8207C18C2C0F8E1B00449FFB /* WebSocketLayer */,
 				8238E70C2BD5825A00C85144 /* LandingView.swift */,
 			);
 			path = ShipGame;
@@ -251,6 +262,7 @@
 				823C5BD12BE95AF100112962 /* CreateMessage.swift in Sources */,
 				8207C1892C0E1DEF00449FFB /* Ship.swift in Sources */,
 				82EFD9A92C0D08AA00EAAF86 /* ReadyMessage.swift in Sources */,
+				8207C18E2C0F8E4000449FFB /* WebSocketService.swift in Sources */,
 				82EFD9AB2C0D09A400EAAF86 /* GameInfo.swift in Sources */,
 				8207C1872C0E1DB500449FFB /* Coordinate.swift in Sources */,
 				822B2E482BA920ED00CCF448 /* ShipGameApp.swift in Sources */,
