@@ -10,13 +10,14 @@ import Combine
 
 struct LandingView: View {
     @StateObject private var gameViewModel = GameViewModel()
-    @State private var shouldShowGrid: Bool = false
     @State private var shouldShowRoomIdAlert: Bool = false
     @State private var gameId: String = String()
+    @State private var gameState: GameState = .idle
     
     var body: some View {
         ZStack {
-            if !shouldShowGrid {
+            switch gameViewModel.state {
+            case .idle:
                 VStack {
                     Button {
                         gameViewModel.createGame()
@@ -29,9 +30,10 @@ struct LandingView: View {
                         Text("Join")
                     }
                 }
-            } else {
+            case .created(_), .playerJoined(_):
                 GameView()
                     .environmentObject(gameViewModel)
+            default: EmptyView()
             }
         }
         .alert("Enter game Id", isPresented: $shouldShowRoomIdAlert) {
@@ -41,10 +43,9 @@ struct LandingView: View {
                 gameViewModel.joinGame(to: gameId)
             }
         }
-        .onReceive(gameViewModel.$message) { message in
-            guard message != nil else { return }
-            self.shouldShowGrid = true
+        .onReceive(gameViewModel.$state) { gameState in
+            self.gameState = gameState
         }
-        .animation(.default, value: shouldShowGrid)
+        .animation(.default, value: gameState)
     }
 }

@@ -11,9 +11,9 @@ struct JoinMessage: Codable {
     let gameId: String
     let playerId: String?
     
-    private enum CodingKeys: String, CodingKey {
-        case gameId = "game_uuid"
-        case playerId = "player_uuid"
+    enum CodingKeys: String, CodingKey {
+        case gameId = "gameUuid"
+        case playerId = "playerUuid"
     }
 }
 

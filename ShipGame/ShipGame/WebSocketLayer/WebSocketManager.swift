@@ -101,10 +101,11 @@ extension WebSocketManager: WebSocketService {
                                 )
                             )
                         case .join:
-                            guard let joinMessage = try? decoder.decode(
+                            let joinMessage = try decoder.decode(
                                 Message<JoinMessage>.self,
                                 from: data
-                            ), let payload = joinMessage.payload else { break }
+                            )
+                            guard let payload = joinMessage.payload else { break }
                             resultPipeline.send(
                                 .join(
                                     JoinMessage(
