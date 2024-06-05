@@ -30,7 +30,8 @@ class GameViewModel: ObservableObject {
                     case .create(let message):
                         self.gameInfo = message
                     case .join(let message):
-                        self.gameInfo?.player = Player(id: message.playerUuid, isHost: false)
+                        let joinedPlayer = Player(id: message.playerId!, isHost: false)
+                        self.gameInfo?.player = joinedPlayer
                     default: break
                     }
                     self.message = message

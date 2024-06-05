@@ -7,10 +7,13 @@
 
 import Foundation
 
-struct ReqJoinMessage: Codable {
-    let gameUuid: String
+struct JoinMessage: Codable {
+    let gameId: String
+    let playerId: String?
+    
+    private enum CodingKeys: String, CodingKey {
+        case gameId = "game_uuid"
+        case playerId = "player_uuid"
+    }
 }
 
-struct RespJoinMessage: Codable {
-    let playerUuid: String
-}

@@ -38,7 +38,10 @@ class WebSocketManager: ObservableObject {
     }
     
     func join(gameId: String) {
-        let message = Message<ReqJoinMessage>(code: .join, payload: ReqJoinMessage(gameUuid: gameId))
+        let message = Message<JoinMessage>(
+            code: .join,
+            payload: JoinMessage(gameId: gameId, playerId: nil)
+        )
         send(message)
     }
    
@@ -91,17 +94,23 @@ extension WebSocketManager: WebSocketService {
                             ), let payload = createMessage.payload else { break }
                             resultPipeline.send(
                                 .create(
-                                    GameInfo(gameId: payload.gameUuid, playerId: payload.hostUuid)
+                                    GameInfo(
+                                        gameId: payload.gameUuid,
+                                        playerId: payload.hostUuid
+                                    )
                                 )
                             )
                         case .join:
                             guard let joinMessage = try? decoder.decode(
-                                Message<RespJoinMessage>.self,
+                                Message<JoinMessage>.self,
                                 from: data
                             ), let payload = joinMessage.payload else { break }
                             resultPipeline.send(
                                 .join(
-                                    RespJoinMessage(playerUuid: payload.playerUuid)
+                                    JoinMessage(
+                                        gameId: payload.gameId,
+                                        playerId: payload.playerId
+                                    )
                                 )
                             )
                         case .select:

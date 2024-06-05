@@ -9,14 +9,14 @@ import Foundation
 
 enum RespMessageType {
     case create(GameInfo)
-    case join(RespJoinMessage)
+    case join(JoinMessage)
     case select
     case start
 }
 
 enum ReqMessageType {
     case create
-    case join(ReqJoinMessage)
+    case join(JoinMessage)
     case ready(ReadyMessage)
     case start
 }
