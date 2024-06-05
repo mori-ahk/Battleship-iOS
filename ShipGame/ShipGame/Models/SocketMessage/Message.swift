@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Message<T: Codable>: Codable {
+struct Message<T: Codable>: WebSocketMessage {
     var code: Code
     var payload: T?
     var error: MessageError?

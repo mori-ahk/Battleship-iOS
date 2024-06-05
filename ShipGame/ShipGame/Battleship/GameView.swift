@@ -57,7 +57,7 @@ struct GameView: View {
                     }
                     
                     MessageView(
-                        message: gameViewModel.message,
+                        gameState: gameViewModel.state,
                         isReady: gameViewModel.isPlayerReady()
                     ) {
                         gameViewModel.ready()
@@ -69,10 +69,9 @@ struct GameView: View {
         .animation(.default, value: focusedCoordinate)
         .animation(.default, value: currentlySelectedCoordinates)
         .animation(.default, value: shouldStartGame)
-        .onReceive(gameViewModel.$message) { output in
-            guard let output else { return }
-            switch output {
-            case .start:
+        .onReceive(gameViewModel.$state) { gameState in
+            switch gameState {
+            case .ready:
                 self.shouldStartGame = true
             default: break
             }

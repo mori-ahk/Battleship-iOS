@@ -13,7 +13,7 @@ class GameViewModel: ObservableObject {
     private let webSocket = WebSocketManager()
     @Published var gameGrid = GameGrid()
     @Published var gameInfo: GameInfo?
-    @Published var message: MessageType?
+    @Published var state: GameState = .idle
     
     init() {
         webSocket.connect()
@@ -27,13 +27,17 @@ class GameViewModel: ObservableObject {
                 receiveCompletion: { _ in },
                 receiveValue: { message in
                     switch message {
-                    case .create(let gameId, let hostPlayerId):
-                        self.gameInfo = GameInfo(gameId: gameId, playerId: hostPlayerId, isHost: true)
-                    case .join(let joinPlayerId):
-                        self.gameInfo?.player = Player(id: joinPlayerId, isHost: false)
+                    case .create(let message):
+                        self.gameInfo = message
+                        self.state = .created(message.game)
+                    case .join(let message):
+                        let joinedPlayer = Player(id: message.playerId!, isHost: false)
+                        self.gameInfo?.player = joinedPlayer
+                        self.state = .playerJoined(joinedPlayer)
+                    case .select:
+                        self.state = .select
                     default: break
                     }
-                    self.message = message
                 }
             )
             .store(in: &cancellables)

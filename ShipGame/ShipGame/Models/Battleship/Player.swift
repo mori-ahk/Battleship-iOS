@@ -12,8 +12,8 @@ struct Player {
     let isHost: Bool
     var isTurn: Bool = false
     var isReady: Bool = false
-    
-    mutating func readyUp() {
-        isReady = true
-    }
+}
+
+extension Player {
+    mutating func readyUp() { isReady = true }
 }
