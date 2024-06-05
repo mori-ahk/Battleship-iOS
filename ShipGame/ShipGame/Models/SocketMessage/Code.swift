@@ -16,11 +16,15 @@ enum Code: Int, Codable {
     case attack
     case end
     case invalid
+   
+    enum CodingKeys: String, CodingKey {
+        case code
+    }
     
-    init?(packet: Packet?) {
-        if let packet, let code = Code(rawValue: packet.code) {
-            self = code
-        } else { return nil }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let code = try container.decode(Int.self, forKey: .code)
+        self = Code(rawValue: code)!
     }
 }
 

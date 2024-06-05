@@ -33,7 +33,7 @@ class WebSocketManager: ObservableObject {
     }
     
     func create() {
-        let message = Message<Packet>(code: .create)
+        let message = Message<Code>(code: .create)
         send(message)
     }
     
@@ -84,14 +84,14 @@ extension WebSocketManager: WebSocketService {
                     print("receiving text: \(text)")
                     guard let data = text.data(using: .utf8) else { break }
                     do {
-                        let packet = try decoder.decode(Packet.self, from: data)
-                        guard let code = Code(packet: packet) else { break }
+                        let code = try decoder.decode(Code.self, from: data)
                         switch code {
                         case .create:
-                            guard let createMessage = try? decoder.decode(
+                            let createMessage = try decoder.decode(
                                 Message<CreateMessage>.self,
                                 from: data
-                            ), let payload = createMessage.payload else { break }
+                            )
+                            guard let payload = createMessage.payload else { break }
                             resultPipeline.send(
                                 .create(
                                     GameInfo(
