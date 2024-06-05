@@ -30,10 +30,9 @@ struct LandingView: View {
                         Text("Join")
                     }
                 }
-            case .created(_), .playerJoined(_):
+            default:
                 GameView()
                     .environmentObject(gameViewModel)
-            default: EmptyView()
             }
         }
         .alert("Enter game Id", isPresented: $shouldShowRoomIdAlert) {

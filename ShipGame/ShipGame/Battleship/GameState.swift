@@ -11,6 +11,7 @@ enum GameState {
     case idle
     case created(Game)
     case playerJoined(Player)
+    case select
     case ready
 }
 
@@ -20,7 +21,8 @@ extension GameState: Identifiable {
         case .idle: 0
         case .created(_): 1
         case .playerJoined(_): 2
-        case .ready: 3
+        case .select: 3
+        case .ready: 4
         }
     }
 }

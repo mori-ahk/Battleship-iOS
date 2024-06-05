@@ -18,7 +18,7 @@ struct MessageView: View {
                 Text("Game Id: \(game.id)")
             case .playerJoined(_):
                 EmptyView()
-            case .ready:
+            case .select:
                 VStack {
                     Text("Place your ships, and press ready when you're done")
                     Button {

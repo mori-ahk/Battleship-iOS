@@ -34,6 +34,8 @@ class GameViewModel: ObservableObject {
                         let joinedPlayer = Player(id: message.playerId!, isHost: false)
                         self.gameInfo?.player = joinedPlayer
                         self.state = .playerJoined(joinedPlayer)
+                    case .select:
+                        self.state = .select
                     default: break
                     }
                 }
