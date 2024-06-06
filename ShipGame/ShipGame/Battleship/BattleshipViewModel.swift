@@ -36,6 +36,9 @@ class BattleshipViewModel: ObservableObject {
                         self.state = .playerJoined(joinedPlayer)
                     case .select:
                         self.state = .select
+                    case .ready:
+                        self.gameInfo?.player?.isReady = true
+                        self.state = .ready
                     default: break
                     }
                 }
@@ -68,6 +71,7 @@ extension BattleshipViewModel: BattleshipInterface {
     }
     
     func join(game: Game) {
+        gameInfo = GameInfo(gameId: game.id)
         let payload = JoinMessage(gameId: game.id, playerId: nil)
         let message = Message<JoinMessage>(code: .join, payload: payload)
         webSocket.send(message)

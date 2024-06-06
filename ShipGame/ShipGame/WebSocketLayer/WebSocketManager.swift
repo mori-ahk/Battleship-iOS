@@ -59,6 +59,8 @@ class WebSocketManager: ObservableObject {
                 try processJoinMessage(data)
             case .select:
                 responsePipeline.send(.select)
+            case .ready:
+                responsePipeline.send(.ready)
             case .start:
                 responsePipeline.send(.start)
             default:

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MessageView: View {
     var gameState: GameState
-    var isReady: Bool
     var onReady: (() -> Void)? = nil
     var body: some View {
         VStack {
@@ -27,7 +26,6 @@ struct MessageView: View {
                         Text("Ready")
                     }
                     .buttonStyle(.borderedProminent)
-                    .disabled(isReady)
                 }
             default: EmptyView()
             }

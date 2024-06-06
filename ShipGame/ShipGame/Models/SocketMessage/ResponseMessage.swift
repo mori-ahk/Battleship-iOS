@@ -11,5 +11,6 @@ enum ResponseMessage {
     case create(GameInfo)
     case join(JoinMessage)
     case select
+    case ready
     case start
 }
