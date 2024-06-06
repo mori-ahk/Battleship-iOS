@@ -52,46 +52,70 @@ extension WebSocketManager: WebSocketService {
     func receive() {
         webSocketTask?.receive { [weak self] result in
             guard let self = self else { return }
+            
             switch result {
             case .failure(let error):
                 print(error.localizedDescription)
+                
             case .success(let message):
-                switch message {
-                case .string(let text):
-                    print("receiving text: \(text)")
-                    guard let data = text.data(using: .utf8) else { break }
-                    do {
-                        let code = try decoder.decode(Code.self, from: data)
-                        switch code {
-                        case .create:
-                            let createMessage = try decoder.decode(
-                                Message<CreateMessage>.self,
-                                from: data
-                            )
-                            guard let payload = createMessage.payload,
-                                  let gameInfo = GameInfo(payload) else { break }
-                            responsePipeline.send(.create(gameInfo))
-                        case .join:
-                            let message = try decoder.decode(
-                                Message<JoinMessage>.self,
-                                from: data
-                            )
-                            guard let payload = message.payload else { break }
-                            responsePipeline.send(.join(payload))
-                        case .select:
-                            responsePipeline.send(.select)
-                        case .start:
-                            responsePipeline.send(.start)
-                        default: break
-                        }
-                    } catch {
-                        print(error)
-                    }
-                default:
-                    break
-                }
-                receive()
+                self.handleMessage(message)
+                self.receive()
             }
         }
     }
+    
+    private func handleMessage(_ message: URLSessionWebSocketTask.Message) {
+        switch message {
+        case .string(let text):
+            print("receiving text: \(text)")
+            processTextMessage(text)
+            
+        default:
+            break
+        }
+    }
+    
+    private func processTextMessage(_ text: String) {
+        guard let data = text.data(using: .utf8) else { return }
+        
+        do {
+            let code = try decoder.decode(Code.self, from: data)
+            handleCode(code, data: data)
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func handleCode(_ code: Code, data: Data) {
+        do {
+            switch code {
+            case .create:
+                try processCreateMessage(data)
+            case .join:
+                try processJoinMessage(data)
+            case .select:
+                responsePipeline.send(.select)
+            case .start:
+                responsePipeline.send(.start)
+            default:
+                break
+            }
+            
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func processCreateMessage(_ data: Data) throws {
+        let createMessage = try decoder.decode(Message<CreateMessage>.self, from: data)
+        guard let payload = createMessage.payload, let gameInfo = GameInfo(payload) else { return }
+        responsePipeline.send(.create(gameInfo))
+    }
+    
+    private func processJoinMessage(_ data: Data) throws {
+        let joinMessage = try decoder.decode(Message<JoinMessage>.self, from: data)
+        guard let payload = joinMessage.payload else { return }
+        responsePipeline.send(.join(payload))
+    }
+
 }
