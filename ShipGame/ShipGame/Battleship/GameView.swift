@@ -13,7 +13,7 @@ enum GeneralDirection {
 }
 
 struct GameView: View {
-    @EnvironmentObject private var gameViewModel: GameViewModel
+    @EnvironmentObject private var gameViewModel: BattleshipViewModel
     @State private var currentlySelectedCoordinates: [Coordinate] = []
     @State private var focusedCoordinate: Coordinate?
     @State private var selectionDirection: GeneralDirection?

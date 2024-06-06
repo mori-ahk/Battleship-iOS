@@ -11,7 +11,7 @@ fileprivate let MAX_SELECTION_COUNT: Int = 4
 fileprivate let MAX_SHIPS_COUNT: Int = 3
 
 struct BattleshipDefendGridView: View {
-    @EnvironmentObject private var gameViewModel: GameViewModel
+    @EnvironmentObject private var gameViewModel: BattleshipViewModel
     @Binding var currentlySelectedCoordinates: [Coordinate]
     @Binding var focusedCoordinate: Coordinate?
     @Binding var selectionDirection: GeneralDirection?

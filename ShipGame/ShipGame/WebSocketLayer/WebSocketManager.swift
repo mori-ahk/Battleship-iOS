@@ -10,7 +10,7 @@ import Combine
 
 class WebSocketManager: ObservableObject {
     private var webSocketTask: URLSessionWebSocketTask?
-    var resultPipeline = PassthroughSubject<RespMessageType?, Never>()
+    var responsePipeline = PassthroughSubject<ResponseMessage?, Never>()
     lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -22,7 +22,14 @@ class WebSocketManager: ObservableObject {
         encoder.keyEncodingStrategy = .convertToSnakeCase
         return encoder
     }()
-    
+   
+    private func jsonString<T: Codable>(of message: T) -> String? {
+        guard let messageData = try? encoder.encode(message) else { return nil }
+        return String(data: messageData, encoding: .utf8)
+    }
+}
+
+extension WebSocketManager: WebSocketService {
     func connect() {
         guard let url = URL(string: "ws://localhost:8080/battleship") else { return }
         var request = URLRequest(url: url)
@@ -32,36 +39,6 @@ class WebSocketManager: ObservableObject {
         receive()
     }
     
-    func create() {
-        let message = Message<Code>(code: .create)
-        send(message)
-    }
-    
-    func join(gameId: String) {
-        let message = Message<JoinMessage>(
-            code: .join,
-            payload: JoinMessage(gameId: gameId, playerId: nil)
-        )
-        send(message)
-    }
-   
-    func ready(_ message: ReadyMessage) {
-        let message = Message<ReadyMessage>(code: .ready, payload: message)
-        send(message)
-    }
-   
-    func attack(_ message: ReqAttackMessage) {
-        let message = Message<ReqAttackMessage>(code: .attack, payload: message)
-        send(message)
-    }
-    
-    private func jsonString<T: Codable>(of message: T) -> String? {
-        guard let messageData = try? encoder.encode(message) else { return nil }
-        return String(data: messageData, encoding: .utf8)
-    }
-}
-
-extension WebSocketManager: WebSocketService {
     func send(_ message: WebSocketMessage) {
         print("sending: \(message)")
         guard let messageString = jsonString(of: message) else { return }
@@ -91,33 +68,20 @@ extension WebSocketManager: WebSocketService {
                                 Message<CreateMessage>.self,
                                 from: data
                             )
-                            guard let payload = createMessage.payload else { break }
-                            resultPipeline.send(
-                                .create(
-                                    GameInfo(
-                                        gameId: payload.gameUuid,
-                                        playerId: payload.hostUuid
-                                    )
-                                )
-                            )
+                            guard let payload = createMessage.payload,
+                                  let gameInfo = GameInfo(payload) else { break }
+                            responsePipeline.send(.create(gameInfo))
                         case .join:
-                            let joinMessage = try decoder.decode(
+                            let message = try decoder.decode(
                                 Message<JoinMessage>.self,
                                 from: data
                             )
-                            guard let payload = joinMessage.payload else { break }
-                            resultPipeline.send(
-                                .join(
-                                    JoinMessage(
-                                        gameId: payload.gameId,
-                                        playerId: payload.playerId
-                                    )
-                                )
-                            )
+                            guard let payload = message.payload else { break }
+                            responsePipeline.send(.join(payload))
                         case .select:
-                            resultPipeline.send(.select)
+                            responsePipeline.send(.select)
                         case .start:
-                            resultPipeline.send(.start)
+                            responsePipeline.send(.start)
                         default: break
                         }
                     } catch {
