@@ -27,42 +27,6 @@ class WebSocketManager: ObservableObject {
         guard let messageData = try? encoder.encode(message) else { return nil }
         return String(data: messageData, encoding: .utf8)
     }
-}
-
-extension WebSocketManager: WebSocketService {
-    func connect() {
-        guard let url = URL(string: "ws://localhost:8080/battleship") else { return }
-        var request = URLRequest(url: url)
-        request.addValue("ws://", forHTTPHeaderField: "Origin")
-        webSocketTask = URLSession.shared.webSocketTask(with: request)
-        webSocketTask?.resume()
-        receive()
-    }
-    
-    func send(_ message: WebSocketMessage) {
-        print("sending: \(message)")
-        guard let messageString = jsonString(of: message) else { return }
-        webSocketTask?.send(.string(messageString)) { error in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func receive() {
-        webSocketTask?.receive { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .failure(let error):
-                print(error.localizedDescription)
-                
-            case .success(let message):
-                self.handleMessage(message)
-                self.receive()
-            }
-        }
-    }
     
     private func handleMessage(_ message: URLSessionWebSocketTask.Message) {
         switch message {
@@ -117,5 +81,40 @@ extension WebSocketManager: WebSocketService {
         guard let payload = joinMessage.payload else { return }
         responsePipeline.send(.join(payload))
     }
+}
 
+extension WebSocketManager: WebSocketService {
+    func connect() {
+        guard let url = URL(string: "ws://localhost:8080/battleship") else { return }
+        var request = URLRequest(url: url)
+        request.addValue("ws://", forHTTPHeaderField: "Origin")
+        webSocketTask = URLSession.shared.webSocketTask(with: request)
+        webSocketTask?.resume()
+        receive()
+    }
+    
+    func send(_ message: WebSocketMessage) {
+        print("sending: \(message)")
+        guard let messageString = jsonString(of: message) else { return }
+        webSocketTask?.send(.string(messageString)) { error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func receive() {
+        webSocketTask?.receive { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+                
+            case .success(let message):
+                self.handleMessage(message)
+                self.receive()
+            }
+        }
+    }
 }
