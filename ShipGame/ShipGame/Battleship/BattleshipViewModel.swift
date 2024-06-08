@@ -39,6 +39,8 @@ class BattleshipViewModel: ObservableObject {
                     case .ready:
                         self.gameInfo?.player?.isReady = true
                         self.state = .ready
+                    case .start:
+                        self.state = .started
                     default: break
                     }
                 }
