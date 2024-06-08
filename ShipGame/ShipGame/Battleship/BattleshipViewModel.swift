@@ -1,5 +1,5 @@
 //
-//  LandingViewModel.swift
+//  BattleshipViewModel.swift
 //  ShipGame
 //
 //  Created by Mori Ahmadi on 2024-04-21.
@@ -8,9 +8,9 @@
 import Foundation
 import Combine
 
-class GameViewModel: ObservableObject {
+class BattleshipViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
-    private let webSocket = WebSocketManager()
+    private let webSocket: any WebSocketService = WebSocketManager()
     @Published var gameGrid = GameGrid()
     @Published var gameInfo: GameInfo?
     @Published var state: GameState = .idle
@@ -21,7 +21,7 @@ class GameViewModel: ObservableObject {
     }
     
     func listen() {
-        webSocket.resultPipeline
+        webSocket.responsePipeline
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { _ in },
@@ -36,33 +36,16 @@ class GameViewModel: ObservableObject {
                         self.state = .playerJoined(joinedPlayer)
                     case .select:
                         self.state = .select
+                    case .ready:
+                        self.gameInfo?.player?.isReady = true
+                        self.state = .ready
                     default: break
                     }
                 }
             )
             .store(in: &cancellables)
     }
-    
-    func createGame() {
-        webSocket.create()
-    }
-    
-    func joinGame(to gameId: String) {
-        gameInfo = GameInfo(gameId: gameId)
-        webSocket.join(gameId: gameId)
-    }
-    
-    func ready() {
-        guard let gameInfo else { return }
-        let readyMessage = ReadyMessage(
-            gameUuid: gameInfo.game.id,
-            playerUuid: gameInfo.player!.id,
-            defenceGrid: defenceGrid()
-        )
-        readyUp()
-        webSocket.ready(readyMessage)
-    }
-    
+   
     func isPlayerReady() -> Bool {
         guard let player = gameInfo?.player else { return false }
         return player.isReady
@@ -79,16 +62,42 @@ class GameViewModel: ObservableObject {
             }
         }
     }
+}
+
+extension BattleshipViewModel: BattleshipInterface {
+    func create() {
+        let message = Message<Code>(code: .create)
+        webSocket.send(message)
+    }
+    
+    func join(game: Game) {
+        gameInfo = GameInfo(gameId: game.id)
+        let payload = JoinMessage(gameId: game.id, playerId: nil)
+        let message = Message<JoinMessage>(code: .join, payload: payload)
+        webSocket.send(message)
+    }
+   
+    func ready() {
+        guard let gameInfo else { return }
+        let payload = ReadyMessage(
+            gameUuid: gameInfo.game.id,
+            playerUuid: gameInfo.player!.id,
+            defenceGrid: defenceGrid()
+        )
+        let message = Message<ReadyMessage>(code: .ready, payload: payload)
+        webSocket.send(message)
+    }
     
     func attack(coordinate: Coordinate) {
         guard let gameInfo else { return }
-        let attackMessage = ReqAttackMessage(
+        let payload = ReqAttackMessage(
             gameUuid: gameInfo.game.id,
             playerUuid: gameInfo.player!.id,
             x: coordinate.x,
             y: coordinate.y
         )
         
-        webSocket.attack(attackMessage)
+        let message = Message<ReqAttackMessage>(code: .attack, payload: payload)
+        webSocket.send(message)
     }
 }

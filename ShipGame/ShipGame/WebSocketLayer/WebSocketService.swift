@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import Combine
 
 protocol WebSocketService {
+    func connect()
     func send(_ message: WebSocketMessage)
     func receive()
+    var responsePipeline: PassthroughSubject<ResponseMessage?, Never> { get set }
 }
 
 protocol WebSocketMessage: Codable { }

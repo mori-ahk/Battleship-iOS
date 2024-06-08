@@ -13,6 +13,7 @@ enum GameState {
     case playerJoined(Player)
     case select
     case ready
+    case started
 }
 
 extension GameState: Identifiable {
@@ -23,6 +24,7 @@ extension GameState: Identifiable {
         case .playerJoined(_): 2
         case .select: 3
         case .ready: 4
+        case .started: 5
         }
     }
 }

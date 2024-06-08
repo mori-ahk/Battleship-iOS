@@ -13,7 +13,7 @@ enum GeneralDirection {
 }
 
 struct GameView: View {
-    @EnvironmentObject private var gameViewModel: GameViewModel
+    @EnvironmentObject private var gameViewModel: BattleshipViewModel
     @State private var currentlySelectedCoordinates: [Coordinate] = []
     @State private var focusedCoordinate: Coordinate?
     @State private var selectionDirection: GeneralDirection?
@@ -56,10 +56,7 @@ struct GameView: View {
                         resetSelection()
                     }
                     
-                    MessageView(
-                        gameState: gameViewModel.state,
-                        isReady: gameViewModel.isPlayerReady()
-                    ) {
+                    MessageView(gameState: gameViewModel.state) {
                         gameViewModel.ready()
                     }
                 }
@@ -71,7 +68,7 @@ struct GameView: View {
         .animation(.default, value: shouldStartGame)
         .onReceive(gameViewModel.$state) { gameState in
             switch gameState {
-            case .ready:
+            case .started:
                 self.shouldStartGame = true
             default: break
             }

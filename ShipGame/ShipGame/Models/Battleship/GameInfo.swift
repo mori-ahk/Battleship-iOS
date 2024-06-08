@@ -17,4 +17,10 @@ struct GameInfo {
             self.player = Player(id: playerId, isHost: false)
         }
     }
+    
+    init?(_ createMessage: CreateMessage?) {
+        guard let createMessage else { return nil }
+        self.game = Game(id: createMessage.gameUuid)
+        self.player = Player(id: createMessage.hostUuid, isHost: false)
+    }
 }
