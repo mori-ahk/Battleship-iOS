@@ -14,7 +14,7 @@ struct BattleshipDefenceView: View {
     @State private var selectionDirection: GeneralDirection?
 
     var body: some View {
-        VStack {
+        VStack(spacing: 16) {
             BattleshipDefendGridView(
                 currentlySelectedCoordinates: $currentlySelectedCoordinates,
                 focusedCoordinate: $focusedCoordinate,

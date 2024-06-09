@@ -16,10 +16,17 @@ class BattleshipViewModel: ObservableObject {
     @Published var attackGrid = GameGrid()
     @Published var gameInfo: GameInfo?
     @Published var state: GameState = .idle
+    @Published var shouldEnableReady: Bool = false
     
     init() {
         webSocket.connect()
         listen()
+        $defenceGrid
+            .receive(on: DispatchQueue.main)
+            .sink { gameGrid in
+                self.shouldEnableReady = gameGrid.didPlaceAllShips()
+            }
+            .store(in: &cancellables)
     }
     
     func listen() {
@@ -60,11 +67,6 @@ class BattleshipViewModel: ObservableObject {
             .store(in: &cancellables)
     }
    
-    func isPlayerReady() -> Bool {
-        guard let player = gameInfo?.player else { return false }
-        return player.isReady
-    }
-    
     private func readyUp() {
         gameInfo?.player?.readyUp()
     }
