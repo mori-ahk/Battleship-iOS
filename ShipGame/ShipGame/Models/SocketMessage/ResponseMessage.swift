@@ -13,4 +13,5 @@ enum ResponseMessage {
     case select
     case ready
     case start
+    case attack(RespAttackMessage)
 }

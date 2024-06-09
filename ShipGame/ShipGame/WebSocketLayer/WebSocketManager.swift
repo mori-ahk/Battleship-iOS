@@ -33,7 +33,6 @@ class WebSocketManager: ObservableObject {
         case .string(let text):
             print("receiving text: \(text)")
             processTextMessage(text)
-            
         default:
             break
         }
@@ -63,6 +62,8 @@ class WebSocketManager: ObservableObject {
                 responsePipeline.send(.ready)
             case .start:
                 responsePipeline.send(.start)
+            case .attack:
+                try processAttackMessage(data)
             default:
                 break
             }
@@ -82,6 +83,12 @@ class WebSocketManager: ObservableObject {
         let joinMessage = try decoder.decode(Message<JoinMessage>.self, from: data)
         guard let payload = joinMessage.payload else { return }
         responsePipeline.send(.join(payload))
+    }
+    
+    private func processAttackMessage(_ data: Data) throws {
+        let attackMessage = try decoder.decode(Message<RespAttackMessage>.self, from: data)
+        guard let payload = attackMessage.payload else { return }
+        responsePipeline.send(.attack(payload))
     }
 }
 

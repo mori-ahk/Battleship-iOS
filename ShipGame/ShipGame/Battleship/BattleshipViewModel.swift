@@ -41,6 +41,12 @@ class BattleshipViewModel: ObservableObject {
                         self.state = .ready
                     case .start:
                         self.state = .started
+                    case .attack(let message):
+                        let attackResult = AttackResult(
+                            isTurn: message.isTurn,
+                            state: message.positionState
+                        )
+                        self.state = .attacked(attackResult)
                     default: break
                     }
                 }
