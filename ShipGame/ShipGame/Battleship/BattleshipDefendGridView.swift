@@ -11,22 +11,22 @@ fileprivate let MAX_SELECTION_COUNT: Int = 4
 fileprivate let MAX_SHIPS_COUNT: Int = 3
 
 struct BattleshipDefendGridView: View {
-    @EnvironmentObject private var gameViewModel: BattleshipViewModel
+    @EnvironmentObject private var viewModel: BattleshipViewModel
     @Binding var currentlySelectedCoordinates: [Coordinate]
     @Binding var focusedCoordinate: Coordinate?
     @Binding var selectionDirection: GeneralDirection?
     
     var body: some View {
         Grid {
-            ForEach(0 ..< gameViewModel.gameGrid.size, id: \.self) { row in
+            ForEach(0 ..< viewModel.defenceGrid.size, id: \.self) { row in
                 GridRow {
-                    ForEach(0 ..< gameViewModel.gameGrid.size, id: \.self) { column in
+                    ForEach(0 ..< viewModel.defenceGrid.size, id: \.self) { column in
                         let size: CGFloat = isFocusedCoordinate(row, column) ? 55 : 50
                         let coordinate: Coordinate = Coordinate(x: row, y: column)
                         Button {
                             guard currentlySelectedCoordinates.count != MAX_SELECTION_COUNT else { return }
                             guard !isCurrentlySelected(coordinate) else { return }
-                            guard !gameViewModel.gameGrid.isOccupied(coordinate) else { return }
+                            guard !viewModel.defenceGrid.isOccupied(coordinate) else { return }
                             if currentlySelectedCoordinates.isEmpty {
                                 focusedCoordinate = coordinate
                                 if let focusedCoordinate {
@@ -44,7 +44,7 @@ struct BattleshipDefendGridView: View {
                                 .fill(isCurrentlySelected(coordinate) ? .red : .blue)
                                 .frame(width: size, height: size)
                                 .overlay {
-                                    if gameViewModel.gameGrid.isOccupied(coordinate) {
+                                    if viewModel.defenceGrid.isOccupied(coordinate) {
                                         Text("S")
                                             .foregroundStyle(.white)
                                     }

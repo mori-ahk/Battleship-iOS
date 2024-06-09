@@ -11,7 +11,7 @@ import Combine
 class BattleshipViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let webSocket: any WebSocketService = WebSocketManager()
-    @Published var gameGrid = GameGrid()
+    @Published var defenceGrid = GameGrid()
     @Published var gameInfo: GameInfo?
     @Published var state: GameState = .idle
     
@@ -63,19 +63,12 @@ class BattleshipViewModel: ObservableObject {
         gameInfo?.player?.readyUp()
     }
     
-    private func defenceGrid() -> [[Int]] {
-        for ship in gameGrid.ships {
-            for coordinate in ship.coordinates {
-                gameGrid.coordinates[coordinate.x][coordinate.y].state = .occupied(ship.kind)
-            }
-        }
-        
-        let grid = gameGrid.coordinates.map {
+    private func defenceCoordinates() -> [[Int]] {
+        defenceGrid.coordinates.map {
             coordinate in coordinate.map {
                 $0.state.value
             }
         }
-        return grid
     }
 }
 
@@ -97,7 +90,7 @@ extension BattleshipViewModel: BattleshipInterface {
         let payload = ReadyMessage(
             gameUuid: gameInfo.game.id,
             playerUuid: gameInfo.player!.id,
-            defenceGrid: defenceGrid()
+            defenceGrid: defenceCoordinates()
         )
         let message = Message<ReadyMessage>(code: .ready, payload: payload)
         webSocket.send(message)
