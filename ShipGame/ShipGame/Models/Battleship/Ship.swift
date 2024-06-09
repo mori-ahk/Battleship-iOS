@@ -9,11 +9,12 @@ import Foundation
 
 struct Ship: Equatable {
     var coordinates: [Coordinate]
-    
-    init(coordinates: [Coordinate]) {
+    var kind: Ship.Kind
+    init(coordinates: [Coordinate], kind: Ship.Kind) {
         self.coordinates = coordinates
+        self.kind = kind
         for (index, _) in self.coordinates.enumerated() {
-            self.coordinates[index].state = .occupied
+            self.coordinates[index].state = .occupied(kind)
         }
     }
     
@@ -43,14 +44,5 @@ struct Ship: Equatable {
 extension Ship {
     var isSunk: Bool {
         coordinates.allSatisfy { $0.state == .hit }
-    }
-    
-    var kind: Kind? {
-        switch coordinates.count {
-        case 4: return .battleShip
-        case 3: return .cruiser
-        case 2: return .destroyer
-        default: return nil
-        }
     }
 }
