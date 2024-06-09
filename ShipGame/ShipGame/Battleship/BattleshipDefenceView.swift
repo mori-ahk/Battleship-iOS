@@ -20,6 +20,7 @@ struct BattleshipDefenceView: View {
                 focusedCoordinate: $focusedCoordinate,
                 selectionDirection: $selectionDirection
             )
+            .frame(maxHeight: .infinity, alignment: .center)
             if viewModel.state == .select {
                 VStack {
                     boardOptionsView

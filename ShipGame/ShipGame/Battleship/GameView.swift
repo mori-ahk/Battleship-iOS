@@ -25,6 +25,7 @@ struct GameView: View {
             case .select, .ready:
                 VStack {
                     BattleshipDefenceView()
+                        .frame(maxHeight: .infinity, alignment: .center)
                     if state == .select {
                         ReadyView()
                     }
