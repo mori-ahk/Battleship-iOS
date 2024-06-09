@@ -36,7 +36,7 @@ struct GameCreatedView: View {
             .padding()
             .background {
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(.fill)
+                    .fill(.brunswickGreen.opacity(0.3))
             }
         }
         .padding()
