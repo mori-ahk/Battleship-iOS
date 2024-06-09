@@ -12,15 +12,15 @@ struct GameCreatedView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Share this game ID")
-                .font(.title)
+                .font(.title2)
                 .fontWeight(.heavy)
             Text("Your Battleship game has been created! Share the game ID below with a friend to invite them to join the battle")
-                .font(.title2)
+                .font(.title3)
                 .fontWeight(.semibold)
             
             HStack {
                 Text(game.id)
-                    .font(.title)
+                    .font(.title2)
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Button(action: {
@@ -28,6 +28,7 @@ struct GameCreatedView: View {
                 }) {
                     Image(systemName: "doc.on.doc")
                         .padding()
+                        .background(.brunswickGreen)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                 }
             }

@@ -17,6 +17,7 @@
 		8207C1982C1601A800449FFB /* BattleshipDefenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8207C1972C1601A800449FFB /* BattleshipDefenceView.swift */; };
 		8207C19A2C1602DA00449FFB /* GameCreatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8207C1992C1602DA00449FFB /* GameCreatedView.swift */; };
 		8207C19E2C160DAD00449FFB /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8207C19D2C160DAD00449FFB /* View+Extensions.swift */; };
+		8207C1A22C1613E000449FFB /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8207C1A12C1613E000449FFB /* Colors.xcassets */; };
 		822B2E482BA920ED00CCF448 /* ShipGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822B2E472BA920ED00CCF448 /* ShipGameApp.swift */; };
 		822B2E4A2BA920ED00CCF448 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822B2E492BA920ED00CCF448 /* GameView.swift */; };
 		822B2E4C2BA920EF00CCF448 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 822B2E4B2BA920EF00CCF448 /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		8207C1972C1601A800449FFB /* BattleshipDefenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipDefenceView.swift; sourceTree = "<group>"; };
 		8207C1992C1602DA00449FFB /* GameCreatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCreatedView.swift; sourceTree = "<group>"; };
 		8207C19D2C160DAD00449FFB /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		8207C1A12C1613E000449FFB /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		822B2E442BA920ED00CCF448 /* ShipGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShipGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		822B2E472BA920ED00CCF448 /* ShipGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipGameApp.swift; sourceTree = "<group>"; };
 		822B2E492BA920ED00CCF448 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				822B2E472BA920ED00CCF448 /* ShipGameApp.swift */,
 				82EFD9A12C0A7C0700EAAF86 /* Battleship */,
 				822B2E4B2BA920EF00CCF448 /* Assets.xcassets */,
+				8207C1A12C1613E000449FFB /* Colors.xcassets */,
 				822B2E4D2BA920EF00CCF448 /* ShipGame.entitlements */,
 				822B2E4E2BA920EF00CCF448 /* Preview Content */,
 				8207C18C2C0F8E1B00449FFB /* WebSocketLayer */,
@@ -273,6 +276,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8207C1A22C1613E000449FFB /* Colors.xcassets in Resources */,
 				822B2E502BA920EF00CCF448 /* Preview Assets.xcassets in Resources */,
 				822B2E4C2BA920EF00CCF448 /* Assets.xcassets in Resources */,
 			);
