@@ -13,7 +13,7 @@ enum GeneralDirection {
 }
 
 struct GameView: View {
-    @EnvironmentObject private var gameViewModel: BattleshipViewModel
+    @EnvironmentObject private var viewModel: BattleshipViewModel
     @State private var currentlySelectedCoordinates: [Coordinate] = []
     @State private var focusedCoordinate: Coordinate?
     @State private var selectionDirection: GeneralDirection?
@@ -25,10 +25,11 @@ struct GameView: View {
             if shouldStartGame {
                 VStack {
                     BattleshipAttackGridView(selectedAttackCoordinate: $selectedAttackCoordinate)
+                        .environmentObject(viewModel)
                         .transition(.move(edge: .top))
                     Button {
                         guard let selectedAttackCoordinate else { return }
-                        gameViewModel.attack(coordinate: selectedAttackCoordinate)
+                        viewModel.attack(coordinate: selectedAttackCoordinate)
                     } label: {
                         Text("Attack")
                     }
@@ -43,21 +44,21 @@ struct GameView: View {
                 focusedCoordinate: $focusedCoordinate,
                 selectionDirection: $selectionDirection
             )
-            .environmentObject(gameViewModel)
+            .environmentObject(viewModel)
             
             if !shouldStartGame {
                 VStack {
                     boardOptionsView
                     ShipsButtonView(
-                        isDisabled: { ship in gameViewModel.gameGrid.shipAlreadyUsed(ship) }
+                        isDisabled: { ship in viewModel.defenceGrid.shipAlreadyUsed(ship) }
                     ) { ship in
                         guard currentlySelectedCoordinates.count == ship.size else { return }
-                        gameViewModel.gameGrid.placeShips(on: currentlySelectedCoordinates, kind: ship)
+                        viewModel.defenceGrid.placeShips(on: currentlySelectedCoordinates, kind: ship)
                         resetSelection()
                     }
                     
-                    MessageView(gameState: gameViewModel.state) {
-                        gameViewModel.ready()
+                    MessageView(gameState: viewModel.state) {
+                        viewModel.ready()
                     }
                 }
             }
@@ -66,7 +67,7 @@ struct GameView: View {
         .animation(.default, value: focusedCoordinate)
         .animation(.default, value: currentlySelectedCoordinates)
         .animation(.default, value: shouldStartGame)
-        .onReceive(gameViewModel.$state) { gameState in
+        .onReceive(viewModel.$state) { gameState in
             switch gameState {
             case .started:
                 self.shouldStartGame = true
@@ -83,7 +84,7 @@ struct GameView: View {
     }
     
     private func clearGrid() {
-        gameViewModel.gameGrid.clear()
+        viewModel.defenceGrid.clear()
         resetSelection()
     }
     

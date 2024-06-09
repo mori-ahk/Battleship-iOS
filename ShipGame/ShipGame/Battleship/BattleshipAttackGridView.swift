@@ -8,40 +8,50 @@
 import SwiftUI
 
 struct BattleshipAttackGridView: View {
-    @State private var attackGrid = GameGrid()
+    @EnvironmentObject private var viewModel: BattleshipViewModel
     @Binding var selectedAttackCoordinate: Coordinate?
     
     var body: some View {
         Grid {
-            ForEach(0 ..< attackGrid.size, id: \.self) { row in
+            ForEach(0 ..< viewModel.attackGrid.size, id: \.self) { row in
                 GridRow {
-                    ForEach(0 ..< attackGrid.size, id: \.self) { column in
+                    ForEach(0 ..< viewModel.attackGrid.size, id: \.self) { column in
                         let coordinate: Coordinate = Coordinate(x: row, y: column)
                         let size: CGFloat = selectedAttackCoordinate == coordinate ? 55 : 50
                         Button {
-                            if selectedAttackCoordinate == coordinate {
-                                selectedAttackCoordinate = nil
-                            } else {
-                                selectedAttackCoordinate = coordinate
-                            }
-                        } label: {
-                            RoundedRectangle(cornerRadius: 16)
-                                .fill(selectedAttackCoordinate == coordinate ? .red : .blue)
-                                .frame(width: size, height: size)
-                                .overlay {
-                                    switch attackGrid.coordinates[row][column].state  {
-                                    case .hit:
-                                        Text("H")
-                                    case .miss:
-                                        Text("M")
-                                    default: EmptyView()
-                                    }
-                                }
+                            buttonAction(coordinate)
                         }
+                        label: { buttonLabel(coordinate, size) }
                     }
                 }
             }
         }
         .animation(.default, value: selectedAttackCoordinate)
+    }
+   
+    private func buttonAction(_ coordinate: Coordinate) {
+        if selectedAttackCoordinate == coordinate {
+            selectedAttackCoordinate = nil
+        } else {
+            selectedAttackCoordinate = coordinate
+        }
+    }
+    
+    private func buttonLabel(
+        _ coordinate: Coordinate,
+        _ size: CGFloat
+    ) -> some View {
+        RoundedRectangle(cornerRadius: 16)
+            .fill(selectedAttackCoordinate == coordinate ? .red : .blue)
+            .frame(width: size, height: size)
+            .overlay {
+                switch viewModel.attackGrid.state(at: coordinate) {
+                case .hit:
+                    Text("H")
+                case .miss:
+                    Text("M")
+                default: EmptyView()
+                }
+            }
     }
 }
