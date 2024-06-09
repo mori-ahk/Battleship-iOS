@@ -49,4 +49,12 @@ extension GameGrid {
     func shipAlreadyUsed(_ kind: Ship.Kind) -> Bool {
         !ships.filter { $0.kind == kind }.isEmpty
     }
+    
+    func state(at coordinate: Coordinate) -> Coordinate.State {
+        coordinates[coordinate.x][coordinate.y].state
+    }
+    
+    mutating func setCoordinateState(at coordinate: Coordinate, to newState: Coordinate.State?) {
+        coordinates[coordinate.x][coordinate.y].state = newState ?? .empty
+    }
 }

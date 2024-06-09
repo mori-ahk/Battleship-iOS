@@ -11,7 +11,9 @@ import Combine
 class BattleshipViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let webSocket: any WebSocketService = WebSocketManager()
+    private var attackedCoordinate: Coordinate? //TODO: server should send this.
     @Published var defenceGrid = GameGrid()
+    @Published var attackGrid = GameGrid()
     @Published var gameInfo: GameInfo?
     @Published var state: GameState = .idle
     
@@ -46,6 +48,11 @@ class BattleshipViewModel: ObservableObject {
                             isTurn: message.isTurn,
                             state: message.positionState
                         )
+                        
+                        if let attackedCoordinate = self.attackedCoordinate {
+                            self.attackGrid.setCoordinateState(at: attackedCoordinate, to: attackResult.state)
+                        }
+                        
                         self.state = .attacked(attackResult)
                     default: break
                     }
@@ -98,6 +105,7 @@ extension BattleshipViewModel: BattleshipInterface {
     
     func attack(coordinate: Coordinate) {
         guard let gameInfo else { return }
+        attackedCoordinate = coordinate
         let payload = ReqAttackMessage(
             gameUuid: gameInfo.game.id,
             playerUuid: gameInfo.player!.id,

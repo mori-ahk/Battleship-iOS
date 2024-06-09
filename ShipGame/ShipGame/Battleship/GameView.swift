@@ -25,6 +25,7 @@ struct GameView: View {
             if shouldStartGame {
                 VStack {
                     BattleshipAttackGridView(selectedAttackCoordinate: $selectedAttackCoordinate)
+                        .environmentObject(viewModel)
                         .transition(.move(edge: .top))
                     Button {
                         guard let selectedAttackCoordinate else { return }
