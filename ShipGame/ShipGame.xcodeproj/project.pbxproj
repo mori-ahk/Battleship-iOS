@@ -128,6 +128,16 @@
 			path = WebSocketLayer;
 			sourceTree = "<group>";
 		};
+		8207C19B2C16033600449FFB /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8238E70E2BD5833100C85144 /* BattleshipViewModel.swift */,
+				8207C18F2C0F953800449FFB /* GameState.swift */,
+				8207C1912C124F2800449FFB /* BattleshipInterface.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		822B2E3B2BA920ED00CCF448 = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +157,7 @@
 		822B2E462BA920ED00CCF448 /* ShipGame */ = {
 			isa = PBXGroup;
 			children = (
+				8207C19B2C16033600449FFB /* ViewModels */,
 				823C5BCF2BE95AE700112962 /* Models */,
 				822B2E472BA920ED00CCF448 /* ShipGameApp.swift */,
 				82EFD9A12C0A7C0700EAAF86 /* Battleship */,
@@ -180,15 +191,12 @@
 		82EFD9A12C0A7C0700EAAF86 /* Battleship */ = {
 			isa = PBXGroup;
 			children = (
-				8238E70E2BD5833100C85144 /* BattleshipViewModel.swift */,
 				82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */,
 				82EFD9AC2C0D291900EAAF86 /* BattleshipAttackGridView.swift */,
 				822B2E492BA920ED00CCF448 /* GameView.swift */,
 				82EFD9A22C0A7C3800EAAF86 /* InstructionsView.swift */,
 				82EFD9A42C0A7C8000EAAF86 /* ShipsButtonView.swift */,
 				82EFD9A62C0BBC7B00EAAF86 /* MessageView.swift */,
-				8207C18F2C0F953800449FFB /* GameState.swift */,
-				8207C1912C124F2800449FFB /* BattleshipInterface.swift */,
 				8207C1952C1600B300449FFB /* BattleshipAttackView.swift */,
 				8207C1972C1601A800449FFB /* BattleshipDefenceView.swift */,
 				8207C1992C1602DA00449FFB /* GameCreatedView.swift */,
