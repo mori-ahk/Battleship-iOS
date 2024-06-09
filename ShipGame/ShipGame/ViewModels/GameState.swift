@@ -10,7 +10,6 @@ import Foundation
 enum GameState {
     case idle
     case created(Game)
-    case playerJoined(Player)
     case select
     case ready
     case started
@@ -22,11 +21,10 @@ extension GameState: Identifiable {
         switch self {
         case .idle: 0
         case .created(_): 1
-        case .playerJoined(_): 2
-        case .select: 3
-        case .ready: 4
-        case .started: 5
-        case .attacked(_): 6
+        case .select: 2
+        case .ready: 3
+        case .started: 4
+        case .attacked(_): 5
         }
     }
 }

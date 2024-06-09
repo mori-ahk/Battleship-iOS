@@ -20,15 +20,16 @@ struct BattleshipDefenceView: View {
                 focusedCoordinate: $focusedCoordinate,
                 selectionDirection: $selectionDirection
             )
-            .environmentObject(viewModel)
-            VStack {
-                boardOptionsView
-                ShipsButtonView(
-                    isDisabled: { ship in viewModel.defenceGrid.shipAlreadyUsed(ship) }
-                ) { ship in
-                    guard currentlySelectedCoordinates.count == ship.size else { return }
-                    viewModel.defenceGrid.placeShips(on: currentlySelectedCoordinates, kind: ship)
-                    resetSelection()
+            if viewModel.state == .select {
+                VStack {
+                    boardOptionsView
+                    ShipsButtonView(
+                        isDisabled: { ship in viewModel.defenceGrid.shipAlreadyUsed(ship) }
+                    ) { ship in
+                        guard currentlySelectedCoordinates.count == ship.size else { return }
+                        viewModel.defenceGrid.placeShips(on: currentlySelectedCoordinates, kind: ship)
+                        resetSelection()
+                    }
                 }
             }
         }

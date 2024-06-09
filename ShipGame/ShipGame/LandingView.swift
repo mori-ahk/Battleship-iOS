@@ -30,6 +30,7 @@ struct LandingView: View {
                         Text("Join")
                     }
                 }
+                .buttonStyle(.borderedProminent)
             default:
                 GameView()
                     .environmentObject(viewModel)

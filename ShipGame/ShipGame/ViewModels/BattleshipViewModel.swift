@@ -35,7 +35,6 @@ class BattleshipViewModel: ObservableObject {
                     case .join(let message):
                         let joinedPlayer = Player(id: message.playerId!, isHost: false)
                         self.gameInfo?.player = joinedPlayer
-                        self.state = .playerJoined(joinedPlayer)
                     case .select:
                         self.state = .select
                     case .ready:
