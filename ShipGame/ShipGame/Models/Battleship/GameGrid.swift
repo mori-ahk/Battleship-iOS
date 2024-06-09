@@ -26,11 +26,11 @@ struct GameGrid: Equatable {
 }
 
 extension GameGrid {
-    mutating func placeShips(on selectedCoordinates: [Coordinate]) {
+    mutating func placeShips(on selectedCoordinates: [Coordinate], kind: Ship.Kind) {
         for coordinate in selectedCoordinates {
-            coordinates[coordinate.x][coordinate.y].state = .occupied
+            coordinates[coordinate.x][coordinate.y].state = .occupied(kind)
         }
-        ships.append(Ship(coordinates: selectedCoordinates))
+        ships.append(Ship(coordinates: selectedCoordinates, kind: kind))
     }
     
     mutating func clear() {

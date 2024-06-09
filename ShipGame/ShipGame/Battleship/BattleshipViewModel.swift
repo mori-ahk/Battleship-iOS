@@ -39,6 +39,8 @@ class BattleshipViewModel: ObservableObject {
                     case .ready:
                         self.gameInfo?.player?.isReady = true
                         self.state = .ready
+                    case .start:
+                        self.state = .started
                     default: break
                     }
                 }
@@ -56,11 +58,18 @@ class BattleshipViewModel: ObservableObject {
     }
     
     private func defenceGrid() -> [[Int]] {
-        gameGrid.coordinates.map {
-            coordinate in coordinate.map {
-                $0.state.rawValue
+        for ship in gameGrid.ships {
+            for coordinate in ship.coordinates {
+                gameGrid.coordinates[coordinate.x][coordinate.y].state = .occupied(ship.kind)
             }
         }
+        
+        let grid = gameGrid.coordinates.map {
+            coordinate in coordinate.map {
+                $0.state.value
+            }
+        }
+        return grid
     }
 }
 

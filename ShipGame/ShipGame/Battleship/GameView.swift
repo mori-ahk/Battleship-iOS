@@ -52,7 +52,7 @@ struct GameView: View {
                         isDisabled: { ship in gameViewModel.gameGrid.shipAlreadyUsed(ship) }
                     ) { ship in
                         guard currentlySelectedCoordinates.count == ship.size else { return }
-                        gameViewModel.gameGrid.placeShips(on: currentlySelectedCoordinates)
+                        gameViewModel.gameGrid.placeShips(on: currentlySelectedCoordinates, kind: ship)
                         resetSelection()
                     }
                     
