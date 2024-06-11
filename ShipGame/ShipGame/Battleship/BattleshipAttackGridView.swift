@@ -50,7 +50,6 @@ struct BattleshipAttackGridView: View {
     ) -> some View {
         RoundedRectangle(cornerRadius: 16)
             .fill(coordinateBackgroundColor(at: coordinate))
-            .stroke(coordinateBorderColor(at: coordinate), lineWidth: 2)
             .frame(width: size, height: size)
             .overlay {
                 Group {
@@ -62,27 +61,25 @@ struct BattleshipAttackGridView: View {
                     default: EmptyView()
                     }
                 }
+                .fontWeight(.semibold)
+                .foregroundStyle(.white)
             }
     }
    
     private func coordinateBackgroundColor(at coordinate: Coordinate) -> Color {
         if selectedAttackCoordinate == coordinate {
-            return .brunswickGreen
+            return .prussianBlue
         } else {
             switch attackGrid.state(at: coordinate) {
             case .occupied(let ship):
                 return ship.color
             case .hit:
-                return .red.opacity(0.8)
+                return .engineRed
             case .miss:
                 return .gray
-            default: return .brunswickGreen.opacity(0.5)
+            default: return .columbiaBlue
             }
         }
-    }
-    
-    private func coordinateBorderColor(at coordinate: Coordinate) -> Color {
-        selectedAttackCoordinate == coordinate ? .mint : .mint.opacity(0.5)
     }
     
     private func size(at coordinate: Coordinate) -> CGFloat {

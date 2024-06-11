@@ -39,6 +39,10 @@ struct Ship: Equatable {
             "\(rawValue.capitalized) (\(size.description))"
         }
         
+        var sign: String {
+            "\(String(describing: rawValue.capitalized.first!))"
+        }
+        
         var color: Color {
             switch self {
             case .battleShip:
