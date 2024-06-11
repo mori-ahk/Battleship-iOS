@@ -20,7 +20,7 @@ struct BattleshipDefenceView: View {
                 attackResultTextView
             }
             
-            sunkenShipsCountTextView
+            sunkenShipsCountContainerView
             BattleshipDefendGridView(
                 currentlySelectedCoordinates: $currentlySelectedCoordinates,
                 focusedCoordinate: $focusedCoordinate,
@@ -51,47 +51,42 @@ struct BattleshipDefenceView: View {
         switch viewModel.state {
         case .attacked(let attackResult):
             if let state = attackResult.state {
-                Group {
-                    Text("Opponent attack result: ")
-                        .fontWeight(.regular)
-                    +
-                    Text(state.description)
-                        .fontWeight(.heavy)
-                        .foregroundStyle(.red)
-                }
-                .font(.headline)
+                Text("Opponent attack result: ")
+                    .font(.headline)
+                    .fontWeight(.regular)
+                +
+                Text(state.description)
+                    .font(.headline)
+                    .fontWeight(.heavy)
+                    .foregroundStyle(.red)
             } else { EmptyView() }
         default: EmptyView()
         }
     }
    
     @ViewBuilder
-    private var sunkenShipsCountTextView: some View {
+    private var sunkenShipsCountContainerView: some View {
         switch viewModel.state {
         case .attacked(let attackResult):
-            if viewModel.isPlayerHost {
-                let hostSunkenShips = attackResult.sunkenShip.host
-                Group {
-                    Text("Your sunken ships: ")
-                        .fontWeight(.regular)
-                    +
-                    Text(hostSunkenShips.description)
-                        .fontWeight(.heavy)
-                }
-                .font(.headline)
-                
-            } else {
-                let joinSunkenShips = attackResult.sunkenShip.join
-                Group {
-                    Text("Opponent sunken ships: ")
-                    +
-                    Text(joinSunkenShips.description)
-                        .fontWeight(.heavy)
-                }
-                .font(.headline)
+            let hostSunkenShips = attackResult.sunkenShip.host
+            let joinSunkenShips = attackResult.sunkenShip.join
+            VStack {
+                sunkenShipsCountTextView(prefix: "Your sunken ships: ", shipsCount: hostSunkenShips)
+                sunkenShipsCountTextView(prefix: "Opponent sunken ships: ", shipsCount: joinSunkenShips)
             }
         default: EmptyView()
         }
+    }
+    
+    @ViewBuilder
+    private func sunkenShipsCountTextView(prefix: String, shipsCount: Int) -> some View {
+        Text(prefix)
+            .font(.headline)
+            .fontWeight(.regular)
+        +
+        Text(shipsCount.description)
+            .font(.headline)
+            .fontWeight(.heavy)
     }
     
     private func resetSelection() {
