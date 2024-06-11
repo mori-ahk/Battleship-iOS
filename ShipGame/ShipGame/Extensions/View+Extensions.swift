@@ -8,12 +8,12 @@
 import SwiftUI
 
 extension View {
-    func flideOut() -> some View {
+    func flideOut(from: Edge, to: Edge) -> some View {
         self
             .transition(
                 .asymmetric(
-                    insertion: .move(edge: .top),
-                    removal: .move(edge: .bottom).combined(with: .opacity)
+                    insertion: .move(edge: from),
+                    removal: .move(edge: to).combined(with: .opacity)
                 )
             )
     }

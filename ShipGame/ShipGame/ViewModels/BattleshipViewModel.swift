@@ -13,9 +13,14 @@ class BattleshipViewModel: ObservableObject {
     private let webSocket: any WebSocketService = WebSocketManager()
     @Published var defenceGrid = GameGrid()
     @Published var attackGrid = GameGrid()
-    @Published var gameInfo: GameInfo?
+    @Published var gameInfo: GameInfo? // FIXME: Find a better way to hold this information
     @Published var state: GameState = .idle
     @Published var shouldEnableReady: Bool = false
+    @Published var isTurn: Bool = false
+    
+    var isPlayerHost: Bool {
+        gameInfo?.player?.isHost ?? false
+    }
     
     init() {
         webSocket.connect()
@@ -26,7 +31,14 @@ class BattleshipViewModel: ObservableObject {
                 self.shouldEnableReady = gameGrid.didPlaceAllShips()
             }
             .store(in: &cancellables)
+        $gameInfo
+            .receive(on: DispatchQueue.main)
+            .sink { gameInfo in
+                self.isTurn = gameInfo?.player?.isTurn ?? false
+            }
+            .store(in: &cancellables)
     }
+    
     
     func listen() {
         webSocket.responsePipeline
@@ -55,12 +67,8 @@ class BattleshipViewModel: ObservableObject {
                             attackedCoordinate: message.attackedCoordinate,
                             sunkenShip: message.sunkenShip
                         )
-                       
-                        if message.isTurn {
-                            self.defenceGrid.setCoordinateState(at: message.attackedCoordinate, to: attackResult.state)
-                        } else {
-                            self.attackGrid.setCoordinateState(at: message.attackedCoordinate, to: attackResult.state)
-                        }
+                        self.isTurn = attackResult.isTurn
+                        self.updateGrid(attackResult)
                         self.state = .attacked(attackResult)
                     default: break
                     }
@@ -69,15 +77,25 @@ class BattleshipViewModel: ObservableObject {
             .store(in: &cancellables)
     }
    
-    private func readyUp() {
-        gameInfo?.player?.readyUp()
-    }
-    
     private func defenceCoordinates() -> [[Int]] {
         defenceGrid.coordinates.map {
             coordinate in coordinate.map {
                 $0.state.value
             }
+        }
+    }
+    
+    private func updateGrid(_ attackResult: AttackResult) {
+        if attackResult.isTurn {
+            self.defenceGrid.setCoordinateState(
+                at: attackResult.attackedCoordinate,
+                to: attackResult.state
+            )
+        } else {
+            self.attackGrid.setCoordinateState(
+                at: attackResult.attackedCoordinate,
+                to: attackResult.state
+            )
         }
     }
 }

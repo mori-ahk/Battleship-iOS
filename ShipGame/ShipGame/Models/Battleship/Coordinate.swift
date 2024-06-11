@@ -33,6 +33,15 @@ struct Coordinate: Equatable {
             default: false
             }
         }
+        
+        var description: String {
+            switch self {
+            case .empty: return "Empty"
+            case .occupied: return "Occupied"
+            case .hit: return "Hit"
+            case .miss: return "Miss"
+            }
+        }
     }
 }
 

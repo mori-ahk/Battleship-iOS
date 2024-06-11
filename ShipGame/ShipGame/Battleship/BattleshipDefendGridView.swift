@@ -22,12 +22,11 @@ struct BattleshipDefendGridView: View {
             ForEach(0 ..< defenceGrid.size, id: \.self) { row in
                 GridRow {
                     ForEach(0 ..< defenceGrid.size, id: \.self) { column in
-                        let size: CGFloat = isFocusedCoordinate(row, column) ? 55 : 50
                         let coordinate: Coordinate = Coordinate(x: row, y: column)
                         Button {
                            handleTap(at: coordinate)
                         } label: {
-                           buttonOverlay(size, at: coordinate)
+                            buttonOverlay(size(at: coordinate), at: coordinate)
                         }
                         .disabled(!viewModel.state.modificationAllowed)
                     }
@@ -42,15 +41,14 @@ struct BattleshipDefendGridView: View {
    
     private func buttonOverlay(_ size: CGFloat, at coordinate: Coordinate) -> some View {
         RoundedRectangle(cornerRadius: 16)
-            .fill(isCurrentlySelected(coordinate) ? .red : .blue)
+            .fill(coordinateBackgroundColor(at: coordinate))
+            .stroke(coordinateBorderColor(at: coordinate), lineWidth: 2)
             .frame(width: size, height: size)
             .overlay {
                 Group {
                     switch defenceGrid.state(at: coordinate) {
                     case .hit:
                         Text("H")
-                            .transition(.scale)
-                            .background(.red)
                     case .miss:
                         Text("M")
                     case .occupied:
@@ -78,6 +76,34 @@ struct BattleshipDefendGridView: View {
                 selectionDirection = findDirection()
             }
         }
+    }
+   
+    private func size(at coordinate: Coordinate) -> CGFloat {
+        switch defenceGrid.state(at: coordinate) {
+        case .hit, .miss: 50
+        case .empty: 40
+        case .occupied: 45
+        }
+    }
+   
+    private func coordinateBackgroundColor(at coordinate: Coordinate) -> Color {
+        if isCurrentlySelected(coordinate) {
+            return .brunswickGreen
+        } else {
+            switch defenceGrid.state(at: coordinate) {
+            case .occupied(let ship):
+                return ship.color
+            case .hit:
+                return .red.opacity(0.8)
+            case .miss:
+                return .gray
+            default: return .brunswickGreen.opacity(0.5)
+            }
+        }
+    }
+    
+    private func coordinateBorderColor(at coordinate: Coordinate) -> Color {
+        isCurrentlySelected(coordinate) ? .mint : .mint.opacity(0.5)
     }
     
     private func isFocusedCoordinate(_ row: Int, _ column: Int) -> Bool {

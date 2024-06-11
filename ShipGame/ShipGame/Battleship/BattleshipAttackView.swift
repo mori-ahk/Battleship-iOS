@@ -14,16 +14,24 @@ struct BattleshipAttackView: View {
     var body: some View {
         VStack {
             BattleshipAttackGridView(selectedAttackCoordinate: $selectedAttackCoordinate)
-                .environmentObject(viewModel)
-                .transition(.move(edge: .top))
             Button {
                 guard let selectedAttackCoordinate else { return }
                 viewModel.attack(coordinate: selectedAttackCoordinate)
+                self.selectedAttackCoordinate = nil
             } label: {
                 Text("Attack")
             }
             .buttonStyle(.borderedProminent)
-            .disabled(selectedAttackCoordinate == nil)
+            .disabled(!viewModel.isTurn)
+            Text(turnText)
+        }
+    }
+    
+    private var turnText: String {
+        if viewModel.isTurn {
+            return "It is your turn"
+        } else {
+            return "Waiting for opponent attack"
         }
     }
 }
