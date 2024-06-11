@@ -21,7 +21,7 @@ struct GameView: View {
             switch state {
             case .created(let game):
                 GameCreatedView(game: game)
-                    .flideOut()
+                    .flideOut(from: .top, to: .bottom)
             case .select, .ready:
                 VStack {
                     BattleshipDefenceView()
@@ -30,14 +30,16 @@ struct GameView: View {
                         ReadyView()
                     }
                 }
-                .flideOut()
+                .flideOut(from: .top, to: .top)
             case .started, .attacked:
                 VStack {
-                    BattleshipAttackView()
-                    Divider()
                     BattleshipDefenceView()
+                        .frame(maxHeight: .infinity, alignment: .center)
+                    Divider()
+                    BattleshipAttackView()
+                        .frame(maxHeight: .infinity, alignment: .center)
                 }
-                .transition(.move(edge: .top))
+                .flideOut(from: .bottom, to: .top)
             default: EmptyView()
             }
         }
