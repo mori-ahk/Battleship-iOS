@@ -41,7 +41,8 @@ struct BattleshipDefendGridView: View {
    
     private func buttonOverlay(_ size: CGFloat, at coordinate: Coordinate) -> some View {
         RoundedRectangle(cornerRadius: 16)
-            .fill(isCurrentlySelected(coordinate) ? .red : .blue)
+            .fill(coordinateBackgroundColor(at: coordinate))
+            .stroke(coordinateBorderColor(at: coordinate), lineWidth: 2)
             .frame(width: size, height: size)
             .overlay {
                 Group {
@@ -83,6 +84,26 @@ struct BattleshipDefendGridView: View {
         case .empty: 40
         case .occupied: 45
         }
+    }
+   
+    private func coordinateBackgroundColor(at coordinate: Coordinate) -> Color {
+        if isCurrentlySelected(coordinate) {
+            return .brunswickGreen
+        } else {
+            switch defenceGrid.state(at: coordinate) {
+            case .occupied(let ship):
+                return ship.color
+            case .hit:
+                return .red.opacity(0.8)
+            case .miss:
+                return .gray
+            default: return .brunswickGreen.opacity(0.5)
+            }
+        }
+    }
+    
+    private func coordinateBorderColor(at coordinate: Coordinate) -> Color {
+        isCurrentlySelected(coordinate) ? .mint : .mint.opacity(0.5)
     }
     
     private func isFocusedCoordinate(_ row: Int, _ column: Int) -> Bool {

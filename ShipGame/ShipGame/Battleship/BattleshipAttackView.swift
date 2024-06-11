@@ -17,6 +17,7 @@ struct BattleshipAttackView: View {
             Button {
                 guard let selectedAttackCoordinate else { return }
                 viewModel.attack(coordinate: selectedAttackCoordinate)
+                self.selectedAttackCoordinate = nil
             } label: {
                 Text("Attack")
             }

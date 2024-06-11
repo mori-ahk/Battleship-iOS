@@ -5,7 +5,7 @@
 //  Created by Mori Ahmadi on 2024-06-03.
 //
 
-import Foundation
+import SwiftUI
 
 struct Ship: Equatable {
     var coordinates: [Coordinate]
@@ -37,6 +37,17 @@ struct Ship: Equatable {
         
         var name: String {
             "\(rawValue.capitalized) (\(size.description))"
+        }
+        
+        var color: Color {
+            switch self {
+            case .battleShip:
+                return .aqua
+            case .cruiser:
+                return .minty
+            case .destroyer:
+                return .deepSkyBlue
+            }
         }
     }
 }
