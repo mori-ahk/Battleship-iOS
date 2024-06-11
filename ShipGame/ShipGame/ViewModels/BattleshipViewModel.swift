@@ -13,9 +13,10 @@ class BattleshipViewModel: ObservableObject {
     private let webSocket: any WebSocketService = WebSocketManager()
     @Published var defenceGrid = GameGrid()
     @Published var attackGrid = GameGrid()
-    @Published var gameInfo: GameInfo?
+    @Published var gameInfo: GameInfo? // FIXME: Find a better way to hold this information
     @Published var state: GameState = .idle
     @Published var shouldEnableReady: Bool = false
+    @Published var isTurn: Bool = false
     
     init() {
         webSocket.connect()
@@ -24,6 +25,12 @@ class BattleshipViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { gameGrid in
                 self.shouldEnableReady = gameGrid.didPlaceAllShips()
+            }
+            .store(in: &cancellables)
+        $gameInfo
+            .receive(on: DispatchQueue.main)
+            .sink { gameInfo in
+                self.isTurn = gameInfo?.player?.isTurn ?? false
             }
             .store(in: &cancellables)
     }
@@ -56,7 +63,7 @@ class BattleshipViewModel: ObservableObject {
                             attackedCoordinate: message.attackedCoordinate,
                             sunkenShip: message.sunkenShip
                         )
-                        
+                        self.isTurn = attackResult.isTurn
                         self.updateGrid(attackResult)
                         self.state = .attacked(attackResult)
                     default: break

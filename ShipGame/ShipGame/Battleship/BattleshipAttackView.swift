@@ -21,7 +21,16 @@ struct BattleshipAttackView: View {
                 Text("Attack")
             }
             .buttonStyle(.borderedProminent)
-            .disabled(selectedAttackCoordinate == nil)
+            .disabled(!viewModel.isTurn)
+            Text(turnText)
+        }
+    }
+    
+    private var turnText: String {
+        if viewModel.isTurn {
+            return "It is your turn"
+        } else {
+            return "Waiting for opponent attack"
         }
     }
 }

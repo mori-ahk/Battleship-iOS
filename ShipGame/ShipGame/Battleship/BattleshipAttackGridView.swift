@@ -21,7 +21,10 @@ struct BattleshipAttackGridView: View {
                         Button {
                             buttonAction(coordinate)
                         }
-                        label: { buttonLabel(coordinate, size) }
+                        label: { 
+                            buttonLabel(coordinate, size)
+                        }
+                        .disabled(!viewModel.isTurn)
                     }
                 }
             }
