@@ -18,6 +18,10 @@ class BattleshipViewModel: ObservableObject {
     @Published var shouldEnableReady: Bool = false
     @Published var isTurn: Bool = false
     
+    var isPlayerHost: Bool {
+        gameInfo?.player?.isHost ?? false
+    }
+    
     init() {
         webSocket.connect()
         listen()
