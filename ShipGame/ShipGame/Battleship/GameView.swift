@@ -31,7 +31,7 @@ struct GameView: View {
                     }
                 }
                 .flideOut()
-            case .started:
+            case .started, .attacked:
                 VStack {
                     BattleshipAttackView()
                     Divider()

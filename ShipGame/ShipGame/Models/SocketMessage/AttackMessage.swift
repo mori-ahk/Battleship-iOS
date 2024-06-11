@@ -17,10 +17,16 @@ struct ReqAttackMessage: Codable {
 struct RespAttackMessage: Codable {
     let isTurn: Bool
     let positionState: Coordinate.State?
+    let attackedCoordinate: Coordinate
+    let sunkenShip: SunkenShip
 
     enum CodingKeys: String, CodingKey {
         case isTurn
         case positionState
+        case x
+        case y
+        case sunkenShipsHost
+        case sunkenShipsJoin
     }
     
     init(from decoder: Decoder) throws {
@@ -35,6 +41,12 @@ struct RespAttackMessage: Codable {
         default:
             self.positionState = nil
         }
+        let x = try container.decode(Int.self, forKey: CodingKeys.x)
+        let y = try container.decode(Int.self, forKey: CodingKeys.y)
+        self.attackedCoordinate = Coordinate(x: x, y: y)
+        let hostSunkenShipsCount = try container.decode(Int.self, forKey: CodingKeys.sunkenShipsHost)
+        let joinSunkenShipsCount = try container.decode(Int.self, forKey: CodingKeys.sunkenShipsJoin)
+        self.sunkenShip = SunkenShip(host: hostSunkenShipsCount, join: joinSunkenShipsCount)
     }
     
     func encode(to encoder: Encoder) throws {

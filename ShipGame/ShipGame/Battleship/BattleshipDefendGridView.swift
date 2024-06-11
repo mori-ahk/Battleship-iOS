@@ -44,12 +44,23 @@ struct BattleshipDefendGridView: View {
                                 .fill(isCurrentlySelected(coordinate) ? .red : .blue)
                                 .frame(width: size, height: size)
                                 .overlay {
-                                    if viewModel.defenceGrid.isOccupied(coordinate) {
-                                        Text("S")
-                                            .foregroundStyle(.white)
+                                    Group {
+                                        switch viewModel.defenceGrid.state(at: coordinate) {
+                                        case .hit:
+                                            Text("H")
+                                                .transition(.scale)
+                                                .background(.red)
+                                        case .miss:
+                                            Text("M")
+                                        case .occupied:
+                                            Text("S")
+                                        default: EmptyView()
+                                        }
                                     }
+                                    .foregroundStyle(.white)
                                 }
                         }
+                        .disabled(viewModel.state == .started)
                     }
                 }
             }
