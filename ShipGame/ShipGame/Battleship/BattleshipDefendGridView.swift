@@ -12,57 +12,70 @@ fileprivate let MAX_SHIPS_COUNT: Int = 3
 
 struct BattleshipDefendGridView: View {
     @EnvironmentObject private var viewModel: BattleshipViewModel
+    @State private var defenceGrid = GameGrid()
     @Binding var currentlySelectedCoordinates: [Coordinate]
     @Binding var focusedCoordinate: Coordinate?
     @Binding var selectionDirection: GeneralDirection?
     
     var body: some View {
         Grid {
-            ForEach(0 ..< viewModel.defenceGrid.size, id: \.self) { row in
+            ForEach(0 ..< defenceGrid.size, id: \.self) { row in
                 GridRow {
-                    ForEach(0 ..< viewModel.defenceGrid.size, id: \.self) { column in
+                    ForEach(0 ..< defenceGrid.size, id: \.self) { column in
                         let size: CGFloat = isFocusedCoordinate(row, column) ? 55 : 50
                         let coordinate: Coordinate = Coordinate(x: row, y: column)
                         Button {
-                            guard currentlySelectedCoordinates.count != MAX_SELECTION_COUNT else { return }
-                            guard !isCurrentlySelected(coordinate) else { return }
-                            guard !viewModel.defenceGrid.isOccupied(coordinate) else { return }
-                            if currentlySelectedCoordinates.isEmpty {
-                                focusedCoordinate = coordinate
-                                if let focusedCoordinate {
-                                    currentlySelectedCoordinates.append(focusedCoordinate)
-                                }
-                            } else if isValidSelection(x: row, y: column) {
-                                currentlySelectedCoordinates.append(coordinate)
-                                focusedCoordinate = coordinate
-                                if selectionDirection == nil {
-                                    selectionDirection = findDirection()
-                                }
-                            }
+                           handleTap(at: coordinate)
                         } label: {
-                            RoundedRectangle(cornerRadius: 16)
-                                .fill(isCurrentlySelected(coordinate) ? .red : .blue)
-                                .frame(width: size, height: size)
-                                .overlay {
-                                    Group {
-                                        switch viewModel.defenceGrid.state(at: coordinate) {
-                                        case .hit:
-                                            Text("H")
-                                                .transition(.scale)
-                                                .background(.red)
-                                        case .miss:
-                                            Text("M")
-                                        case .occupied:
-                                            Text("S")
-                                        default: EmptyView()
-                                        }
-                                    }
-                                    .foregroundStyle(.white)
-                                }
+                           buttonOverlay(size, at: coordinate)
                         }
-                        .disabled(viewModel.state == .started)
+                        .disabled(!viewModel.state.modificationAllowed)
                     }
                 }
+            }
+        }
+        .onReceive(viewModel.$defenceGrid) { newDefenceGrid in
+            self.defenceGrid = newDefenceGrid
+        }
+        .animation(.default, value: defenceGrid)
+    }
+   
+    private func buttonOverlay(_ size: CGFloat, at coordinate: Coordinate) -> some View {
+        RoundedRectangle(cornerRadius: 16)
+            .fill(isCurrentlySelected(coordinate) ? .red : .blue)
+            .frame(width: size, height: size)
+            .overlay {
+                Group {
+                    switch defenceGrid.state(at: coordinate) {
+                    case .hit:
+                        Text("H")
+                            .transition(.scale)
+                            .background(.red)
+                    case .miss:
+                        Text("M")
+                    case .occupied:
+                        Text("S")
+                    default: EmptyView()
+                    }
+                }
+                .foregroundStyle(.white)
+            }
+    }
+    
+    private func handleTap(at coordinate: Coordinate) {
+        guard currentlySelectedCoordinates.count != MAX_SELECTION_COUNT else { return }
+        guard !isCurrentlySelected(coordinate) else { return }
+        guard !defenceGrid.isOccupied(coordinate) else { return }
+        if currentlySelectedCoordinates.isEmpty {
+            focusedCoordinate = coordinate
+            if let focusedCoordinate {
+                currentlySelectedCoordinates.append(focusedCoordinate)
+            }
+        } else if isValidSelection(x: coordinate.x, y: coordinate.y) {
+            currentlySelectedCoordinates.append(coordinate)
+            focusedCoordinate = coordinate
+            if selectionDirection == nil {
+                selectionDirection = findDirection()
             }
         }
     }

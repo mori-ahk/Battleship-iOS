@@ -27,6 +27,13 @@ extension GameState: Identifiable {
         case .attacked(_): 5
         }
     }
+    
+    var modificationAllowed: Bool {
+        switch self {
+        case .ready, .started, .attacked(_): false
+        default: true
+        }
+    }
 }
 
 extension GameState: Equatable {
