@@ -42,7 +42,6 @@ struct BattleshipDefendGridView: View {
     private func buttonOverlay(_ size: CGFloat, at coordinate: Coordinate) -> some View {
         RoundedRectangle(cornerRadius: 16)
             .fill(coordinateBackgroundColor(at: coordinate))
-            .stroke(coordinateBorderColor(at: coordinate), lineWidth: 2)
             .frame(width: size, height: size)
             .overlay {
                 Group {
@@ -51,11 +50,12 @@ struct BattleshipDefendGridView: View {
                         Text("H")
                     case .miss:
                         Text("M")
-                    case .occupied:
-                        Text("S")
+                    case .occupied(let ship):
+                        Text(ship.sign)
                     default: EmptyView()
                     }
                 }
+                .fontWeight(.semibold)
                 .foregroundStyle(.white)
             }
     }
@@ -88,16 +88,16 @@ struct BattleshipDefendGridView: View {
    
     private func coordinateBackgroundColor(at coordinate: Coordinate) -> Color {
         if isCurrentlySelected(coordinate) {
-            return .brunswickGreen
+            return .prussianBlue
         } else {
             switch defenceGrid.state(at: coordinate) {
             case .occupied(let ship):
                 return ship.color
             case .hit:
-                return .red.opacity(0.8)
+                return .engineRed
             case .miss:
                 return .gray
-            default: return .brunswickGreen.opacity(0.5)
+            default: return .columbiaBlue
             }
         }
     }
