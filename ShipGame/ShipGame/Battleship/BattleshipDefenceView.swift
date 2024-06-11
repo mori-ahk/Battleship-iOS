@@ -68,11 +68,10 @@ struct BattleshipDefenceView: View {
     private var sunkenShipsCountContainerView: some View {
         switch viewModel.state {
         case .attacked(let attackResult):
-            let hostSunkenShips = attackResult.sunkenShip.host
-            let joinSunkenShips = attackResult.sunkenShip.join
+            let sunkenShip = getSunkenShipsCount(for: attackResult)
             VStack {
-                sunkenShipsCountTextView(prefix: "Your sunken ships: ", shipsCount: hostSunkenShips)
-                sunkenShipsCountTextView(prefix: "Opponent sunken ships: ", shipsCount: joinSunkenShips)
+                sunkenShipsCountTextView(prefix: "My sunken ships: ", shipsCount: sunkenShip.0)
+                sunkenShipsCountTextView(prefix: "Opponent sunken ships: ", shipsCount: sunkenShip.1)
             }
         default: EmptyView()
         }
@@ -87,6 +86,20 @@ struct BattleshipDefenceView: View {
         Text(shipsCount.description)
             .font(.headline)
             .fontWeight(.heavy)
+    }
+    
+    private func getSunkenShipsCount(for attackResult: AttackResult) -> (Int, Int) {
+        var mySunkenShips: Int = .zero
+        var opponentSunkenShips: Int = .zero
+        if viewModel.isPlayerHost {
+            mySunkenShips = attackResult.sunkenShip.host
+            opponentSunkenShips = attackResult.sunkenShip.join
+        } else {
+            mySunkenShips = attackResult.sunkenShip.join
+            opponentSunkenShips = attackResult.sunkenShip.host
+        }
+        
+        return (mySunkenShips, opponentSunkenShips)
     }
     
     private func resetSelection() {
