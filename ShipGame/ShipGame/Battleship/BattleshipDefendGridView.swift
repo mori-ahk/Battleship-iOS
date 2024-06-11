@@ -22,12 +22,11 @@ struct BattleshipDefendGridView: View {
             ForEach(0 ..< defenceGrid.size, id: \.self) { row in
                 GridRow {
                     ForEach(0 ..< defenceGrid.size, id: \.self) { column in
-                        let size: CGFloat = isFocusedCoordinate(row, column) ? 55 : 50
                         let coordinate: Coordinate = Coordinate(x: row, y: column)
                         Button {
                            handleTap(at: coordinate)
                         } label: {
-                           buttonOverlay(size, at: coordinate)
+                            buttonOverlay(size(at: coordinate), at: coordinate)
                         }
                         .disabled(!viewModel.state.modificationAllowed)
                     }
@@ -49,8 +48,6 @@ struct BattleshipDefendGridView: View {
                     switch defenceGrid.state(at: coordinate) {
                     case .hit:
                         Text("H")
-                            .transition(.scale)
-                            .background(.red)
                     case .miss:
                         Text("M")
                     case .occupied:
@@ -77,6 +74,14 @@ struct BattleshipDefendGridView: View {
             if selectionDirection == nil {
                 selectionDirection = findDirection()
             }
+        }
+    }
+   
+    private func size(at coordinate: Coordinate) -> CGFloat {
+        switch defenceGrid.state(at: coordinate) {
+        case .hit, .miss: 50
+        case .empty: 40
+        case .occupied: 45
         }
     }
     
