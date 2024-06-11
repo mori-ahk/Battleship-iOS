@@ -19,6 +19,8 @@ struct GameView: View {
         VStack(spacing: 24) {
 //            InstructionsView()
             switch state {
+            case .idle:
+                LandingView()
             case .created(let game):
                 GameCreatedView(game: game)
                     .flideOut(from: .top, to: .bottom)
@@ -40,10 +42,14 @@ struct GameView: View {
                         .frame(maxHeight: .infinity, alignment: .center)
                 }
                 .flideOut(from: .bottom, to: .top)
-            default: EmptyView()
+            case .ended(let gameResult):
+                EndGameView(gameResult: gameResult) {
+                    viewModel.resetGameState()
+                }
+                .transition(.blurReplace)
             }
         }
-        .frame(maxHeight: .infinity, alignment: .topLeading)
+        .frame(maxHeight: .infinity, alignment: .center)
         .animation(.default, value: state)
         .onReceive(viewModel.$state) { gameState in
             self.state = gameState

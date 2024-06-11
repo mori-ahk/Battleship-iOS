@@ -64,6 +64,8 @@ class WebSocketManager: ObservableObject {
                 responsePipeline.send(.start)
             case .attack:
                 try processAttackMessage(data)
+            case .end:
+                try processEndMessage(data)
             default:
                 break
             }
@@ -89,6 +91,12 @@ class WebSocketManager: ObservableObject {
         let attackMessage = try decoder.decode(Message<RespAttackMessage>.self, from: data)
         guard let payload = attackMessage.payload else { return }
         responsePipeline.send(.attack(payload))
+    }
+    
+    private func processEndMessage(_ data: Data) throws {
+        let endMessage = try decoder.decode(Message<EndMessage>.self, from: data)
+        guard let payload = endMessage.payload else { return }
+        responsePipeline.send(.end(payload))
     }
 }
 

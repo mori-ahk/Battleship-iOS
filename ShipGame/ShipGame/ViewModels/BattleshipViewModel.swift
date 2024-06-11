@@ -13,10 +13,10 @@ class BattleshipViewModel: ObservableObject {
     private let webSocket: any WebSocketService = WebSocketManager()
     @Published var defenceGrid = GameGrid()
     @Published var attackGrid = GameGrid()
-    @Published var gameInfo: GameInfo? // FIXME: Find a better way to hold this information
-    @Published var state: GameState = .idle
-    @Published var shouldEnableReady: Bool = false
-    @Published var isTurn: Bool = false
+    @Published private(set) var gameInfo: GameInfo? // FIXME: Find a better way to hold this information
+    @Published private(set) var state: GameState = .idle
+    @Published private(set) var shouldEnableReady: Bool = false
+    @Published private(set) var isTurn: Bool = false
     
     var isPlayerHost: Bool {
         gameInfo?.player?.isHost ?? false
@@ -70,6 +70,9 @@ class BattleshipViewModel: ObservableObject {
                         self.isTurn = attackResult.isTurn
                         self.updateGrid(attackResult)
                         self.state = .attacked(attackResult)
+                    case .end(let message):
+                        guard let gameResult = GameResult(rawValue: message.playerMatchStatus) else { return }
+                        self.state = .ended(gameResult)
                     default: break
                     }
                 }
@@ -97,6 +100,15 @@ class BattleshipViewModel: ObservableObject {
                 to: attackResult.state
             )
         }
+    }
+    
+    func resetGameState() {
+        state = .idle
+        defenceGrid.clear()
+        attackGrid.clear()
+        gameInfo = nil
+        shouldEnableReady = false
+        isTurn = false
     }
 }
 

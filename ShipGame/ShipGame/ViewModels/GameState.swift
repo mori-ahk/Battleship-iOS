@@ -14,6 +14,7 @@ enum GameState {
     case ready
     case started
     case attacked(AttackResult)
+    case ended(GameResult)
 }
 
 extension GameState: Identifiable {
@@ -24,13 +25,14 @@ extension GameState: Identifiable {
         case .select: 2
         case .ready: 3
         case .started: 4
-        case .attacked(_): 5
+        case .attacked: 5
+        case .ended: 6
         }
     }
     
     var modificationAllowed: Bool {
         switch self {
-        case .ready, .started, .attacked(_): false
+        case .ready, .started, .attacked: false
         default: true
         }
     }
