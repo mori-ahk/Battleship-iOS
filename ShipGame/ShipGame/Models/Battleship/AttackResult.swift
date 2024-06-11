@@ -10,4 +10,6 @@ import Foundation
 struct AttackResult {
     let isTurn: Bool
     let state: Coordinate.State?
+    let attackedCoordinate: Coordinate
+    let sunkenShip: SunkenShip
 }

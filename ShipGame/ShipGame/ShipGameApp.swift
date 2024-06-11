@@ -12,7 +12,7 @@ struct ShipGameApp: App {
     var body: some Scene {
         WindowGroup {
             LandingView()
-//            ContentView()
+                .fontDesign(.monospaced)
         }
     }
 }

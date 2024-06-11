@@ -42,6 +42,10 @@ extension GameGrid {
         ships.removeAll(keepingCapacity: true)
     }
     
+    mutating func setCoordinateState(at coordinate: Coordinate, to newState: Coordinate.State?) {
+        coordinates[coordinate.x][coordinate.y].state = newState ?? .empty
+    }
+    
     func isOccupied(_ coordinate: Coordinate) -> Bool {
         return coordinates[coordinate.x][coordinate.y].isOccupied()
     }
@@ -53,8 +57,8 @@ extension GameGrid {
     func state(at coordinate: Coordinate) -> Coordinate.State {
         coordinates[coordinate.x][coordinate.y].state
     }
-    
-    mutating func setCoordinateState(at coordinate: Coordinate, to newState: Coordinate.State?) {
-        coordinates[coordinate.x][coordinate.y].state = newState ?? .empty
+        
+    func didPlaceAllShips() -> Bool {
+        ships.count == 3
     }
 }
