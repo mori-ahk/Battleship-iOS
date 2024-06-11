@@ -69,10 +69,6 @@ class BattleshipViewModel: ObservableObject {
             .store(in: &cancellables)
     }
    
-    private func readyUp() {
-        gameInfo?.player?.readyUp()
-    }
-    
     private func defenceCoordinates() -> [[Int]] {
         defenceGrid.coordinates.map {
             coordinate in coordinate.map {

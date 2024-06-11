@@ -14,8 +14,6 @@ struct BattleshipAttackView: View {
     var body: some View {
         VStack {
             BattleshipAttackGridView(selectedAttackCoordinate: $selectedAttackCoordinate)
-                .environmentObject(viewModel)
-                .transition(.move(edge: .top))
             Button {
                 guard let selectedAttackCoordinate else { return }
                 viewModel.attack(coordinate: selectedAttackCoordinate)
