@@ -9,33 +9,24 @@ import SwiftUI
 import Combine
 
 struct LandingView: View {
-    @StateObject private var viewModel = BattleshipViewModel()
+    @EnvironmentObject private var viewModel: BattleshipViewModel
     @State private var shouldShowRoomIdAlert: Bool = false
     @State private var gameId: String = String()
-    @State private var gameState: GameState = .idle
     
     var body: some View {
-        ZStack {
-            switch viewModel.state {
-            case .idle:
-                VStack {
-                    Button {
-                        viewModel.create()
-                    } label: {
-                        Text("Create")
-                    }
-                    Button {
-                        shouldShowRoomIdAlert = true
-                    } label: {
-                        Text("Join")
-                    }
-                }
-                .buttonStyle(.borderedProminent)
-            default:
-                GameView()
-                    .environmentObject(viewModel)
+        VStack {
+            Button {
+                viewModel.create()
+            } label: {
+                Text("Create")
+            }
+            Button {
+                shouldShowRoomIdAlert = true
+            } label: {
+                Text("Join")
             }
         }
+        .buttonStyle(.borderedProminent)
         .alert("Enter game Id", isPresented: $shouldShowRoomIdAlert) {
             TextField("Enter game Id", text: $gameId)
             Button("join") {
@@ -43,9 +34,5 @@ struct LandingView: View {
                 viewModel.join(game: Game(id: gameId))
             }
         }
-        .onReceive(viewModel.$state) { gameState in
-            self.gameState = gameState
-        }
-        .animation(.default, value: gameState)
     }
 }

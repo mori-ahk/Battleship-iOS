@@ -1,0 +1,33 @@
+//
+//  EndGameView.swift
+//  ShipGame
+//
+//  Created by Mori Ahmadi on 2024-06-11.
+//
+
+import SwiftUI
+
+struct EndGameView: View {
+    var gameResult: GameResult
+    var action: () -> Void
+    var body: some View {
+        VStack {
+            Group {
+                switch gameResult {
+                case .won:
+                    Text("You won!")
+                case .lost:
+                    Text("You lost!")
+                }
+            }
+            .font(.title3)
+            .fontWeight(.bold)
+            Button {
+                action()
+            } label: {
+                Text("Go back ")
+            }
+            .buttonStyle(.borderedProminent)
+        }
+    }
+}
