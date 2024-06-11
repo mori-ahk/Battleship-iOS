@@ -28,6 +28,7 @@ class BattleshipViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    
     func listen() {
         webSocket.responsePipeline
             .receive(on: DispatchQueue.main)
@@ -55,12 +56,8 @@ class BattleshipViewModel: ObservableObject {
                             attackedCoordinate: message.attackedCoordinate,
                             sunkenShip: message.sunkenShip
                         )
-                       
-                        if message.isTurn {
-                            self.defenceGrid.setCoordinateState(at: message.attackedCoordinate, to: attackResult.state)
-                        } else {
-                            self.attackGrid.setCoordinateState(at: message.attackedCoordinate, to: attackResult.state)
-                        }
+                        
+                        self.updateGrid(attackResult)
                         self.state = .attacked(attackResult)
                     default: break
                     }
@@ -74,6 +71,20 @@ class BattleshipViewModel: ObservableObject {
             coordinate in coordinate.map {
                 $0.state.value
             }
+        }
+    }
+    
+    private func updateGrid(_ attackResult: AttackResult) {
+        if attackResult.isTurn {
+            self.defenceGrid.setCoordinateState(
+                at: attackResult.attackedCoordinate,
+                to: attackResult.state
+            )
+        } else {
+            self.attackGrid.setCoordinateState(
+                at: attackResult.attackedCoordinate,
+                to: attackResult.state
+            )
         }
     }
 }
