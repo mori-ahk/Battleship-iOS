@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Instruction: Identifiable {
+struct Instruction: Identifiable, Equatable {
     var id: String { description }
     let description: String
     

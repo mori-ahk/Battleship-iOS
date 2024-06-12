@@ -8,21 +8,21 @@
 import SwiftUI
 
 struct InstructionsView: View {
-    @State private var shouldShowInstructions: Bool = false
     var body: some View {
         VStack(alignment: .leading) {
-            Button {
-                shouldShowInstructions.toggle()
-            } label: {
-                Text("Show Instructions")
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-            }
-            if shouldShowInstructions {
-                ForEach(Array(Instruction.all.enumerated()), id: \.offset) { (index, element) in
-                    Text("\(index). \(element.description)")
+            ForEach(Array(Instruction.all.enumerated()), id: \.offset) { (index, element) in
+                Text("\(index + 1). \(element.description)")
+                    .font(.subheadline)
+                    .padding()
+                if element != Instruction.all.last! {
+                    Divider()
                 }
             }
         }
-        .animation(.default, value: shouldShowInstructions)
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.prussianBlue.opacity(0.1))
+        )
     }
 }
