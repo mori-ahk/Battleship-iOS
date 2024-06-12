@@ -39,24 +39,18 @@ struct BattleshipDefendGridView: View {
         .animation(.default, value: defenceGrid)
     }
    
+    @ViewBuilder
     private func buttonOverlay(_ size: CGFloat, at coordinate: Coordinate) -> some View {
+        let state = defenceGrid.state(at: coordinate)
         RoundedRectangle(cornerRadius: 16)
             .fill(coordinateBackgroundColor(at: coordinate))
             .frame(width: size, height: size)
             .overlay {
-                Group {
-                    switch defenceGrid.state(at: coordinate) {
-                    case .hit:
-                        Text("H")
-                    case .miss:
-                        Text("M")
-                    case .occupied(let ship):
-                        Text(ship.sign)
-                    default: EmptyView()
-                    }
+                if let sign = state.sign {
+                    Text(sign)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.white)
                 }
-                .fontWeight(.semibold)
-                .foregroundStyle(.white)
             }
     }
     
