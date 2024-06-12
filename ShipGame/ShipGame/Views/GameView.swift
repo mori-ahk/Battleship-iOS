@@ -23,6 +23,7 @@ struct GameView: View {
                     switch state {
                     case .idle:
                         LandingView()
+                            .transition(.blurReplace)
                     case .created(let game):
                         GameCreatedView(game: game)
                             .transition(.blurReplace)
@@ -40,6 +41,11 @@ struct GameView: View {
                             case .select:
                                 ReadyView()
                                     .transition(.blurReplace)
+                            case .ready:
+                                Text("Waiting for opponent")
+                                    .frame(maxHeight: .infinity, alignment: .top)
+                                    .font(.title3)
+                                    .transition(.blurReplace)
                             case .started, .attacked:
                                 BattleshipAttackView()
                                     .frame(maxHeight: .infinity, alignment: .center)
@@ -50,7 +56,7 @@ struct GameView: View {
                         .transition(.blurReplace)
                     }
                 }
-                .frame(maxHeight: .infinity, alignment: .center)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 .transition(.blurReplace)
             }
             
@@ -70,10 +76,10 @@ struct GameView: View {
                 shouldShowInstructions.toggle()
             } label: {
                 Image(systemName: "info.circle")
-                    .padding()
             }
+            .frame(width: 32, height: 32)
             .background(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .clipShape(RoundedRectangle(cornerRadius: 8))
             .shadow(radius: 4)
         }
         .padding()
