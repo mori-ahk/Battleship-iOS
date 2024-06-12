@@ -23,34 +23,33 @@ struct GameView: View {
                 LandingView()
             case .created(let game):
                 GameCreatedView(game: game)
-                    .flideOut(from: .top, to: .bottom)
-            case .select, .ready:
-                VStack {
-                    BattleshipDefenceView()
-                        .frame(maxHeight: .infinity, alignment: .center)
-                    if state == .select {
-                        ReadyView()
-                    }
-                }
-                .flideOut(from: .top, to: .top)
-            case .started, .attacked:
-                VStack {
-                    BattleshipDefenceView()
-                        .frame(maxHeight: .infinity, alignment: .center)
-                    Divider()
-                    BattleshipAttackView()
-                        .frame(maxHeight: .infinity, alignment: .center)
-                }
-                .flideOut(from: .bottom, to: .top)
+                    .transition(.blurReplace)
             case .ended(let gameResult):
                 EndGameView(gameResult: gameResult) {
                     viewModel.resetGameState()
                 }
                 .transition(.blurReplace)
+            default:
+                VStack {
+                    BattleshipDefenceView()
+                        .frame(maxHeight: .infinity, alignment: .center)
+                    Divider()
+                    switch state {
+                    case .select:
+                        ReadyView()
+                            .transition(.blurReplace)
+                    case .started, .attacked:
+                        BattleshipAttackView()
+                            .frame(maxHeight: .infinity, alignment: .center)
+                            .transition(.blurReplace)
+                    default: EmptyView()
+                    }
+                }
+                .transition(.blurReplace)
             }
         }
         .frame(maxHeight: .infinity, alignment: .center)
-        .animation(.default, value: state)
+        .animation(.spring(duration: 0.75), value: state)
         .onReceive(viewModel.$state) { gameState in
             self.state = gameState
         }

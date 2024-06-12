@@ -184,7 +184,7 @@
 				823C5BCF2BE95AE700112962 /* Models */,
 				8207C19B2C16033600449FFB /* ViewModels */,
 				822B2E472BA920ED00CCF448 /* ShipGameApp.swift */,
-				82EFD9A12C0A7C0700EAAF86 /* Battleship */,
+				82EFD9A12C0A7C0700EAAF86 /* Views */,
 				822B2E4B2BA920EF00CCF448 /* Assets.xcassets */,
 				8207C1A12C1613E000449FFB /* Colors.xcassets */,
 				822B2E4D2BA920EF00CCF448 /* ShipGame.entitlements */,
@@ -213,7 +213,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		82EFD9A12C0A7C0700EAAF86 /* Battleship */ = {
+		82EFD9A12C0A7C0700EAAF86 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */,
@@ -227,7 +227,7 @@
 				8207C1992C1602DA00449FFB /* GameCreatedView.swift */,
 				82F1D2152C18E3C500A600BF /* EndGameView.swift */,
 			);
-			path = Battleship;
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
