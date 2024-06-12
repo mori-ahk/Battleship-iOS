@@ -35,7 +35,7 @@ struct GameView: View {
                     default:
                         VStack {
                             BattleshipDefenceView()
-                                .frame(maxHeight: .infinity, alignment: .center)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                             Divider()
                             switch state {
                             case .select:
@@ -48,7 +48,7 @@ struct GameView: View {
                                     .transition(.blurReplace)
                             case .started, .attacked:
                                 BattleshipAttackView()
-                                    .frame(maxHeight: .infinity, alignment: .center)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                                     .transition(.blurReplace)
                             default: EmptyView()
                             }
