@@ -121,6 +121,7 @@
 		8207C1852C0E1D9E00449FFB /* Battleship */ = {
 			isa = PBXGroup;
 			children = (
+				82EFD99D2C0A696D00EAAF86 /* Instruction.swift */,
 				822B2E562BA9340F00CCF448 /* GameGrid.swift */,
 				82EFD9AA2C0D09A400EAAF86 /* GameInfo.swift */,
 				82EFD9B02C0D5B9300EAAF86 /* Game.swift */,
@@ -208,7 +209,6 @@
 			children = (
 				8207C1852C0E1D9E00449FFB /* Battleship */,
 				8207C1842C0E1D8800449FFB /* SocketMessage */,
-				82EFD99D2C0A696D00EAAF86 /* Instruction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

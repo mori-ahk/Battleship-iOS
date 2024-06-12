@@ -44,25 +44,19 @@ struct BattleshipAttackGridView: View {
         }
     }
     
+    @ViewBuilder
     private func buttonLabel(
         _ coordinate: Coordinate,
         _ size: CGFloat
     ) -> some View {
+        let state = attackGrid.state(at: coordinate)
         RoundedRectangle(cornerRadius: 16)
             .fill(coordinateBackgroundColor(at: coordinate))
             .frame(width: size, height: size)
             .overlay {
-                Group {
-                    switch attackGrid.state(at: coordinate) {
-                    case .hit:
-                        Text("H")
-                    case .miss:
-                        Text("M")
-                    default: EmptyView()
-                    }
+                if let sign = state.sign {
+                    Text(sign)
                 }
-                .fontWeight(.semibold)
-                .foregroundStyle(.white)
             }
     }
    

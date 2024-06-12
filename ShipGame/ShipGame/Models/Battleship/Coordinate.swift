@@ -42,6 +42,15 @@ struct Coordinate: Equatable {
             case .miss: return "Miss"
             }
         }
+        
+        var sign: String? {
+            switch self {
+            case .hit: "🔥"
+            case .miss: "🫤"
+            case .occupied(let ship): ship.sign
+            default: nil
+            }
+        }
     }
 }
 
