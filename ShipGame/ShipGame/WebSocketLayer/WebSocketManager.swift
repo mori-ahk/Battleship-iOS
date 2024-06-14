@@ -102,9 +102,8 @@ class WebSocketManager: ObservableObject {
 
 extension WebSocketManager: WebSocketService {
     func connect() {
-        guard let url = URL(string: "ws://localhost:8080/battleship") else { return }
+        guard let url = URL(string: "wss://battleship-go-ios.fly.dev/battleship") else { return }
         var request = URLRequest(url: url)
-        request.addValue("ws://", forHTTPHeaderField: "Origin")
         webSocketTask = URLSession.shared.webSocketTask(with: request)
         webSocketTask?.resume()
         receive()
