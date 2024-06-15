@@ -191,7 +191,6 @@
 				822B2E4D2BA920EF00CCF448 /* ShipGame.entitlements */,
 				822B2E4E2BA920EF00CCF448 /* Preview Content */,
 				8207C18C2C0F8E1B00449FFB /* WebSocketLayer */,
-				8238E70C2BD5825A00C85144 /* LandingView.swift */,
 			);
 			path = ShipGame;
 			sourceTree = "<group>";
@@ -216,6 +215,7 @@
 		82EFD9A12C0A7C0700EAAF86 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8238E70C2BD5825A00C85144 /* LandingView.swift */,
 				82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */,
 				82EFD9AC2C0D291900EAAF86 /* BattleshipAttackGridView.swift */,
 				822B2E492BA920ED00CCF448 /* GameView.swift */,

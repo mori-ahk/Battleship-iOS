@@ -19,6 +19,8 @@ struct ShipsButtonView: View {
                 } label: {
                     Text(ship.name)
                         .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(4)
+                        .fontWeight(.semibold)
                 }
                 .buttonStyle(.borderedProminent)
                 .disabled(isDisabled(ship))

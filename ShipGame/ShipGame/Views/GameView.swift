@@ -25,8 +25,10 @@ struct GameView: View {
                         LandingView()
                             .transition(.blurReplace)
                     case .created(let game):
-                        GameCreatedView(game: game)
-                            .transition(.blurReplace)
+                        GameCreatedView(game: game) {
+                            viewModel.resetGameState()
+                        }
+                        .transition(.blurReplace)
                     case .ended(let gameResult):
                         EndGameView(gameResult: gameResult) {
                             viewModel.resetGameState()

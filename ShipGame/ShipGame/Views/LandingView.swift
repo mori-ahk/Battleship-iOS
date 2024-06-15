@@ -14,19 +14,27 @@ struct LandingView: View {
     @State private var gameId: String = String()
     
     var body: some View {
-        VStack {
-            Button {
-                viewModel.create()
-            } label: {
-                Text("Create")
+        VStack(spacing: 16) {
+            Text("Welcome to Battleship")
+                .font(.title)
+                .fontWeight(.heavy)
+            Group {
+                Button {
+                    viewModel.create()
+                } label: {
+                    Text("Create a game")
+                        .padding(8)
+                }
+                Button {
+                    shouldShowRoomIdAlert = true
+                } label: {
+                    Text("Join a game")
+                        .padding(8)
+                }
             }
-            Button {
-                shouldShowRoomIdAlert = true
-            } label: {
-                Text("Join")
-            }
+            .buttonStyle(.borderedProminent)
+            .fontWeight(.semibold)
         }
-        .buttonStyle(.borderedProminent)
         .alert("Enter game Id", isPresented: $shouldShowRoomIdAlert) {
             TextField("Enter game Id", text: $gameId)
             Button("join") {
