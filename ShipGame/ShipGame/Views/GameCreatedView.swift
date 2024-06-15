@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GameCreatedView: View {
     let game: Game
+    var action: () -> Void
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Share this game ID")
@@ -27,17 +28,26 @@ struct GameCreatedView: View {
                     UIPasteboard.general.string = self.game.id
                 }) {
                     Image(systemName: "doc.on.doc")
-                        .padding()
-                        .background(.brunswickGreen)
+                        .padding(8)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                 }
+                .buttonStyle(.bordered)
             }
             .frame(maxWidth: .infinity, alignment: .center)
             .padding()
             .background {
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(.brunswickGreen.opacity(0.3))
+                    .fill(.prussianBlue.opacity(0.1))
+                    .stroke(.prussianBlue)
             }
+            
+            Button {
+                action()
+            } label: {
+                Label("Back", systemImage: "arrow.backward")
+                    .padding(8)
+            }
+            .buttonStyle(.bordered)
         }
         .padding()
     }
