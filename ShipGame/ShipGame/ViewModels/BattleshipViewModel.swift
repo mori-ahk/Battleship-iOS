@@ -10,7 +10,7 @@ import Combine
 
 class BattleshipViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
-    private let webSocket: any WebSocketService = WebSocketManager()
+    private var webSocket: any WebSocketService = WebSocketManager()
     @Published var defenceGrid = GameGrid()
     @Published var attackGrid = GameGrid()
     @Published private(set) var gameInfo: GameInfo? // FIXME: Find a better way to hold this information
@@ -21,9 +21,12 @@ class BattleshipViewModel: ObservableObject {
     var isPlayerHost: Bool {
         gameInfo?.player?.isHost ?? false
     }
+   
+    var connectionSource: ConnectionSource = .host
+    var gameToJoin: Game?
     
     init() {
-        webSocket.connect()
+        webSocket.delegate = self
         listen()
         $defenceGrid
             .receive(on: DispatchQueue.main)
@@ -47,6 +50,8 @@ class BattleshipViewModel: ObservableObject {
                 receiveCompletion: { _ in },
                 receiveValue: { message in
                     switch message {
+                    case .sessionId(let message):
+                        print(message)
                     case .create(let message):
                         self.gameInfo = message
                         self.state = .created(message.game)
@@ -110,9 +115,15 @@ class BattleshipViewModel: ObservableObject {
         shouldEnableReady = false
         isTurn = false
     }
+    
 }
 
 extension BattleshipViewModel: BattleshipInterface {
+    func connect(source: ConnectionSource) {
+        self.connectionSource = source
+        webSocket.connect()
+    }
+    
     func create() {
         let message = Message<Code>(code: .create)
         webSocket.send(message)
@@ -148,4 +159,23 @@ extension BattleshipViewModel: BattleshipInterface {
         let message = Message<ReqAttackMessage>(code: .attack, payload: payload)
         webSocket.send(message)
     }
+}
+
+extension BattleshipViewModel: WebSocketManagerDelegate {
+    func didConnect() {
+        if connectionSource == .host {
+            self.create()
+        } else {
+            if let gameToJoin {
+                self.join(game: gameToJoin)
+            }
+        }
+    }
+    
+    func didDisconnect() { }
+}
+
+enum ConnectionSource {
+    case host
+    case join
 }

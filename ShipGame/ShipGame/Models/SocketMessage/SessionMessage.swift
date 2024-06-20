@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+struct SessionMessage: Codable {
+    let id: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "sessionId"
+    }
+}

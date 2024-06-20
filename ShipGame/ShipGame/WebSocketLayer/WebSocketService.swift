@@ -9,12 +9,12 @@ import Foundation
 import Combine
 
 protocol WebSocketService {
-    func ping() async -> Result<Bool, Error>
     func connect()
     func send(_ message: WebSocketMessage)
     func receive()
     var responsePipeline: PassthroughSubject<ResponseMessage?, Never> { get set }
     var session: Session? { get set }
+    var delegate: WebSocketManagerDelegate? { get set }
 }
 
 protocol WebSocketMessage: Codable { }

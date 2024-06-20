@@ -8,10 +8,12 @@
 import SwiftUI
 import Combine
 
-class WebSocketManager: ObservableObject {
+class WebSocketManager: NSObject, ObservableObject {
     var session: Session? = nil
     private var webSocketTask: URLSessionWebSocketTask?
     var responsePipeline = PassthroughSubject<ResponseMessage?, Never>()
+    var delegate: WebSocketManagerDelegate?
+    
     lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -130,11 +132,24 @@ extension WebSocketManager: WebSocketService {
     }
     
     func connect() {
-        guard let url = URL(string: "wss://battleship-go-ios.fly.dev/battleship") else { return }
-        var request = URLRequest(url: url)
+        var components = URLComponents(string: "wss://battleship-go-ios.fly.dev/battleship")
+//        var components = URLComponents(string: "ws://localhost:8080/battleship")
+        if let sessionId = session?.id {
+            components?.queryItems = [
+                URLQueryItem(name: "sessionID", value: sessionId)
+            ]
+        }
+       
+        guard let url = components?.url else { return }
+        let request = URLRequest(url: url)
         webSocketTask = URLSession.shared.webSocketTask(with: request)
+        webSocketTask?.delegate = self
         webSocketTask?.resume()
         receive()
+    }
+   
+    func disconnect() {
+        webSocketTask?.cancel()
     }
     
     func send(_ message: WebSocketMessage) {
@@ -161,4 +176,19 @@ extension WebSocketManager: WebSocketService {
             }
         }
     }
+}
+
+extension WebSocketManager: URLSessionWebSocketDelegate {
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+        delegate?.didConnect()
+    }
+    
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
+        delegate?.didDisconnect()
+    }
+}
+
+protocol WebSocketManagerDelegate: AnyObject {
+    func didConnect()
+    func didDisconnect()
 }
