@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 
 class WebSocketManager: ObservableObject {
+    var session: Session? = nil
     private var webSocketTask: URLSessionWebSocketTask?
     var responsePipeline = PassthroughSubject<ResponseMessage?, Never>()
     lazy var decoder: JSONDecoder = {
@@ -52,6 +53,10 @@ class WebSocketManager: ObservableObject {
     private func handleCode(_ code: Code, data: Data) {
         do {
             switch code {
+            case .sessionId:
+                try processSessionMessage(data)
+            case .invalidSessionId:
+                responsePipeline.send(.invalidSession)
             case .create:
                 try processCreateMessage(data)
             case .join:
@@ -66,6 +71,10 @@ class WebSocketManager: ObservableObject {
                 try processAttackMessage(data)
             case .end:
                 try processEndMessage(data)
+            case .opponentDisconnected:
+                responsePipeline.send(.opponentConnectionChanged(.disconnected))
+            case .opponentReconnected:
+                responsePipeline.send(.opponentConnectionChanged(.reconnected))
             default:
                 break
             }
@@ -73,6 +82,13 @@ class WebSocketManager: ObservableObject {
         } catch {
             print(error)
         }
+    }
+   
+    private func processSessionMessage(_ data: Data) throws {
+        let sessionMessage = try decoder.decode(Message<SessionMessage>.self, from: data)
+        guard let payload = sessionMessage.payload else { return }
+        self.session = Session(id: payload.id)
+        responsePipeline.send(.sessionId(session!))
     }
     
     private func processCreateMessage(_ data: Data) throws {
@@ -101,6 +117,18 @@ class WebSocketManager: ObservableObject {
 }
 
 extension WebSocketManager: WebSocketService {
+    func ping() async -> Result<Bool, Error> {
+        await withCheckedContinuation { continuation in
+            webSocketTask?.sendPing(pongReceiveHandler: { error in
+                if let error = error {
+                    continuation.resume(returning: .failure(error))
+                } else {
+                    continuation.resume(returning: .success(true))
+                }
+            })
+        }
+    }
+    
     func connect() {
         guard let url = URL(string: "wss://battleship-go-ios.fly.dev/battleship") else { return }
         var request = URLRequest(url: url)
