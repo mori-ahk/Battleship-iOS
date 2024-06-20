@@ -17,13 +17,5 @@ enum ResponseMessage {
     case start
     case attack(RespAttackMessage)
     case end(EndMessage)
-    case opponentConnectionChanged(ConnectionState)
-    case gracePeriod
-}
-
-
-enum ConnectionState {
-    case disconnected
-    case reconnected
 }
 

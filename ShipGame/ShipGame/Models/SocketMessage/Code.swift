@@ -19,9 +19,6 @@ enum Code: Int, Codable {
     case end
     case invalid
     case absent
-    case opponentDisconnected
-    case opponentReconnected
-    case gracePeriod
    
     enum CodingKeys: String, CodingKey {
         case code
