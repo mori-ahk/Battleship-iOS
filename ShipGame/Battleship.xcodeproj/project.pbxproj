@@ -59,11 +59,11 @@
 		8207C1972C1601A800449FFB /* BattleshipDefenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipDefenceView.swift; sourceTree = "<group>"; };
 		8207C1992C1602DA00449FFB /* GameCreatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCreatedView.swift; sourceTree = "<group>"; };
 		8207C1A12C1613E000449FFB /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		822B2E442BA920ED00CCF448 /* ShipGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShipGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		822B2E442BA920ED00CCF448 /* Battleship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Battleship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		822B2E472BA920ED00CCF448 /* ShipGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipGameApp.swift; sourceTree = "<group>"; };
 		822B2E492BA920ED00CCF448 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		822B2E4B2BA920EF00CCF448 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		822B2E4D2BA920EF00CCF448 /* ShipGame.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShipGame.entitlements; sourceTree = "<group>"; };
+		822B2E4D2BA920EF00CCF448 /* Battleship.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Battleship.entitlements; sourceTree = "<group>"; };
 		822B2E4F2BA920EF00CCF448 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		822B2E562BA9340F00CCF448 /* GameGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGrid.swift; sourceTree = "<group>"; };
 		8238E70C2BD5825A00C85144 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
@@ -158,7 +158,7 @@
 		822B2E3B2BA920ED00CCF448 = {
 			isa = PBXGroup;
 			children = (
-				822B2E462BA920ED00CCF448 /* ShipGame */,
+				822B2E462BA920ED00CCF448 /* Battleship */,
 				822B2E452BA920ED00CCF448 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -166,12 +166,12 @@
 		822B2E452BA920ED00CCF448 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				822B2E442BA920ED00CCF448 /* ShipGame.app */,
+				822B2E442BA920ED00CCF448 /* Battleship.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		822B2E462BA920ED00CCF448 /* ShipGame */ = {
+		822B2E462BA920ED00CCF448 /* Battleship */ = {
 			isa = PBXGroup;
 			children = (
 				822B2E472BA920ED00CCF448 /* ShipGameApp.swift */,
@@ -181,11 +181,12 @@
 				82EFD9A12C0A7C0700EAAF86 /* Views */,
 				822B2E4B2BA920EF00CCF448 /* Assets.xcassets */,
 				8207C1A12C1613E000449FFB /* Colors.xcassets */,
-				822B2E4D2BA920EF00CCF448 /* ShipGame.entitlements */,
+				822B2E4D2BA920EF00CCF448 /* Battleship.entitlements */,
 				822B2E4E2BA920EF00CCF448 /* Preview Content */,
 			);
-			path = ShipGame;
-			sourceTree = "<group>";
+			name = Battleship;
+			path = /Users/moriahmadi/Dev/ShipGame/ShipGame/Battleship;
+			sourceTree = "<absolute>";
 		};
 		822B2E4E2BA920EF00CCF448 /* Preview Content */ = {
 			isa = PBXGroup;
@@ -225,9 +226,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		822B2E432BA920ED00CCF448 /* ShipGame */ = {
+		822B2E432BA920ED00CCF448 /* Battleship */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 822B2E532BA920EF00CCF448 /* Build configuration list for PBXNativeTarget "ShipGame" */;
+			buildConfigurationList = 822B2E532BA920EF00CCF448 /* Build configuration list for PBXNativeTarget "Battleship" */;
 			buildPhases = (
 				822B2E402BA920ED00CCF448 /* Sources */,
 				822B2E412BA920ED00CCF448 /* Frameworks */,
@@ -237,9 +238,9 @@
 			);
 			dependencies = (
 			);
-			name = ShipGame;
+			name = Battleship;
 			productName = ShipGame;
-			productReference = 822B2E442BA920ED00CCF448 /* ShipGame.app */;
+			productReference = 822B2E442BA920ED00CCF448 /* Battleship.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -250,14 +251,14 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1510;
-				LastUpgradeCheck = 1510;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					822B2E432BA920ED00CCF448 = {
 						CreatedOnToolsVersion = 15.1;
 					};
 				};
 			};
-			buildConfigurationList = 822B2E3F2BA920ED00CCF448 /* Build configuration list for PBXProject "ShipGame" */;
+			buildConfigurationList = 822B2E3F2BA920ED00CCF448 /* Build configuration list for PBXProject "Battleship" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -270,7 +271,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				822B2E432BA920ED00CCF448 /* ShipGame */,
+				822B2E432BA920ED00CCF448 /* Battleship */,
 			);
 		};
 /* End PBXProject section */
@@ -369,6 +370,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -430,6 +432,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -454,10 +457,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = ShipGame/ShipGame.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Battleship/Battleship.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ShipGame/Preview Content\"";
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Battleship/Preview Content\"";
 				DEVELOPMENT_TEAM = V8MTN2VWRH;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -492,10 +496,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = ShipGame/ShipGame.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Battleship/Battleship.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ShipGame/Preview Content\"";
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Battleship/Preview Content\"";
 				DEVELOPMENT_TEAM = V8MTN2VWRH;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -528,7 +533,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		822B2E3F2BA920ED00CCF448 /* Build configuration list for PBXProject "ShipGame" */ = {
+		822B2E3F2BA920ED00CCF448 /* Build configuration list for PBXProject "Battleship" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				822B2E512BA920EF00CCF448 /* Debug */,
@@ -537,7 +542,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		822B2E532BA920EF00CCF448 /* Build configuration list for PBXNativeTarget "ShipGame" */ = {
+		822B2E532BA920EF00CCF448 /* Build configuration list for PBXNativeTarget "Battleship" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				822B2E542BA920EF00CCF448 /* Debug */,
