@@ -16,7 +16,6 @@
 		8207C1962C1600B300449FFB /* BattleshipAttackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8207C1952C1600B300449FFB /* BattleshipAttackView.swift */; };
 		8207C1982C1601A800449FFB /* BattleshipDefenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8207C1972C1601A800449FFB /* BattleshipDefenceView.swift */; };
 		8207C19A2C1602DA00449FFB /* GameCreatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8207C1992C1602DA00449FFB /* GameCreatedView.swift */; };
-		8207C19E2C160DAD00449FFB /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8207C19D2C160DAD00449FFB /* View+Extensions.swift */; };
 		8207C1A22C1613E000449FFB /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8207C1A12C1613E000449FFB /* Colors.xcassets */; };
 		822B2E482BA920ED00CCF448 /* ShipGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822B2E472BA920ED00CCF448 /* ShipGameApp.swift */; };
 		822B2E4A2BA920ED00CCF448 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822B2E492BA920ED00CCF448 /* GameView.swift */; };
@@ -58,7 +57,6 @@
 		8207C1952C1600B300449FFB /* BattleshipAttackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipAttackView.swift; sourceTree = "<group>"; };
 		8207C1972C1601A800449FFB /* BattleshipDefenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipDefenceView.swift; sourceTree = "<group>"; };
 		8207C1992C1602DA00449FFB /* GameCreatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCreatedView.swift; sourceTree = "<group>"; };
-		8207C19D2C160DAD00449FFB /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		8207C1A12C1613E000449FFB /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		822B2E442BA920ED00CCF448 /* ShipGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShipGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		822B2E472BA920ED00CCF448 /* ShipGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipGameApp.swift; sourceTree = "<group>"; };
@@ -154,14 +152,6 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		8207C19C2C160D9E00449FFB /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				8207C19D2C160DAD00449FFB /* View+Extensions.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		822B2E3B2BA920ED00CCF448 = {
 			isa = PBXGroup;
 			children = (
@@ -181,16 +171,15 @@
 		822B2E462BA920ED00CCF448 /* ShipGame */ = {
 			isa = PBXGroup;
 			children = (
-				8207C19C2C160D9E00449FFB /* Extensions */,
+				822B2E472BA920ED00CCF448 /* ShipGameApp.swift */,
+				8207C18C2C0F8E1B00449FFB /* WebSocketLayer */,
 				823C5BCF2BE95AE700112962 /* Models */,
 				8207C19B2C16033600449FFB /* ViewModels */,
-				822B2E472BA920ED00CCF448 /* ShipGameApp.swift */,
 				82EFD9A12C0A7C0700EAAF86 /* Views */,
 				822B2E4B2BA920EF00CCF448 /* Assets.xcassets */,
 				8207C1A12C1613E000449FFB /* Colors.xcassets */,
 				822B2E4D2BA920EF00CCF448 /* ShipGame.entitlements */,
 				822B2E4E2BA920EF00CCF448 /* Preview Content */,
-				8207C18C2C0F8E1B00449FFB /* WebSocketLayer */,
 			);
 			path = ShipGame;
 			sourceTree = "<group>";
@@ -307,7 +296,6 @@
 				8238E70D2BD5825A00C85144 /* LandingView.swift in Sources */,
 				822B2E4A2BA920ED00CCF448 /* GameView.swift in Sources */,
 				82EFD9B32C0D5D1700EAAF86 /* Player.swift in Sources */,
-				8207C19E2C160DAD00449FFB /* View+Extensions.swift in Sources */,
 				82EFD99C2C0A60A300EAAF86 /* ResponseMessage.swift in Sources */,
 				8207C1982C1601A800449FFB /* BattleshipDefenceView.swift in Sources */,
 				82F1D2122C18DC4600A600BF /* EndMessage.swift in Sources */,

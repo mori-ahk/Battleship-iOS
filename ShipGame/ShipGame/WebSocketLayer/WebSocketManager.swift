@@ -8,9 +8,11 @@
 import SwiftUI
 import Combine
 
-class WebSocketManager: ObservableObject {
+class WebSocketManager: NSObject, ObservableObject {
     private var webSocketTask: URLSessionWebSocketTask?
     var responsePipeline = PassthroughSubject<ResponseMessage?, Never>()
+    var delegate: WebSocketManagerDelegate?
+    
     lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -69,12 +71,11 @@ class WebSocketManager: ObservableObject {
             default:
                 break
             }
-            
         } catch {
             print(error)
         }
     }
-    
+   
     private func processCreateMessage(_ data: Data) throws {
         let createMessage = try decoder.decode(Message<CreateMessage>.self, from: data)
         guard let payload = createMessage.payload, let gameInfo = GameInfo(payload) else { return }
@@ -103,10 +104,14 @@ class WebSocketManager: ObservableObject {
 extension WebSocketManager: WebSocketService {
     func connect() {
         guard let url = URL(string: "wss://battleship-go-ios.fly.dev/battleship") else { return }
-        var request = URLRequest(url: url)
-        webSocketTask = URLSession.shared.webSocketTask(with: request)
+        webSocketTask = URLSession.shared.webSocketTask(with: URLRequest(url: url))
+        webSocketTask?.delegate = self
         webSocketTask?.resume()
         receive()
+    }
+   
+    func disconnect() {
+        webSocketTask?.cancel()
     }
     
     func send(_ message: WebSocketMessage) {
@@ -133,4 +138,19 @@ extension WebSocketManager: WebSocketService {
             }
         }
     }
+}
+
+extension WebSocketManager: URLSessionWebSocketDelegate {
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+        delegate?.didConnect()
+    }
+    
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
+        delegate?.didDisconnect()
+    }
+}
+
+protocol WebSocketManagerDelegate: AnyObject {
+    func didConnect()
+    func didDisconnect()
 }

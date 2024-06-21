@@ -20,7 +20,7 @@ struct LandingView: View {
                 .fontWeight(.heavy)
             Group {
                 Button {
-                    viewModel.create()
+                    viewModel.connect(source: .host)
                 } label: {
                     Text("Create a game")
                         .padding(8)
@@ -39,7 +39,8 @@ struct LandingView: View {
             TextField("Enter game Id", text: $gameId)
             Button("join") {
                 guard !gameId.isEmpty else { return }
-                viewModel.join(game: Game(id: gameId))
+                viewModel.connect(source: .join)
+                viewModel.gameToJoin = Game(id: gameId)
             }
         }
     }

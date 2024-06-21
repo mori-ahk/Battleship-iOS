@@ -25,9 +25,11 @@ struct EndGameView: View {
             Button {
                 action()
             } label: {
-                Text("Go back ")
+                Text("Go back")
+                    .padding(8)
             }
             .buttonStyle(.borderedProminent)
+            .fontWeight(.semibold)
         }
     }
 }

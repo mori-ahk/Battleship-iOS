@@ -16,3 +16,4 @@ enum ResponseMessage {
     case attack(RespAttackMessage)
     case end(EndMessage)
 }
+

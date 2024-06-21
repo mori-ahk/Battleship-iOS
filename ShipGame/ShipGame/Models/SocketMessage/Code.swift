@@ -8,7 +8,9 @@
 import Foundation
 
 enum Code: Int, Codable {
-    case create = 0
+    case sessionId = 0
+    case invalidSessionId
+    case create
     case join
     case select
     case ready
@@ -16,6 +18,7 @@ enum Code: Int, Codable {
     case attack
     case end
     case invalid
+    case absent
    
     enum CodingKeys: String, CodingKey {
         case code
