@@ -8,6 +8,11 @@
 import Foundation
 import Combine
 
+enum ConnectionSource {
+    case host
+    case join
+}
+
 class BattleshipViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var webSocket: any WebSocketService = WebSocketManager()
@@ -50,8 +55,6 @@ class BattleshipViewModel: ObservableObject {
                 receiveCompletion: { _ in },
                 receiveValue: { message in
                     switch message {
-                    case .sessionId(let message):
-                        print(message)
                     case .create(let message):
                         self.gameInfo = message
                         self.state = .created(message.game)
@@ -115,13 +118,16 @@ class BattleshipViewModel: ObservableObject {
         shouldEnableReady = false
         isTurn = false
     }
-    
 }
 
 extension BattleshipViewModel: BattleshipInterface {
     func connect(source: ConnectionSource) {
         self.connectionSource = source
         webSocket.connect()
+    }
+   
+    func disconnect() {
+        webSocket.disconnect()
     }
     
     func create() {
@@ -175,7 +181,3 @@ extension BattleshipViewModel: WebSocketManagerDelegate {
     func didDisconnect() { }
 }
 
-enum ConnectionSource {
-    case host
-    case join
-}

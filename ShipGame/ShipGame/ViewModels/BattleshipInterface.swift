@@ -9,6 +9,7 @@ import Foundation
 
 protocol BattleshipInterface {
     func connect(source: ConnectionSource)
+    func disconnect()
     func create()
     func join(game: Game)
     func ready()

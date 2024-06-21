@@ -9,7 +9,6 @@ import SwiftUI
 import Combine
 
 class WebSocketManager: NSObject, ObservableObject {
-    var session: Session? = nil
     private var webSocketTask: URLSessionWebSocketTask?
     var responsePipeline = PassthroughSubject<ResponseMessage?, Never>()
     var delegate: WebSocketManagerDelegate?
@@ -55,10 +54,6 @@ class WebSocketManager: NSObject, ObservableObject {
     private func handleCode(_ code: Code, data: Data) {
         do {
             switch code {
-            case .sessionId:
-                try processSessionMessage(data)
-            case .invalidSessionId:
-                responsePipeline.send(.invalidSession)
             case .create:
                 try processCreateMessage(data)
             case .join:
@@ -76,19 +71,11 @@ class WebSocketManager: NSObject, ObservableObject {
             default:
                 break
             }
-            
         } catch {
             print(error)
         }
     }
    
-    private func processSessionMessage(_ data: Data) throws {
-        let sessionMessage = try decoder.decode(Message<SessionMessage>.self, from: data)
-        guard let payload = sessionMessage.payload else { return }
-        self.session = Session(id: payload.id)
-        responsePipeline.send(.sessionId(session!))
-    }
-    
     private func processCreateMessage(_ data: Data) throws {
         let createMessage = try decoder.decode(Message<CreateMessage>.self, from: data)
         guard let payload = createMessage.payload, let gameInfo = GameInfo(payload) else { return }
@@ -115,30 +102,9 @@ class WebSocketManager: NSObject, ObservableObject {
 }
 
 extension WebSocketManager: WebSocketService {
-    func ping() async -> Result<Bool, Error> {
-        await withCheckedContinuation { continuation in
-            webSocketTask?.sendPing(pongReceiveHandler: { error in
-                if let error = error {
-                    continuation.resume(returning: .failure(error))
-                } else {
-                    continuation.resume(returning: .success(true))
-                }
-            })
-        }
-    }
-    
     func connect() {
-        var components = URLComponents(string: "wss://battleship-go-ios.fly.dev/battleship")
-//        var components = URLComponents(string: "ws://localhost:8080/battleship")
-        if let sessionId = session?.id {
-            components?.queryItems = [
-                URLQueryItem(name: "sessionID", value: sessionId)
-            ]
-        }
-       
-        guard let url = components?.url else { return }
-        let request = URLRequest(url: url)
-        webSocketTask = URLSession.shared.webSocketTask(with: request)
+        guard let url = URL(string: "wss://battleship-go-ios.fly.dev/battleship") else { return }
+        webSocketTask = URLSession.shared.webSocketTask(with: URLRequest(url: url))
         webSocketTask?.delegate = self
         webSocketTask?.resume()
         receive()

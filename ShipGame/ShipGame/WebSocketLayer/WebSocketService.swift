@@ -10,10 +10,10 @@ import Combine
 
 protocol WebSocketService {
     func connect()
+    func disconnect()
     func send(_ message: WebSocketMessage)
     func receive()
     var responsePipeline: PassthroughSubject<ResponseMessage?, Never> { get set }
-    var session: Session? { get set }
     var delegate: WebSocketManagerDelegate? { get set }
 }
 
