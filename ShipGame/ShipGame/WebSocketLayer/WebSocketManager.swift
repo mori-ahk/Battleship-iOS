@@ -111,7 +111,7 @@ extension WebSocketManager: WebSocketService {
     }
    
     func disconnect() {
-        webSocketTask?.cancel()
+        webSocketTask?.cancel(with: .normalClosure, reason: nil)
     }
     
     func send(_ message: WebSocketMessage) {
