@@ -9,6 +9,8 @@ import Foundation
 
 enum GameState {
     case idle
+    case connecting
+    case disconnecting
     case created(Game)
     case select
     case ready
@@ -27,6 +29,8 @@ extension GameState: Identifiable {
         case .started: 4
         case .attacked: 5
         case .ended: 6
+        case .connecting: 7
+        case .disconnecting: 8
         }
     }
     
@@ -34,6 +38,14 @@ extension GameState: Identifiable {
         switch self {
         case .ready, .started, .attacked: false
         default: true
+        }
+    }
+    
+    var inProgress: Bool {
+        switch self {
+        case .connecting, .disconnecting:
+            return true
+        default: return false
         }
     }
 }
