@@ -27,6 +27,7 @@ struct GameView: View {
                     case .created(let game):
                         GameCreatedView(game: game) {
                             viewModel.resetGameState()
+                            viewModel.disconnect()
                         }
                         .transition(.blurReplace)
                     case .ended(let gameResult):
