@@ -32,6 +32,7 @@ struct GameView: View {
                     case .ended(let gameResult):
                         EndGameView(gameResult: gameResult) {
                             viewModel.resetGameState()
+                            viewModel.disconnect()
                         }
                         .transition(.blurReplace)
                     default:
