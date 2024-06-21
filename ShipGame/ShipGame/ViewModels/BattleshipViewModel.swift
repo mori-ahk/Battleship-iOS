@@ -20,6 +20,7 @@ class BattleshipViewModel: ObservableObject {
     @Published var attackGrid = GameGrid()
     @Published private(set) var gameInfo: GameInfo? // FIXME: Find a better way to hold this information
     @Published private(set) var state: GameState = .idle
+    @Published private(set) var connectionState: ConnectionState = .idle
     @Published private(set) var shouldEnableReady: Bool = false
     @Published private(set) var isTurn: Bool = false
     
@@ -109,7 +110,7 @@ class BattleshipViewModel: ObservableObject {
             )
         }
     }
-    
+   
     func resetGameState() {
         state = .idle
         defenceGrid.clear()
@@ -122,11 +123,17 @@ class BattleshipViewModel: ObservableObject {
 
 extension BattleshipViewModel: BattleshipInterface {
     func connect(source: ConnectionSource) {
+        DispatchQueue.main.async {
+            self.connectionState = .connecting
+        }
         self.connectionSource = source
         webSocket.connect()
     }
    
     func disconnect() {
+        DispatchQueue.main.async {
+            self.connectionState = .disconnecting
+        }
         webSocket.disconnect()
     }
     
@@ -176,8 +183,17 @@ extension BattleshipViewModel: WebSocketManagerDelegate {
                 self.join(game: gameToJoin)
             }
         }
+        
+        DispatchQueue.main.async {
+            self.connectionState = .connected
+        }
     }
-    
-    func didDisconnect() { }
+   
+    func didDisconnect() {
+        DispatchQueue.main.async {
+            self.resetGameState()
+            self.connectionState = .disconnected
+        }
+    }
 }
 
