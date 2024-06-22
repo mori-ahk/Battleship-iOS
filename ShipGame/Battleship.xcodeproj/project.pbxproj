@@ -185,7 +185,7 @@
 				822B2E4E2BA920EF00CCF448 /* Preview Content */,
 			);
 			name = Battleship;
-			path = /Users/moriahmadi/Dev/ShipGame/ShipGame/Battleship;
+			path = "/Users/moriahmadi/Dev/Battleship-iOS/ShipGame/Battleship";
 			sourceTree = "<absolute>";
 		};
 		822B2E4E2BA920EF00CCF448 /* Preview Content */ = {
