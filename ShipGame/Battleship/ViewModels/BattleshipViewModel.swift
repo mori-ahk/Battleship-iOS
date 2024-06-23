@@ -27,7 +27,8 @@ class BattleshipViewModel: ObservableObject {
     var isPlayerHost: Bool {
         gameInfo?.player?.isHost ?? false
     }
-   
+    
+    var session: Session?
     var connectionSource: ConnectionSource = .host
     var gameToJoin: Game?
     
@@ -56,6 +57,8 @@ class BattleshipViewModel: ObservableObject {
                 receiveCompletion: { _ in },
                 receiveValue: { message in
                     switch message {
+                    case .session(let message):
+                        self.session = Session(id: message.id)
                     case .create(let message):
                         self.gameInfo = message
                         self.state = .created(message.game)

@@ -12,7 +12,6 @@ class WebSocketManager: NSObject, ObservableObject {
     private var webSocketTask: URLSessionWebSocketTask?
     var responsePipeline = PassthroughSubject<ResponseMessage?, Never>()
     var delegate: WebSocketManagerDelegate?
-    var session: SessionMessage?
     
     lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -82,7 +81,7 @@ class WebSocketManager: NSObject, ObservableObject {
     private func processSessionMessage(_ data: Data) throws {
         let sessionMessage = try decoder.decode(Message<SessionMessage>.self, from: data)
         guard let payload = sessionMessage.payload else { return }
-        self.session = payload
+        responsePipeline.send(.session(payload))
     }
     
     private func processCreateMessage(_ data: Data) throws {

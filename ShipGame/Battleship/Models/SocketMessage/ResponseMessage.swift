@@ -8,6 +8,7 @@
 import Foundation
 
 enum ResponseMessage {
+    case session(SessionMessage)
     case create(GameInfo)
     case join(JoinMessage)
     case select
