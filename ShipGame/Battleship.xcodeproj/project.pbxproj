@@ -30,6 +30,7 @@
 		823C5BD92BF124BD00112962 /* JoinMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823C5BD82BF124BD00112962 /* JoinMessage.swift */; };
 		824E76562C25FD9E00857B66 /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824E76552C25FD9E00857B66 /* ConnectionState.swift */; };
 		82B37A002C2893DE00A52C18 /* SessionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B379FF2C2893DE00A52C18 /* SessionMessage.swift */; };
+		82B37A022C28944A00A52C18 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B37A012C28944A00A52C18 /* Session.swift */; };
 		82EFD99C2C0A60A300EAAF86 /* ResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99B2C0A60A300EAAF86 /* ResponseMessage.swift */; };
 		82EFD99E2C0A696D00EAAF86 /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99D2C0A696D00EAAF86 /* Instruction.swift */; };
 		82EFD9A02C0A69D200EAAF86 /* BattleshipDefendGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */; };
@@ -75,6 +76,7 @@
 		823C5BD82BF124BD00112962 /* JoinMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinMessage.swift; sourceTree = "<group>"; };
 		824E76552C25FD9E00857B66 /* ConnectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
 		82B379FF2C2893DE00A52C18 /* SessionMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMessage.swift; sourceTree = "<group>"; };
+		82B37A012C28944A00A52C18 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		82EFD99B2C0A60A300EAAF86 /* ResponseMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseMessage.swift; sourceTree = "<group>"; };
 		82EFD99D2C0A696D00EAAF86 /* Instruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
 		82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipDefendGridView.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				8207C1932C15EC7A00449FFB /* AttackResult.swift */,
 				82F1D20F2C17E54600A600BF /* SunkenShip.swift */,
 				82F1D2132C18DCF600A600BF /* GameResult.swift */,
+				82B37A012C28944A00A52C18 /* Session.swift */,
 			);
 			path = Battleship;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				82EFD99E2C0A696D00EAAF86 /* Instruction.swift in Sources */,
 				82F1D2162C18E3C500A600BF /* EndGameView.swift in Sources */,
 				823C5BD52BE95B2400112962 /* Code.swift in Sources */,
+				82B37A022C28944A00A52C18 /* Session.swift in Sources */,
 				824E76562C25FD9E00857B66 /* ConnectionState.swift in Sources */,
 				82F1D2142C18DCF600A600BF /* GameResult.swift in Sources */,
 				82F305CA2BB461CC00F633FA /* WebSocketManager.swift in Sources */,
