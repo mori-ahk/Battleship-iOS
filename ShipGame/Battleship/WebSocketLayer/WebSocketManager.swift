@@ -12,6 +12,7 @@ class WebSocketManager: NSObject, ObservableObject {
     private var webSocketTask: URLSessionWebSocketTask?
     var responsePipeline = PassthroughSubject<ResponseMessage?, Never>()
     var delegate: WebSocketManagerDelegate?
+    var session: SessionMessage?
     
     lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -54,6 +55,8 @@ class WebSocketManager: NSObject, ObservableObject {
     private func handleCode(_ code: Code, data: Data) {
         do {
             switch code {
+            case .sessionId:
+                try processSessionMessage(data)
             case .create:
                 try processCreateMessage(data)
             case .join:
@@ -75,7 +78,13 @@ class WebSocketManager: NSObject, ObservableObject {
             print(error)
         }
     }
-   
+  
+    private func processSessionMessage(_ data: Data) throws {
+        let sessionMessage = try decoder.decode(Message<SessionMessage>.self, from: data)
+        guard let payload = sessionMessage.payload else { return }
+        self.session = payload
+    }
+    
     private func processCreateMessage(_ data: Data) throws {
         let createMessage = try decoder.decode(Message<CreateMessage>.self, from: data)
         guard let payload = createMessage.payload, let gameInfo = GameInfo(payload) else { return }

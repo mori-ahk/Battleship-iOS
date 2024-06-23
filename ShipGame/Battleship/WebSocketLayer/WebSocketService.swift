@@ -15,6 +15,7 @@ protocol WebSocketService {
     func receive()
     var responsePipeline: PassthroughSubject<ResponseMessage?, Never> { get set }
     var delegate: WebSocketManagerDelegate? { get set }
+    var session: SessionMessage? { get }
 }
 
 protocol WebSocketMessage: Codable { }
