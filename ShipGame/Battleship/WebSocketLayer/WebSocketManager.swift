@@ -110,8 +110,12 @@ class WebSocketManager: NSObject, ObservableObject {
 }
 
 extension WebSocketManager: WebSocketService {
-    func connect() {
-        guard let url = URL(string: "wss://battleship-go-ios.fly.dev/battleship") else { return }
+    func connect(to sessionId: String?) {
+        var components = URLComponents(string: "wss://battleship-go-ios.fly.dev/battleship")
+        components?.queryItems = [
+            URLQueryItem(name: "sessionID", value: sessionId)
+        ]
+        guard let url = components?.url else { return }
         webSocketTask = URLSession.shared.webSocketTask(with: URLRequest(url: url))
         webSocketTask?.delegate = self
         webSocketTask?.resume()

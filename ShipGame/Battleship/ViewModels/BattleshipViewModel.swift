@@ -125,12 +125,12 @@ class BattleshipViewModel: ObservableObject {
 }
 
 extension BattleshipViewModel: BattleshipInterface {
-    func connect(source: ConnectionSource) {
+    func connect(from source: ConnectionSource, to sessionId: String?) {
         DispatchQueue.main.async {
             self.connectionState = .connecting
         }
         self.connectionSource = source
-        webSocket.connect()
+        webSocket.connect(to: sessionId)
     }
    
     func disconnect() {
