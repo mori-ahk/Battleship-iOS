@@ -31,6 +31,8 @@
 		824E76562C25FD9E00857B66 /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824E76552C25FD9E00857B66 /* ConnectionState.swift */; };
 		82B37A002C2893DE00A52C18 /* SessionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B379FF2C2893DE00A52C18 /* SessionMessage.swift */; };
 		82B37A022C28944A00A52C18 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B37A012C28944A00A52C18 /* Session.swift */; };
+		82C568DE2C2A146000A07F0B /* PausedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568DD2C2A146000A07F0B /* PausedView.swift */; };
+		82C568E02C2A1A1D00A07F0B /* GameplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568DF2C2A1A1D00A07F0B /* GameplayView.swift */; };
 		82EFD99C2C0A60A300EAAF86 /* ResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99B2C0A60A300EAAF86 /* ResponseMessage.swift */; };
 		82EFD99E2C0A696D00EAAF86 /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99D2C0A696D00EAAF86 /* Instruction.swift */; };
 		82EFD9A02C0A69D200EAAF86 /* BattleshipDefendGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */; };
@@ -77,6 +79,8 @@
 		824E76552C25FD9E00857B66 /* ConnectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
 		82B379FF2C2893DE00A52C18 /* SessionMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMessage.swift; sourceTree = "<group>"; };
 		82B37A012C28944A00A52C18 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		82C568DD2C2A146000A07F0B /* PausedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PausedView.swift; sourceTree = "<group>"; };
+		82C568DF2C2A1A1D00A07F0B /* GameplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameplayView.swift; sourceTree = "<group>"; };
 		82EFD99B2C0A60A300EAAF86 /* ResponseMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseMessage.swift; sourceTree = "<group>"; };
 		82EFD99D2C0A696D00EAAF86 /* Instruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
 		82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipDefendGridView.swift; sourceTree = "<group>"; };
@@ -225,6 +229,8 @@
 				8207C1972C1601A800449FFB /* BattleshipDefenceView.swift */,
 				8207C1992C1602DA00449FFB /* GameCreatedView.swift */,
 				82F1D2152C18E3C500A600BF /* EndGameView.swift */,
+				82C568DD2C2A146000A07F0B /* PausedView.swift */,
+				82C568DF2C2A1A1D00A07F0B /* GameplayView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -316,6 +322,7 @@
 				82EFD9A92C0D08AA00EAAF86 /* ReadyMessage.swift in Sources */,
 				8207C18E2C0F8E4000449FFB /* WebSocketService.swift in Sources */,
 				8207C1922C124F2800449FFB /* BattleshipInterface.swift in Sources */,
+				82C568E02C2A1A1D00A07F0B /* GameplayView.swift in Sources */,
 				82EFD9AB2C0D09A400EAAF86 /* GameInfo.swift in Sources */,
 				8207C1872C0E1DB500449FFB /* Coordinate.swift in Sources */,
 				822B2E482BA920ED00CCF448 /* ShipGameApp.swift in Sources */,
@@ -325,6 +332,7 @@
 				82F1D2102C17E54600A600BF /* SunkenShip.swift in Sources */,
 				82EFD9B12C0D5B9300EAAF86 /* Game.swift in Sources */,
 				8238E70F2BD5833100C85144 /* BattleshipViewModel.swift in Sources */,
+				82C568DE2C2A146000A07F0B /* PausedView.swift in Sources */,
 				82B37A002C2893DE00A52C18 /* SessionMessage.swift in Sources */,
 				8207C1942C15EC7A00449FFB /* AttackResult.swift in Sources */,
 				82EFD99E2C0A696D00EAAF86 /* Instruction.swift in Sources */,

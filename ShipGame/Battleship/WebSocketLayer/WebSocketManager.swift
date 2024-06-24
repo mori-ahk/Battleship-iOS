@@ -70,6 +70,12 @@ class WebSocketManager: NSObject, ObservableObject {
                 try processAttackMessage(data)
             case .end:
                 try processEndMessage(data)
+            case .opponentDisconnected:
+                responsePipeline.send(.opponentStatus(.disconnected))
+            case .opponentReconnected:
+                responsePipeline.send(.opponentStatus(.reconnected))
+            case .gracePeriod:
+                responsePipeline.send(.opponentStatus(.gracePeriod))
             default:
                 break
             }
