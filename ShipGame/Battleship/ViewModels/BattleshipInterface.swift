@@ -8,8 +8,9 @@
 import Foundation
 
 protocol BattleshipInterface {
+    func ping() async -> Bool
     func connect(from source: ConnectionSource, to sessionId: String?)
-    func disconnect()
+    func disconnect(reason: DisconnectionReason)
     func create()
     func join(game: Game)
     func ready()

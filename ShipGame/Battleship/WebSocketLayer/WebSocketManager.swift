@@ -110,8 +110,22 @@ class WebSocketManager: NSObject, ObservableObject {
 }
 
 extension WebSocketManager: WebSocketService {
+    func ping() async throws -> Bool {
+        try await withCheckedThrowingContinuation { continuation in
+            webSocketTask?.sendPing(pongReceiveHandler: { error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: true)
+                }
+            })
+        }
+    }
+    
     func connect(to sessionId: String?) {
+        print(#function)
         var components = URLComponents(string: "wss://battleship-go-ios.fly.dev/battleship")
+//        var components = URLComponents(string: "ws://localhost:8080/battleship")
         components?.queryItems = [
             URLQueryItem(name: "sessionID", value: sessionId)
         ]
@@ -119,7 +133,6 @@ extension WebSocketManager: WebSocketService {
         webSocketTask = URLSession.shared.webSocketTask(with: URLRequest(url: url))
         webSocketTask?.delegate = self
         webSocketTask?.resume()
-        receive()
     }
    
     func disconnect() {
@@ -154,6 +167,7 @@ extension WebSocketManager: WebSocketService {
 
 extension WebSocketManager: URLSessionWebSocketDelegate {
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+        receive()
         delegate?.didConnect()
     }
     

@@ -13,6 +13,11 @@ enum ConnectionSource {
     case join
 }
 
+enum DisconnectionReason {
+    case backgrounded
+    case gameEnded
+}
+
 class BattleshipViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var webSocket: any WebSocketService = WebSocketManager()
@@ -30,6 +35,7 @@ class BattleshipViewModel: ObservableObject {
     
     var session: Session?
     var connectionSource: ConnectionSource = .host
+    var disconnectionReason: DisconnectionReason?
     var gameToJoin: Game?
     
     init() {
@@ -121,11 +127,21 @@ class BattleshipViewModel: ObservableObject {
         gameInfo = nil
         shouldEnableReady = false
         isTurn = false
+        session = nil
     }
 }
 
 extension BattleshipViewModel: BattleshipInterface {
-    func connect(from source: ConnectionSource, to sessionId: String?) {
+    func ping() async -> Bool {
+        do {
+            return try await webSocket.ping()
+        } catch {
+            print(error)
+            return false
+        }
+    }
+    
+    func connect(from source: ConnectionSource, to sessionId: String? = nil) {
         DispatchQueue.main.async {
             self.connectionState = .connecting
         }
@@ -133,9 +149,10 @@ extension BattleshipViewModel: BattleshipInterface {
         webSocket.connect(to: sessionId)
     }
    
-    func disconnect() {
+    func disconnect(reason: DisconnectionReason) {
         DispatchQueue.main.async {
             self.connectionState = .disconnecting
+            self.disconnectionReason = reason
         }
         webSocket.disconnect()
     }
@@ -179,6 +196,7 @@ extension BattleshipViewModel: BattleshipInterface {
 
 extension BattleshipViewModel: WebSocketManagerDelegate {
     func didConnect() {
+        guard session == nil else { return }
         if connectionSource == .host {
             self.create()
         } else {
@@ -194,7 +212,9 @@ extension BattleshipViewModel: WebSocketManagerDelegate {
    
     func didDisconnect() {
         DispatchQueue.main.async {
-            self.resetGameState()
+            if self.disconnectionReason == .gameEnded {
+                self.resetGameState()
+            }
             self.connectionState = .disconnected
         }
     }

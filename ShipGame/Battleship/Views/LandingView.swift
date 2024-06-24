@@ -23,7 +23,7 @@ struct LandingView: View {
                 .fontWeight(.heavy)
             Group {
                 Button {
-                    viewModel.connect(source: .host)
+                    viewModel.connect(from: .host)
                 } label: {
                     ZStack {
                         if connectionState.inProgress {
@@ -57,8 +57,8 @@ struct LandingView: View {
             TextField("Enter game Id", text: $gameId)
             Button("join") {
                 guard !gameId.isEmpty else { return }
-                viewModel.connect(source: .join)
                 viewModel.gameToJoin = Game(id: gameId)
+                viewModel.connect(from: .join)
             }
         }
         .onReceive(viewModel.$connectionState) { newConnectionState in
