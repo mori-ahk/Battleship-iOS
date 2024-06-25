@@ -14,13 +14,14 @@ struct PausedView: View {
             Group {
                 switch opponentStatus {
                 case .gracePeriod:
-                    Text("Player is AFK, if they're not back in 2 mins. This game will end")
+                    Text("The other player is AFK. If they do not return within 2 minutes, the game will end")
                 default: EmptyView()
                 }
             }
             .multilineTextAlignment(.center)
             .padding()
             .fontWeight(.semibold)
+            .lineSpacing(5)
         }
         .padding()
         .background(
