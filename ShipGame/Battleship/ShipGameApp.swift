@@ -31,9 +31,6 @@ struct ShipGameApp: App {
                         }
                     }
                 }
-            case .background:
-                print("background")
-//                viewModel.disconnect(reason: .backgrounded)
             default: break
             }
         }
