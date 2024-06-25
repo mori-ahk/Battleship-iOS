@@ -36,7 +36,6 @@ class BattleshipViewModel: ObservableObject {
     var previousState: GameState?
     var session: Session?
     var connectionSource: ConnectionSource = .host
-    var disconnectionReason: DisconnectionReason?
     var gameToJoin: Game?
     
     init() {
@@ -56,7 +55,6 @@ class BattleshipViewModel: ObservableObject {
             .store(in: &cancellables)
     }
    
-
     
     func listen() {
         webSocket.responsePipeline
@@ -125,7 +123,6 @@ class BattleshipViewModel: ObservableObject {
         case .reconnected:
             state = previousState ?? .idle
         case .disconnected:
-            disconnectionReason = .gameEnded
             didDisconnect()
         }
     }
@@ -169,7 +166,6 @@ extension BattleshipViewModel: BattleshipInterface {
     func disconnect(reason: DisconnectionReason) {
         DispatchQueue.main.async {
             self.connectionState = .disconnecting
-            self.disconnectionReason = reason
         }
         webSocket.disconnect()
     }
@@ -229,9 +225,7 @@ extension BattleshipViewModel: WebSocketManagerDelegate {
    
     func didDisconnect() {
         DispatchQueue.main.async {
-            if self.disconnectionReason == .gameEnded {
-                self.resetGameState()
-            }
+            self.resetGameState()
             self.connectionState = .disconnected
         }
     }
