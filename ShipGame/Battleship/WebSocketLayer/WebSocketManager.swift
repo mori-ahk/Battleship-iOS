@@ -116,14 +116,10 @@ class WebSocketManager: NSObject, ObservableObject {
 }
 
 extension WebSocketManager: WebSocketService {
-    func ping() async throws -> Bool {
-        try await withCheckedThrowingContinuation { continuation in
+    func ping() async -> Bool {
+        await withCheckedContinuation { continuation in
             webSocketTask?.sendPing(pongReceiveHandler: { error in
-                if let error = error {
-                    continuation.resume(throwing: error)
-                } else {
-                    continuation.resume(returning: true)
-                }
+                continuation.resume(returning: error == nil)
             })
         }
     }

@@ -155,12 +155,7 @@ class BattleshipViewModel: ObservableObject {
 
 extension BattleshipViewModel: BattleshipInterface {
     func ping() async -> Bool {
-        do {
-            return try await webSocket.ping()
-        } catch {
-            print(error)
-            return false
-        }
+        return await webSocket.ping()
     }
     
     func connect(from source: ConnectionSource, to sessionId: String? = nil) {

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol WebSocketService {
-    func ping() async throws -> Bool
+    func ping() async -> Bool
     func connect(to sessionId: String?)
     func disconnect()
     func send(_ message: WebSocketMessage)

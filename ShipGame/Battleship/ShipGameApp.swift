@@ -22,7 +22,7 @@ struct ShipGameApp: App {
             switch newValue {
             case .active:
                 Task {
-                    if !(await viewModel.ping()) {
+                    if await viewModel.ping() == false {
                         if let currentSession = viewModel.session {
                             viewModel.connect(
                                 from: viewModel.connectionSource,
