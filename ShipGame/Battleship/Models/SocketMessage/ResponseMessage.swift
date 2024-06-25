@@ -8,6 +8,7 @@
 import Foundation
 
 enum ResponseMessage {
+    case session(SessionMessage)
     case create(GameInfo)
     case join(JoinMessage)
     case select
@@ -15,5 +16,11 @@ enum ResponseMessage {
     case start
     case attack(RespAttackMessage)
     case end(EndMessage)
+    case opponentStatus(OpponentStatus)
 }
 
+enum OpponentStatus {
+    case disconnected
+    case reconnected
+    case gracePeriod
+}

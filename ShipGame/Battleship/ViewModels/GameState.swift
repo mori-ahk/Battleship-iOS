@@ -15,6 +15,7 @@ enum GameState {
     case started
     case attacked(AttackResult)
     case ended(GameResult)
+    case paused(OpponentStatus)
 }
 
 extension GameState: Identifiable {
@@ -27,6 +28,7 @@ extension GameState: Identifiable {
         case .started: 4
         case .attacked: 5
         case .ended: 6
+        case .paused: 7
         }
     }
     

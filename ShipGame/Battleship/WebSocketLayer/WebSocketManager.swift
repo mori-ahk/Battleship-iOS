@@ -54,6 +54,8 @@ class WebSocketManager: NSObject, ObservableObject {
     private func handleCode(_ code: Code, data: Data) {
         do {
             switch code {
+            case .sessionId:
+                try processSessionMessage(data)
             case .create:
                 try processCreateMessage(data)
             case .join:
@@ -68,6 +70,12 @@ class WebSocketManager: NSObject, ObservableObject {
                 try processAttackMessage(data)
             case .end:
                 try processEndMessage(data)
+            case .opponentDisconnected:
+                responsePipeline.send(.opponentStatus(.disconnected))
+            case .opponentReconnected:
+                responsePipeline.send(.opponentStatus(.reconnected))
+            case .gracePeriod:
+                responsePipeline.send(.opponentStatus(.gracePeriod))
             default:
                 break
             }
@@ -75,7 +83,13 @@ class WebSocketManager: NSObject, ObservableObject {
             print(error)
         }
     }
-   
+  
+    private func processSessionMessage(_ data: Data) throws {
+        let sessionMessage = try decoder.decode(Message<SessionMessage>.self, from: data)
+        guard let payload = sessionMessage.payload else { return }
+        responsePipeline.send(.session(payload))
+    }
+    
     private func processCreateMessage(_ data: Data) throws {
         let createMessage = try decoder.decode(Message<CreateMessage>.self, from: data)
         guard let payload = createMessage.payload, let gameInfo = GameInfo(payload) else { return }
@@ -102,12 +116,23 @@ class WebSocketManager: NSObject, ObservableObject {
 }
 
 extension WebSocketManager: WebSocketService {
-    func connect() {
-        guard let url = URL(string: "wss://battleship-go-ios.fly.dev/battleship") else { return }
+    func ping() async -> Bool {
+        await withCheckedContinuation { continuation in
+            webSocketTask?.sendPing(pongReceiveHandler: { error in
+                continuation.resume(returning: error == nil)
+            })
+        }
+    }
+    
+    func connect(to sessionId: String?) {
+        var components = URLComponents(string: "wss://battleship-go-ios.fly.dev/battleship")
+        components?.queryItems = [
+            URLQueryItem(name: "sessionID", value: sessionId)
+        ]
+        guard let url = components?.url else { return }
         webSocketTask = URLSession.shared.webSocketTask(with: URLRequest(url: url))
         webSocketTask?.delegate = self
         webSocketTask?.resume()
-        receive()
     }
    
     func disconnect() {
@@ -142,6 +167,7 @@ extension WebSocketManager: WebSocketService {
 
 extension WebSocketManager: URLSessionWebSocketDelegate {
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+        receive()
         delegate?.didConnect()
     }
     

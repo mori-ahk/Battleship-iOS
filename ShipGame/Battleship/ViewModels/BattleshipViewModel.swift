@@ -27,7 +27,9 @@ class BattleshipViewModel: ObservableObject {
     var isPlayerHost: Bool {
         gameInfo?.player?.isHost ?? false
     }
-   
+    
+    var previousState: GameState?
+    var session: Session?
     var connectionSource: ConnectionSource = .host
     var gameToJoin: Game?
     
@@ -47,41 +49,38 @@ class BattleshipViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
+   
     
     func listen() {
         webSocket.responsePipeline
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { _ in },
-                receiveValue: { message in
+                receiveValue: { [weak self] message in
+                    guard let self else { return }
                     switch message {
+                    case .session(let message):
+                        session = Session(id: message.id)
                     case .create(let message):
-                        self.gameInfo = message
-                        self.state = .created(message.game)
+                        gameInfo = message
+                        state = .created(message.game)
                     case .join(let message):
                         let joinedPlayer = Player(id: message.playerId!, isHost: false)
-                        self.gameInfo?.player = joinedPlayer
+                        gameInfo?.player = joinedPlayer
                     case .select:
-                        self.state = .select
+                        state = .select
                     case .ready:
-                        self.gameInfo?.player?.isReady = true
-                        self.state = .ready
+                        gameInfo?.player?.isReady = true
+                        state = .ready
                     case .start:
-                        self.state = .started
+                        state = .started
                     case .attack(let message):
-                        let attackResult = AttackResult(
-                            isTurn: message.isTurn,
-                            state: message.positionState,
-                            attackedCoordinate: message.attackedCoordinate,
-                            sunkenShip: message.sunkenShip
-                        )
-                        self.isTurn = attackResult.isTurn
-                        self.updateGrid(attackResult)
-                        self.state = .attacked(attackResult)
+                        handleAttack(message)
                     case .end(let message):
                         guard let gameResult = GameResult(rawValue: message.playerMatchStatus) else { return }
-                        self.state = .ended(gameResult)
+                        state = .ended(gameResult)
+                    case .opponentStatus(let opponentStatus):
+                        handleOpponentStatusChange(opponentStatus)
                     default: break
                     }
                 }
@@ -111,6 +110,30 @@ class BattleshipViewModel: ObservableObject {
         }
     }
    
+    private func handleOpponentStatusChange(_ opponentStatus: OpponentStatus) {
+        switch opponentStatus {
+        case .gracePeriod:
+            previousState = state
+            state = .paused(.gracePeriod)
+        case .reconnected:
+            state = previousState ?? .idle
+        case .disconnected:
+            didDisconnect()
+        }
+    }
+    
+    private func handleAttack(_ message: RespAttackMessage) {
+        let attackResult = AttackResult(
+            isTurn: message.isTurn,
+            state: message.positionState,
+            attackedCoordinate: message.attackedCoordinate,
+            sunkenShip: message.sunkenShip
+        )
+        isTurn = attackResult.isTurn
+        updateGrid(attackResult)
+        state = .attacked(attackResult)
+    }
+    
     func resetGameState() {
         state = .idle
         defenceGrid.clear()
@@ -118,16 +141,21 @@ class BattleshipViewModel: ObservableObject {
         gameInfo = nil
         shouldEnableReady = false
         isTurn = false
+        session = nil
     }
 }
 
 extension BattleshipViewModel: BattleshipInterface {
-    func connect(source: ConnectionSource) {
+    func ping() async -> Bool {
+        return await webSocket.ping()
+    }
+    
+    func connect(from source: ConnectionSource, to sessionId: String? = nil) {
         DispatchQueue.main.async {
             self.connectionState = .connecting
         }
         self.connectionSource = source
-        webSocket.connect()
+        webSocket.connect(to: sessionId)
     }
    
     func disconnect() {
@@ -176,6 +204,7 @@ extension BattleshipViewModel: BattleshipInterface {
 
 extension BattleshipViewModel: WebSocketManagerDelegate {
     func didConnect() {
+        guard session == nil else { return }
         if connectionSource == .host {
             self.create()
         } else {

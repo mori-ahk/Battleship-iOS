@@ -34,28 +34,12 @@ struct GameView: View {
                             viewModel.disconnect()
                         }
                         .transition(.blurReplace)
+                    case .paused(let opponentStatus):
+                        PausedView(opponentStatus: opponentStatus)
+                            .transition(.blurReplace)
                     default:
-                        VStack {
-                            BattleshipDefenceView()
-                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                            Divider()
-                            switch state {
-                            case .select:
-                                ReadyView()
-                                    .transition(.blurReplace)
-                            case .ready:
-                                Text("Waiting for opponent")
-                                    .frame(maxHeight: .infinity, alignment: .top)
-                                    .font(.title3)
-                                    .transition(.blurReplace)
-                            case .started, .attacked:
-                                BattleshipAttackView()
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                                    .transition(.blurReplace)
-                            default: EmptyView()
-                            }
-                        }
-                        .transition(.blurReplace)
+                        GameplayView(state: state)
+                            .transition(.blurReplace)
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
