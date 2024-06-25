@@ -26,12 +26,12 @@ struct GameView: View {
                             .transition(.blurReplace)
                     case .created(let game):
                         GameCreatedView(game: game) {
-                            viewModel.disconnect(reason: .gameEnded)
+                            viewModel.disconnect()
                         }
                         .transition(.blurReplace)
                     case .ended(let gameResult):
                         EndGameView(gameResult: gameResult) {
-                            viewModel.disconnect(reason: .gameEnded)
+                            viewModel.disconnect()
                         }
                         .transition(.blurReplace)
                     case .paused(let opponentStatus):

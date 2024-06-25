@@ -13,11 +13,6 @@ enum ConnectionSource {
     case join
 }
 
-enum DisconnectionReason {
-    case backgrounded
-    case gameEnded
-}
-
 class BattleshipViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var webSocket: any WebSocketService = WebSocketManager()
@@ -163,7 +158,7 @@ extension BattleshipViewModel: BattleshipInterface {
         webSocket.connect(to: sessionId)
     }
    
-    func disconnect(reason: DisconnectionReason) {
+    func disconnect() {
         DispatchQueue.main.async {
             self.connectionState = .disconnecting
         }
