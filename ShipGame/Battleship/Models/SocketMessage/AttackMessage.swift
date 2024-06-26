@@ -18,7 +18,7 @@ struct RespAttackMessage: Codable {
     let isTurn: Bool
     let positionState: Coordinate.State?
     let attackedCoordinate: Coordinate
-    let sunkenShip: SunkenShip
+    let sunkenShip: SunkenShipCounter
 
     enum CodingKeys: String, CodingKey {
         case isTurn
@@ -46,7 +46,7 @@ struct RespAttackMessage: Codable {
         self.attackedCoordinate = Coordinate(x: x, y: y)
         let hostSunkenShipsCount = try container.decode(Int.self, forKey: CodingKeys.sunkenShipsHost)
         let joinSunkenShipsCount = try container.decode(Int.self, forKey: CodingKeys.sunkenShipsJoin)
-        self.sunkenShip = SunkenShip(host: hostSunkenShipsCount, join: joinSunkenShipsCount)
+        self.sunkenShip = SunkenShipCounter(host: hostSunkenShipsCount, join: joinSunkenShipsCount)
     }
     
     func encode(to encoder: Encoder) throws {

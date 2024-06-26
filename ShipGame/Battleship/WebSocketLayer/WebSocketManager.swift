@@ -125,7 +125,8 @@ extension WebSocketManager: WebSocketService {
     }
     
     func connect(to sessionId: String?) {
-        var components = URLComponents(string: "wss://battleship-go-ios.fly.dev/battleship")
+//        var components = URLComponents(string: "wss://battleship-go-ios.fly.dev/battleship")
+        var components = URLComponents(string: "wss://battleship-go-ios-staging.fly.dev/battleship")
         components?.queryItems = [
             URLQueryItem(name: "sessionID", value: sessionId)
         ]

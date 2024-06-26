@@ -45,7 +45,7 @@
 		82EFD9AF2C0D312F00EAAF86 /* AttackMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD9AE2C0D312F00EAAF86 /* AttackMessage.swift */; };
 		82EFD9B12C0D5B9300EAAF86 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD9B02C0D5B9300EAAF86 /* Game.swift */; };
 		82EFD9B32C0D5D1700EAAF86 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD9B22C0D5D1700EAAF86 /* Player.swift */; };
-		82F1D2102C17E54600A600BF /* SunkenShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F1D20F2C17E54600A600BF /* SunkenShip.swift */; };
+		82F1D2102C17E54600A600BF /* SunkenShipCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F1D20F2C17E54600A600BF /* SunkenShipCounter.swift */; };
 		82F1D2122C18DC4600A600BF /* EndMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F1D2112C18DC4600A600BF /* EndMessage.swift */; };
 		82F1D2142C18DCF600A600BF /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F1D2132C18DCF600A600BF /* GameResult.swift */; };
 		82F1D2162C18E3C500A600BF /* EndGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F1D2152C18E3C500A600BF /* EndGameView.swift */; };
@@ -93,7 +93,7 @@
 		82EFD9AE2C0D312F00EAAF86 /* AttackMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackMessage.swift; sourceTree = "<group>"; };
 		82EFD9B02C0D5B9300EAAF86 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		82EFD9B22C0D5D1700EAAF86 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		82F1D20F2C17E54600A600BF /* SunkenShip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunkenShip.swift; sourceTree = "<group>"; };
+		82F1D20F2C17E54600A600BF /* SunkenShipCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunkenShipCounter.swift; sourceTree = "<group>"; };
 		82F1D2112C18DC4600A600BF /* EndMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndMessage.swift; sourceTree = "<group>"; };
 		82F1D2132C18DCF600A600BF /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
 		82F1D2152C18E3C500A600BF /* EndGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndGameView.swift; sourceTree = "<group>"; };
@@ -138,7 +138,7 @@
 				8207C1862C0E1DB500449FFB /* Coordinate.swift */,
 				8207C1882C0E1DEF00449FFB /* Ship.swift */,
 				8207C1932C15EC7A00449FFB /* AttackResult.swift */,
-				82F1D20F2C17E54600A600BF /* SunkenShip.swift */,
+				82F1D20F2C17E54600A600BF /* SunkenShipCounter.swift */,
 				82F1D2132C18DCF600A600BF /* GameResult.swift */,
 				82B37A012C28944A00A52C18 /* Session.swift */,
 			);
@@ -329,7 +329,7 @@
 				8207C19A2C1602DA00449FFB /* GameCreatedView.swift in Sources */,
 				8207C1902C0F953800449FFB /* GameState.swift in Sources */,
 				823C5BD32BE95B0F00112962 /* Message.swift in Sources */,
-				82F1D2102C17E54600A600BF /* SunkenShip.swift in Sources */,
+				82F1D2102C17E54600A600BF /* SunkenShipCounter.swift in Sources */,
 				82EFD9B12C0D5B9300EAAF86 /* Game.swift in Sources */,
 				8238E70F2BD5833100C85144 /* BattleshipViewModel.swift in Sources */,
 				82C568DE2C2A146000A07F0B /* PausedView.swift in Sources */,
