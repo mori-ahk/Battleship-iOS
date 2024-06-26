@@ -77,6 +77,7 @@ struct BattleshipDefendGridView: View {
         case .hit, .miss: 50
         case .empty: 40
         case .occupied: 45
+        case .sunk: 10
         }
     }
    
@@ -91,6 +92,8 @@ struct BattleshipDefendGridView: View {
                 return .engineRed
             case .miss:
                 return .gray
+            case .sunk:
+                return .columbiaBlue.opacity(0.2)
             default: return .columbiaBlue
             }
         }

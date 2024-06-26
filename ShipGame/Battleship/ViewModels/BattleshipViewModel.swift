@@ -100,12 +100,14 @@ class BattleshipViewModel: ObservableObject {
         if attackResult.isTurn {
             self.defenceGrid.setCoordinateState(
                 at: attackResult.attackedCoordinate,
-                to: attackResult.state
+                to: attackResult.state,
+                attackResult.sunkenShipCoordinates
             )
         } else {
             self.attackGrid.setCoordinateState(
                 at: attackResult.attackedCoordinate,
-                to: attackResult.state
+                to: attackResult.state,
+                attackResult.sunkenShipCoordinates
             )
         }
     }
@@ -127,7 +129,8 @@ class BattleshipViewModel: ObservableObject {
             isTurn: message.isTurn,
             state: message.positionState,
             attackedCoordinate: message.attackedCoordinate,
-            sunkenShip: message.sunkenShip
+            sunkenShip: message.sunkenShip,
+            sunkenShipCoordinates: message.sunkenShipsCoordinates
         )
         isTurn = attackResult.isTurn
         updateGrid(attackResult)

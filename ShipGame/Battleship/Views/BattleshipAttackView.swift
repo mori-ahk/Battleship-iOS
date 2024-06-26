@@ -22,7 +22,7 @@ struct BattleshipAttackView: View {
                 Text("Attack")
             }
             .buttonStyle(.borderedProminent)
-            .disabled(!viewModel.isTurn)
+            .disabled(!viewModel.isTurn || selectedAttackCoordinate == nil)
             Text(turnText)
         }
     }

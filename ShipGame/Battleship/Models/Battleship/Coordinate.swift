@@ -7,23 +7,42 @@
 
 import Foundation
 
-struct Coordinate: Equatable {
+struct Coordinate: Equatable, Decodable {
     let x: Int
     let y: Int
     var state: State = .empty
+
+    enum CodingKeys: String, CodingKey {
+        case x, y
+    }
+   
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.x = try container.decode(Int.self, forKey: CodingKeys.x)
+        self.y = try container.decode(Int.self, forKey: CodingKeys.y)
+        self.state = .empty
+    }
+    
+    init(x: Int, y: Int) {
+        self.x = x
+        self.y = y
+        self.state = .empty
+    }
     
     enum State: Equatable {
         case empty
         case occupied(Ship.Kind)
         case hit
         case miss
+        case sunk
         
         var value: Int {
             switch self {
             case .empty: 0
             case .occupied(let ship): ship.size
-            case .hit: 2
-            case .miss: 3
+            case .hit: 5
+            case .miss: 6
+            case .sunk: 7
             }
         }
         
@@ -40,6 +59,7 @@ struct Coordinate: Equatable {
             case .occupied: return "Occupied"
             case .hit: return "Hit"
             case .miss: return "Miss"
+            case .sunk: return "Sunk"
             }
         }
         

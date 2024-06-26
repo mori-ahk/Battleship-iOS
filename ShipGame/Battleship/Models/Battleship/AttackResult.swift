@@ -11,5 +11,6 @@ struct AttackResult {
     let isTurn: Bool
     let state: Coordinate.State?
     let attackedCoordinate: Coordinate
-    let sunkenShip: SunkenShip
+    let sunkenShip: SunkenShipCounter
+    let sunkenShipCoordinates: [Coordinate]
 }
