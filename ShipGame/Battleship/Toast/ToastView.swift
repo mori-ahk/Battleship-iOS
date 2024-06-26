@@ -18,10 +18,10 @@ struct ToastView: View {
                 .fontWeight(.medium)
                 .padding(.leading)
                 .foregroundColor(toast.style.color.opacity(0.7))
-            Text(toast.title)
+            Text(toast.action.title)
                 .font(.headline)
                 .fontWeight(.medium)
-            Spacer()
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(.horizontal)
         .padding(.vertical)

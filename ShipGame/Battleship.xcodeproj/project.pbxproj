@@ -39,6 +39,7 @@
 		82C568E92C2CBDFB00A07F0B /* ToastViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568E82C2CBDFB00A07F0B /* ToastViewModifier.swift */; };
 		82C568EB2C2CBE2500A07F0B /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568EA2C2CBE2500A07F0B /* ToastView.swift */; };
 		82C568ED2C2CBF4100A07F0B /* ToastStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568EC2C2CBF4100A07F0B /* ToastStyle.swift */; };
+		82C568EF2C2CC06000A07F0B /* ToastAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568EE2C2CC06000A07F0B /* ToastAction.swift */; };
 		82EFD99C2C0A60A300EAAF86 /* ResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99B2C0A60A300EAAF86 /* ResponseMessage.swift */; };
 		82EFD99E2C0A696D00EAAF86 /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99D2C0A696D00EAAF86 /* Instruction.swift */; };
 		82EFD9A02C0A69D200EAAF86 /* BattleshipDefendGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */; };
@@ -93,6 +94,7 @@
 		82C568E82C2CBDFB00A07F0B /* ToastViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastViewModifier.swift; sourceTree = "<group>"; };
 		82C568EA2C2CBE2500A07F0B /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		82C568EC2C2CBF4100A07F0B /* ToastStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastStyle.swift; sourceTree = "<group>"; };
+		82C568EE2C2CC06000A07F0B /* ToastAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastAction.swift; sourceTree = "<group>"; };
 		82EFD99B2C0A60A300EAAF86 /* ResponseMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseMessage.swift; sourceTree = "<group>"; };
 		82EFD99D2C0A696D00EAAF86 /* Instruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
 		82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipDefendGridView.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				82C568E82C2CBDFB00A07F0B /* ToastViewModifier.swift */,
 				82C568EA2C2CBE2500A07F0B /* ToastView.swift */,
 				82C568EC2C2CBF4100A07F0B /* ToastStyle.swift */,
+				82C568EE2C2CC06000A07F0B /* ToastAction.swift */,
 			);
 			path = Toast;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				82C568E42C2C85C100A07F0B /* Util.swift in Sources */,
 				8238E70F2BD5833100C85144 /* BattleshipViewModel.swift in Sources */,
 				82C568E22C2C83B600A07F0B /* Endpoint.swift in Sources */,
+				82C568EF2C2CC06000A07F0B /* ToastAction.swift in Sources */,
 				82C568DE2C2A146000A07F0B /* PausedView.swift in Sources */,
 				82B37A002C2893DE00A52C18 /* SessionMessage.swift in Sources */,
 				82C568ED2C2CBF4100A07F0B /* ToastStyle.swift in Sources */,

@@ -25,3 +25,9 @@ enum ToastStyle {
         }
     }
 }
+
+extension View {
+    func toastView(toast: Binding<Toast?>) -> some View {
+        return modifier(ToastViewModifier(toast: toast))
+    }
+}

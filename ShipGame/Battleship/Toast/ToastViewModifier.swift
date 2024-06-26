@@ -11,27 +11,25 @@ struct ToastViewModifier: ViewModifier {
     @Binding var toast: Toast?
 
     func body(content: Content) -> some View {
-        content
-            .overlay(
+        ZStack {
+            content
+            if toast != nil {
                 mainToastView()
-                    .offset(y: -30)
-                    .animation(
-                        .bouncy(duration: 0.75, extraBounce: 0.05),
-                        value: toast
-                    )
-            )
+            }
+        }
         .onChange(of: toast) { (_, _) in
             showToast()
         }
+        .animation(.default, value: toast)
     }
 
     @ViewBuilder func mainToastView() -> some View {
         if let toast {
             VStack {
-                Spacer()
                 ToastView(toast: toast)
+                    .frame(maxHeight: .infinity, alignment: .bottom)
             }
-            .transition(.move(edge: .bottom))
+            .transition(.blurReplace)
             .padding(.horizontal, 48)
         }
     }
@@ -42,19 +40,13 @@ struct ToastViewModifier: ViewModifier {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
 
         if toast.duration > 0 {
-
-            let task = DispatchWorkItem {
-                dismissToast()
-                if let onDismiss = toast.onDismiss {
-                    onDismiss()
-                }
-            }
+            let task = DispatchWorkItem { dismissToast() }
 
             DispatchQueue.main.asyncAfter(deadline: .now() + toast.duration, execute: task)
         }
     }
 
     private func dismissToast() {
-        withAnimation { toast = nil }
+        toast = nil
     }
 }

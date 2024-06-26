@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GameCreatedView: View {
+    @State private var toast: Toast?
     let game: Game
     var action: () -> Void
     var body: some View {
@@ -26,6 +27,7 @@ struct GameCreatedView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Button(action: {
                     UIPasteboard.general.string = self.game.id
+                    toast = Toast(action: .copy, style: .success)
                 }) {
                     Image(systemName: "doc.on.doc")
                         .padding(8)
@@ -49,6 +51,7 @@ struct GameCreatedView: View {
             }
             .buttonStyle(.bordered)
         }
+        .toastView(toast: $toast)
         .padding()
     }
 }
