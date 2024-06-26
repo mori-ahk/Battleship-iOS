@@ -37,6 +37,7 @@ struct BattleshipAttackGridView: View {
     }
    
     private func buttonAction(_ coordinate: Coordinate) {
+        guard attackGrid.state(at: coordinate) == .empty else { return }
         if selectedAttackCoordinate == coordinate {
             selectedAttackCoordinate = nil
         } else {
@@ -71,6 +72,8 @@ struct BattleshipAttackGridView: View {
                 return .engineRed
             case .miss:
                 return .gray
+            case .sunk:
+                return .columbiaBlue.opacity(0.2)
             default: return .columbiaBlue
             }
         }
@@ -81,6 +84,7 @@ struct BattleshipAttackGridView: View {
         case .hit, .miss: 50
         case .empty: 40
         case .occupied: 45
+        case .sunk: 10
         }
     }
 }

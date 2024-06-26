@@ -12,4 +12,5 @@ struct AttackResult {
     let state: Coordinate.State?
     let attackedCoordinate: Coordinate
     let sunkenShip: SunkenShipCounter
+    let sunkenShipCoordinates: [Coordinate]
 }

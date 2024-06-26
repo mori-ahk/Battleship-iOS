@@ -42,8 +42,17 @@ extension GameGrid {
         ships.removeAll(keepingCapacity: true)
     }
     
-    mutating func setCoordinateState(at coordinate: Coordinate, to newState: Coordinate.State?) {
+    mutating func setCoordinateState(
+        at coordinate: Coordinate,
+        to newState: Coordinate.State?,
+        _ sunkenShipsCoordinates: [Coordinate]
+    ) {
         coordinates[coordinate.x][coordinate.y].state = newState ?? .empty
+        if !sunkenShipsCoordinates.isEmpty {
+            for sunkenShipsCoordinate in sunkenShipsCoordinates {
+                coordinates[sunkenShipsCoordinate.x][sunkenShipsCoordinate.y].state = .sunk
+            }
+        }
     }
     
     func isOccupied(_ coordinate: Coordinate) -> Bool {

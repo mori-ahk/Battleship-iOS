@@ -28,6 +28,6 @@ struct Message<T: Codable>: WebSocketMessage {
 }
 
 struct MessageError: Codable {
-    let errorDetails: String
-    let message: String
+    let errorDetails: String?
+    let message: String?
 }
