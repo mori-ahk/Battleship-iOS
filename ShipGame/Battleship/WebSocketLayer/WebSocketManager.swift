@@ -10,6 +10,13 @@ import Combine
 
 class WebSocketManager: NSObject, ObservableObject {
     private var webSocketTask: URLSessionWebSocketTask?
+    private var endpoint: Endpoint {
+        #if DEBUG
+        return .debug
+        #else
+        return .production
+        #endif
+    }
     var responsePipeline = PassthroughSubject<ResponseMessage?, Never>()
     var delegate: WebSocketManagerDelegate?
     
@@ -125,8 +132,7 @@ extension WebSocketManager: WebSocketService {
     }
     
     func connect(to sessionId: String?) {
-//        var components = URLComponents(string: "wss://battleship-go-ios.fly.dev/battleship")
-        var components = URLComponents(string: "wss://battleship-go-ios-staging.fly.dev/battleship")
+        var components = URLComponents(string: endpoint.url)
         components?.queryItems = [
             URLQueryItem(name: "sessionID", value: sessionId)
         ]
