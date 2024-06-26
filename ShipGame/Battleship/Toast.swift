@@ -5,28 +5,16 @@
 //  Created by Mori Ahmadi on 2024-06-26.
 //
 
-import SwiftUI
-
-struct Toast: Equatable {
+struct Toast {
+    typealias Action = () -> Void
     let title: String
     let style: ToastStyle
+    let duration: Double = 2
+    let onDismiss: Action?
 }
 
-enum ToastStyle {
-    case success
-    case error
-    
-    var icon: String {
-        switch self {
-        case .success: "checkmark"
-        case .error: "xmark"
-        }
-    }
-    
-    var color: Color {
-        switch self {
-        case .success: .green
-        case .error: .red
-        }
+extension Toast: Equatable {
+    static func == (lhs: Toast, rhs: Toast) -> Bool {
+        lhs.title == rhs.title
     }
 }
