@@ -40,7 +40,7 @@ class WebSocketManager: NSObject, ObservableObject {
     private func handleMessage(_ message: URLSessionWebSocketTask.Message) {
         switch message {
         case .string(let text):
-            print("receiving text: \(text)")
+            dprint("receiving text: \(text)")
             processTextMessage(text)
         default:
             break
@@ -54,7 +54,7 @@ class WebSocketManager: NSObject, ObservableObject {
             let code = try decoder.decode(Code.self, from: data)
             handleCode(code, data: data)
         } catch {
-            print(error)
+            dprint(error)
         }
     }
     
@@ -87,7 +87,7 @@ class WebSocketManager: NSObject, ObservableObject {
                 break
             }
         } catch {
-            print(error)
+            dprint(error)
         }
     }
   
@@ -147,11 +147,11 @@ extension WebSocketManager: WebSocketService {
     }
     
     func send(_ message: WebSocketMessage) {
-        print("sending: \(message)")
+        dprint("sending: \(message)")
         guard let messageString = jsonString(of: message) else { return }
         webSocketTask?.send(.string(messageString)) { error in
             if let error = error {
-                print(error.localizedDescription)
+                dprint(error.localizedDescription)
             }
         }
     }
@@ -162,7 +162,7 @@ extension WebSocketManager: WebSocketService {
             
             switch result {
             case .failure(let error):
-                print(error.localizedDescription)
+                dprint(error.localizedDescription)
                 
             case .success(let message):
                 self.handleMessage(message)

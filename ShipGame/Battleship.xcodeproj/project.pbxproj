@@ -34,6 +34,7 @@
 		82C568DE2C2A146000A07F0B /* PausedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568DD2C2A146000A07F0B /* PausedView.swift */; };
 		82C568E02C2A1A1D00A07F0B /* GameplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568DF2C2A1A1D00A07F0B /* GameplayView.swift */; };
 		82C568E22C2C83B600A07F0B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568E12C2C83B600A07F0B /* Endpoint.swift */; };
+		82C568E42C2C85C100A07F0B /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568E32C2C85C100A07F0B /* Util.swift */; };
 		82EFD99C2C0A60A300EAAF86 /* ResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99B2C0A60A300EAAF86 /* ResponseMessage.swift */; };
 		82EFD99E2C0A696D00EAAF86 /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99D2C0A696D00EAAF86 /* Instruction.swift */; };
 		82EFD9A02C0A69D200EAAF86 /* BattleshipDefendGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */; };
@@ -83,6 +84,7 @@
 		82C568DD2C2A146000A07F0B /* PausedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PausedView.swift; sourceTree = "<group>"; };
 		82C568DF2C2A1A1D00A07F0B /* GameplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameplayView.swift; sourceTree = "<group>"; };
 		82C568E12C2C83B600A07F0B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		82C568E32C2C85C100A07F0B /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		82EFD99B2C0A60A300EAAF86 /* ResponseMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseMessage.swift; sourceTree = "<group>"; };
 		82EFD99D2C0A696D00EAAF86 /* Instruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
 		82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipDefendGridView.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				8207C1A12C1613E000449FFB /* Colors.xcassets */,
 				822B2E4D2BA920EF00CCF448 /* Battleship.entitlements */,
 				822B2E4E2BA920EF00CCF448 /* Preview Content */,
+				82C568E32C2C85C100A07F0B /* Util.swift */,
 			);
 			name = Battleship;
 			path = "/Users/moriahmadi/Dev/Battleship-iOS/ShipGame/Battleship";
@@ -334,6 +337,7 @@
 				823C5BD32BE95B0F00112962 /* Message.swift in Sources */,
 				82F1D2102C17E54600A600BF /* SunkenShipCounter.swift in Sources */,
 				82EFD9B12C0D5B9300EAAF86 /* Game.swift in Sources */,
+				82C568E42C2C85C100A07F0B /* Util.swift in Sources */,
 				8238E70F2BD5833100C85144 /* BattleshipViewModel.swift in Sources */,
 				82C568E22C2C83B600A07F0B /* Endpoint.swift in Sources */,
 				82C568DE2C2A146000A07F0B /* PausedView.swift in Sources */,
