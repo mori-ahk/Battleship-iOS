@@ -12,7 +12,7 @@ enum ToastAction: Equatable {
     
     var title: String {
         switch self {
-        case .copy: "Copied to clipboard"
+        case .copy: "Copied!"
         }
     }
 }

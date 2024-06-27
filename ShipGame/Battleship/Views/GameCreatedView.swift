@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GameCreatedView: View {
-    @State private var toast: Toast?
+    @Binding var toast: Toast?
     let game: Game
     var action: () -> Void
     var body: some View {
@@ -51,7 +51,6 @@ struct GameCreatedView: View {
             }
             .buttonStyle(.bordered)
         }
-        .toastView(toast: $toast)
         .padding()
     }
 }

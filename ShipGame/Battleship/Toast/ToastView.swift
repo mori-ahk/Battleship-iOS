@@ -16,28 +16,18 @@ struct ToastView: View {
             Image(systemName: toast.style.icon)
                 .font(.title2)
                 .fontWeight(.medium)
-                .padding(.leading)
-                .foregroundColor(toast.style.color.opacity(0.7))
+                .padding()
+                .foregroundStyle(toast.style.color)
             Text(toast.action.title)
                 .font(.headline)
                 .fontWeight(.medium)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(.horizontal)
-        .padding(.vertical)
+        .frame(maxWidth: .infinity, alignment: .center)
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(colorScheme == .dark ? .black.opacity(0.8) : .white)
-                .blur(radius: 16)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(toast.style.color.opacity(0.05))
-                        .shadow(color: toast.style.color, radius: 8)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(toast.style.color.opacity(0.5), lineWidth: 1)
-                        }
-                }
+                .fill(toast.style.color.opacity(0.1))
+                .stroke(toast.style.color, lineWidth: 1)
         )
     }
 }

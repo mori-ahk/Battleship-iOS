@@ -11,12 +11,12 @@ struct ToastViewModifier: ViewModifier {
     @Binding var toast: Toast?
 
     func body(content: Content) -> some View {
-        ZStack {
-            content
-            if toast != nil {
-                mainToastView()
+        content
+            .overlay {
+                if toast != nil {
+                    mainToastView()
+                }
             }
-        }
         .onChange(of: toast) { (_, _) in
             showToast()
         }
@@ -27,10 +27,9 @@ struct ToastViewModifier: ViewModifier {
         if let toast {
             VStack {
                 ToastView(toast: toast)
-                    .frame(maxHeight: .infinity, alignment: .bottom)
+                    .frame(maxWidth: 150, maxHeight: .infinity, alignment: .bottom)
             }
             .transition(.blurReplace)
-            .padding(.horizontal, 48)
         }
     }
 
