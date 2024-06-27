@@ -16,6 +16,8 @@ struct GameView: View {
     @EnvironmentObject private var viewModel: BattleshipViewModel
     @State private var state: GameState = .idle
     @State private var shouldShowInstructions: Bool = false
+    @State private var toast: Toast?
+    
     var body: some View {
         ZStack {
             if !shouldShowInstructions {
@@ -25,7 +27,7 @@ struct GameView: View {
                         LandingView()
                             .transition(.blurReplace)
                     case .created(let game):
-                        GameCreatedView(game: game) {
+                        GameCreatedView(toast: $toast, game: game) {
                             viewModel.disconnect()
                         }
                         .transition(.blurReplace)
@@ -68,6 +70,7 @@ struct GameView: View {
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .shadow(radius: 4)
         }
+        .toastView(toast: $toast)
         .padding()
     }
 }
