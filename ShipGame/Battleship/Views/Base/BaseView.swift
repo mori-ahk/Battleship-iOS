@@ -12,7 +12,7 @@ enum GeneralDirection {
     case horizontal
 }
 
-struct GameView: View {
+struct BaseView: View {
     @EnvironmentObject private var viewModel: BattleshipViewModel
     @State private var state: GameState = .idle
     @State private var shouldShowInstructions: Bool = false

@@ -14,13 +14,12 @@ struct ShipGameApp: App {
     
     var body: some Scene {
         WindowGroup {
-            GameView()
+            BaseView()
                 .environmentObject(viewModel)
                 .fontDesign(.monospaced)
         }
         .onChange(of: scenePhase) { oldValue, newValue in
-            switch newValue {
-            case .active:
+            if newValue == .active {
                 Task {
                     if await viewModel.ping() == false {
                         if let currentSession = viewModel.session {
@@ -31,7 +30,6 @@ struct ShipGameApp: App {
                         }
                     }
                 }
-            default: break
             }
         }
     }

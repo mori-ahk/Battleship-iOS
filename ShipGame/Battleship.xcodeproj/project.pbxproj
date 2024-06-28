@@ -18,7 +18,7 @@
 		8207C19A2C1602DA00449FFB /* GameCreatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8207C1992C1602DA00449FFB /* GameCreatedView.swift */; };
 		8207C1A22C1613E000449FFB /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8207C1A12C1613E000449FFB /* Colors.xcassets */; };
 		822B2E482BA920ED00CCF448 /* ShipGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822B2E472BA920ED00CCF448 /* ShipGameApp.swift */; };
-		822B2E4A2BA920ED00CCF448 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822B2E492BA920ED00CCF448 /* GameView.swift */; };
+		822B2E4A2BA920ED00CCF448 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822B2E492BA920ED00CCF448 /* BaseView.swift */; };
 		822B2E4C2BA920EF00CCF448 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 822B2E4B2BA920EF00CCF448 /* Assets.xcassets */; };
 		822B2E502BA920EF00CCF448 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 822B2E4F2BA920EF00CCF448 /* Preview Assets.xcassets */; };
 		822B2E572BA9340F00CCF448 /* GameGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822B2E562BA9340F00CCF448 /* GameGrid.swift */; };
@@ -40,6 +40,9 @@
 		82C568EB2C2CBE2500A07F0B /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568EA2C2CBE2500A07F0B /* ToastView.swift */; };
 		82C568ED2C2CBF4100A07F0B /* ToastStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568EC2C2CBF4100A07F0B /* ToastStyle.swift */; };
 		82C568EF2C2CC06000A07F0B /* ToastAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568EE2C2CC06000A07F0B /* ToastAction.swift */; };
+		82C568FC2C2F08D300A07F0B /* LandingViewButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568FB2C2F08D300A07F0B /* LandingViewButtonType.swift */; };
+		82C568FE2C2F09E500A07F0B /* LandingViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568FD2C2F09E500A07F0B /* LandingViewButton.swift */; };
+		82C569002C2F0B6A00A07F0B /* GameIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568FF2C2F0B6900A07F0B /* GameIdView.swift */; };
 		82EFD99C2C0A60A300EAAF86 /* ResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99B2C0A60A300EAAF86 /* ResponseMessage.swift */; };
 		82EFD99E2C0A696D00EAAF86 /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99D2C0A696D00EAAF86 /* Instruction.swift */; };
 		82EFD9A02C0A69D200EAAF86 /* BattleshipDefendGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */; };
@@ -72,7 +75,7 @@
 		8207C1A12C1613E000449FFB /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		822B2E442BA920ED00CCF448 /* Battleship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Battleship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		822B2E472BA920ED00CCF448 /* ShipGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipGameApp.swift; sourceTree = "<group>"; };
-		822B2E492BA920ED00CCF448 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		822B2E492BA920ED00CCF448 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		822B2E4B2BA920EF00CCF448 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		822B2E4D2BA920EF00CCF448 /* Battleship.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Battleship.entitlements; sourceTree = "<group>"; };
 		822B2E4F2BA920EF00CCF448 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -95,6 +98,9 @@
 		82C568EA2C2CBE2500A07F0B /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		82C568EC2C2CBF4100A07F0B /* ToastStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastStyle.swift; sourceTree = "<group>"; };
 		82C568EE2C2CC06000A07F0B /* ToastAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastAction.swift; sourceTree = "<group>"; };
+		82C568FB2C2F08D300A07F0B /* LandingViewButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewButtonType.swift; sourceTree = "<group>"; };
+		82C568FD2C2F09E500A07F0B /* LandingViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewButton.swift; sourceTree = "<group>"; };
+		82C568FF2C2F0B6900A07F0B /* GameIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameIdView.swift; sourceTree = "<group>"; };
 		82EFD99B2C0A60A300EAAF86 /* ResponseMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseMessage.swift; sourceTree = "<group>"; };
 		82EFD99D2C0A696D00EAAF86 /* Instruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
 		82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipDefendGridView.swift; sourceTree = "<group>"; };
@@ -244,22 +250,73 @@
 			path = Toast;
 			sourceTree = "<group>";
 		};
-		82EFD9A12C0A7C0700EAAF86 /* Views */ = {
+		82C568F42C2F065500A07F0B /* Landing */ = {
 			isa = PBXGroup;
 			children = (
 				8238E70C2BD5825A00C85144 /* LandingView.swift */,
-				82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */,
-				82EFD9AC2C0D291900EAAF86 /* BattleshipAttackGridView.swift */,
-				822B2E492BA920ED00CCF448 /* GameView.swift */,
-				82EFD9A22C0A7C3800EAAF86 /* InstructionsView.swift */,
-				82EFD9A42C0A7C8000EAAF86 /* ShipsButtonView.swift */,
-				82EFD9A62C0BBC7B00EAAF86 /* ReadyView.swift */,
-				8207C1952C1600B300449FFB /* BattleshipAttackView.swift */,
-				8207C1972C1601A800449FFB /* BattleshipDefenceView.swift */,
+				82C568FB2C2F08D300A07F0B /* LandingViewButtonType.swift */,
+				82C568FD2C2F09E500A07F0B /* LandingViewButton.swift */,
+			);
+			path = Landing;
+			sourceTree = "<group>";
+		};
+		82C568F52C2F066A00A07F0B /* GameCreated */ = {
+			isa = PBXGroup;
+			children = (
 				8207C1992C1602DA00449FFB /* GameCreatedView.swift */,
-				82F1D2152C18E3C500A600BF /* EndGameView.swift */,
+				82C568FF2C2F0B6900A07F0B /* GameIdView.swift */,
+			);
+			path = GameCreated;
+			sourceTree = "<group>";
+		};
+		82C568F62C2F071000A07F0B /* DefenceGrid */ = {
+			isa = PBXGroup;
+			children = (
+				82EFD9A42C0A7C8000EAAF86 /* ShipsButtonView.swift */,
+				82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */,
+				8207C1972C1601A800449FFB /* BattleshipDefenceView.swift */,
+			);
+			path = DefenceGrid;
+			sourceTree = "<group>";
+		};
+		82C568F72C2F072900A07F0B /* AttackGrid */ = {
+			isa = PBXGroup;
+			children = (
+				82EFD9AC2C0D291900EAAF86 /* BattleshipAttackGridView.swift */,
+				8207C1952C1600B300449FFB /* BattleshipAttackView.swift */,
+			);
+			path = AttackGrid;
+			sourceTree = "<group>";
+		};
+		82C568F92C2F084100A07F0B /* GamePlay */ = {
+			isa = PBXGroup;
+			children = (
 				82C568DD2C2A146000A07F0B /* PausedView.swift */,
+				82F1D2152C18E3C500A600BF /* EndGameView.swift */,
+				82EFD9A62C0BBC7B00EAAF86 /* ReadyView.swift */,
 				82C568DF2C2A1A1D00A07F0B /* GameplayView.swift */,
+			);
+			path = GamePlay;
+			sourceTree = "<group>";
+		};
+		82C568FA2C2F089400A07F0B /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				822B2E492BA920ED00CCF448 /* BaseView.swift */,
+				82EFD9A22C0A7C3800EAAF86 /* InstructionsView.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		82EFD9A12C0A7C0700EAAF86 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				82C568F42C2F065500A07F0B /* Landing */,
+				82C568F62C2F071000A07F0B /* DefenceGrid */,
+				82C568F72C2F072900A07F0B /* AttackGrid */,
+				82C568FA2C2F089400A07F0B /* Base */,
+				82C568F52C2F066A00A07F0B /* GameCreated */,
+				82C568F92C2F084100A07F0B /* GamePlay */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -339,7 +396,7 @@
 				82EFD9A32C0A7C3800EAAF86 /* InstructionsView.swift in Sources */,
 				82EFD9AD2C0D291900EAAF86 /* BattleshipAttackGridView.swift in Sources */,
 				8238E70D2BD5825A00C85144 /* LandingView.swift in Sources */,
-				822B2E4A2BA920ED00CCF448 /* GameView.swift in Sources */,
+				822B2E4A2BA920ED00CCF448 /* BaseView.swift in Sources */,
 				82EFD9B32C0D5D1700EAAF86 /* Player.swift in Sources */,
 				82EFD99C2C0A60A300EAAF86 /* ResponseMessage.swift in Sources */,
 				8207C1982C1601A800449FFB /* BattleshipDefenceView.swift in Sources */,
@@ -347,6 +404,7 @@
 				82EFD9A72C0BBC7B00EAAF86 /* ReadyView.swift in Sources */,
 				823C5BD12BE95AF100112962 /* CreateMessage.swift in Sources */,
 				8207C1892C0E1DEF00449FFB /* Ship.swift in Sources */,
+				82C568FC2C2F08D300A07F0B /* LandingViewButtonType.swift in Sources */,
 				8207C1962C1600B300449FFB /* BattleshipAttackView.swift in Sources */,
 				82EFD9A92C0D08AA00EAAF86 /* ReadyMessage.swift in Sources */,
 				8207C18E2C0F8E4000449FFB /* WebSocketService.swift in Sources */,
@@ -358,6 +416,7 @@
 				822B2E482BA920ED00CCF448 /* ShipGameApp.swift in Sources */,
 				8207C19A2C1602DA00449FFB /* GameCreatedView.swift in Sources */,
 				8207C1902C0F953800449FFB /* GameState.swift in Sources */,
+				82C568FE2C2F09E500A07F0B /* LandingViewButton.swift in Sources */,
 				823C5BD32BE95B0F00112962 /* Message.swift in Sources */,
 				82F1D2102C17E54600A600BF /* SunkenShipCounter.swift in Sources */,
 				82EFD9B12C0D5B9300EAAF86 /* Game.swift in Sources */,
@@ -374,6 +433,7 @@
 				82C568EB2C2CBE2500A07F0B /* ToastView.swift in Sources */,
 				823C5BD52BE95B2400112962 /* Code.swift in Sources */,
 				82C568E92C2CBDFB00A07F0B /* ToastViewModifier.swift in Sources */,
+				82C569002C2F0B6A00A07F0B /* GameIdView.swift in Sources */,
 				82B37A022C28944A00A52C18 /* Session.swift in Sources */,
 				824E76562C25FD9E00857B66 /* ConnectionState.swift in Sources */,
 				82F1D2142C18DCF600A600BF /* GameResult.swift in Sources */,
