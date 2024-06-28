@@ -43,6 +43,8 @@
 		82C568FC2C2F08D300A07F0B /* LandingViewButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568FB2C2F08D300A07F0B /* LandingViewButtonType.swift */; };
 		82C568FE2C2F09E500A07F0B /* LandingViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568FD2C2F09E500A07F0B /* LandingViewButton.swift */; };
 		82C569002C2F0B6A00A07F0B /* GameIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568FF2C2F0B6900A07F0B /* GameIdView.swift */; };
+		82C569022C2F0E5900A07F0B /* DifficultyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C569012C2F0E5900A07F0B /* DifficultyView.swift */; };
+		82C569052C2F0E6900A07F0B /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C569042C2F0E6900A07F0B /* Difficulty.swift */; };
 		82EFD99C2C0A60A300EAAF86 /* ResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99B2C0A60A300EAAF86 /* ResponseMessage.swift */; };
 		82EFD99E2C0A696D00EAAF86 /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99D2C0A696D00EAAF86 /* Instruction.swift */; };
 		82EFD9A02C0A69D200EAAF86 /* BattleshipDefendGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */; };
@@ -101,6 +103,8 @@
 		82C568FB2C2F08D300A07F0B /* LandingViewButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewButtonType.swift; sourceTree = "<group>"; };
 		82C568FD2C2F09E500A07F0B /* LandingViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewButton.swift; sourceTree = "<group>"; };
 		82C568FF2C2F0B6900A07F0B /* GameIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameIdView.swift; sourceTree = "<group>"; };
+		82C569012C2F0E5900A07F0B /* DifficultyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyView.swift; sourceTree = "<group>"; };
+		82C569042C2F0E6900A07F0B /* Difficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
 		82EFD99B2C0A60A300EAAF86 /* ResponseMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseMessage.swift; sourceTree = "<group>"; };
 		82EFD99D2C0A696D00EAAF86 /* Instruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
 		82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipDefendGridView.swift; sourceTree = "<group>"; };
@@ -308,6 +312,15 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		82C569032C2F0E5E00A07F0B /* Difficulty */ = {
+			isa = PBXGroup;
+			children = (
+				82C569012C2F0E5900A07F0B /* DifficultyView.swift */,
+				82C569042C2F0E6900A07F0B /* Difficulty.swift */,
+			);
+			path = Difficulty;
+			sourceTree = "<group>";
+		};
 		82EFD9A12C0A7C0700EAAF86 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,6 +330,7 @@
 				82C568FA2C2F089400A07F0B /* Base */,
 				82C568F52C2F066A00A07F0B /* GameCreated */,
 				82C568F92C2F084100A07F0B /* GamePlay */,
+				82C569032C2F0E5E00A07F0B /* Difficulty */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -410,6 +424,7 @@
 				8207C18E2C0F8E4000449FFB /* WebSocketService.swift in Sources */,
 				8207C1922C124F2800449FFB /* BattleshipInterface.swift in Sources */,
 				82C568E02C2A1A1D00A07F0B /* GameplayView.swift in Sources */,
+				82C569022C2F0E5900A07F0B /* DifficultyView.swift in Sources */,
 				82EFD9AB2C0D09A400EAAF86 /* GameInfo.swift in Sources */,
 				8207C1872C0E1DB500449FFB /* Coordinate.swift in Sources */,
 				82C568E62C2CBBF900A07F0B /* Toast.swift in Sources */,
@@ -429,6 +444,7 @@
 				82C568ED2C2CBF4100A07F0B /* ToastStyle.swift in Sources */,
 				8207C1942C15EC7A00449FFB /* AttackResult.swift in Sources */,
 				82EFD99E2C0A696D00EAAF86 /* Instruction.swift in Sources */,
+				82C569052C2F0E6900A07F0B /* Difficulty.swift in Sources */,
 				82F1D2162C18E3C500A600BF /* EndGameView.swift in Sources */,
 				82C568EB2C2CBE2500A07F0B /* ToastView.swift in Sources */,
 				823C5BD52BE95B2400112962 /* Code.swift in Sources */,
