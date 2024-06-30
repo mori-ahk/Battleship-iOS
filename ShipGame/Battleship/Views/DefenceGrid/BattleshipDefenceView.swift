@@ -21,7 +21,6 @@ struct BattleshipDefenceView: View {
                 focusedCoordinate: $focusedCoordinate,
                 selectionDirection: $selectionDirection
             )
-            .frame(maxHeight: .infinity, alignment: .center)
             if viewModel.state == .select {
                 VStack {
                     boardOptionsView
@@ -33,6 +32,7 @@ struct BattleshipDefenceView: View {
                         resetSelection()
                     }
                 }
+                .frame(maxHeight: .infinity, alignment: .bottom)
             }
         }
         .onReceive(viewModel.$isTurn) { self.isTurn = $0 }

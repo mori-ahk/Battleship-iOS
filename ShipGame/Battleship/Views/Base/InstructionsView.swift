@@ -21,7 +21,7 @@ struct InstructionsView: View {
         }
         .padding()
         .background(
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: UXMetrics.CornerRadius.universal)
                 .fill(.prussianBlue.opacity(0.1))
         )
     }

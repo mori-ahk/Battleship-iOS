@@ -10,7 +10,7 @@ import Foundation
 struct UXMetrics {
     
     struct CornerRadius {
-        static let universal: CGFloat = 16
+        static let universal: CGFloat = 8
     }
     
     /// 4

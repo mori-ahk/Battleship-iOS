@@ -68,7 +68,7 @@ struct BaseView: View {
             }
             .frame(width: 32, height: 32)
             .background(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .clipShape(RoundedRectangle(cornerRadius: UXMetrics.CornerRadius.universal))
             .shadow(radius: 4)
         }
         .toastView(toast: $toast)

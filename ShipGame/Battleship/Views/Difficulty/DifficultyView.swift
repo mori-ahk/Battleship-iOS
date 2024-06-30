@@ -44,6 +44,7 @@ struct DifficultyView: View {
                 }
                 .disabled(connectionState.inProgress)
                 .buttonStyle(.borderedProminent)
+                .fontWeight(.semibold)
             }
         }
         .onChange(of: selectedDifficulty) { oldValue, newValue in

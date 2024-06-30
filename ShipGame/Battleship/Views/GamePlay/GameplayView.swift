@@ -20,7 +20,7 @@ struct GameplayView: View {
                     .transition(.blurReplace)
             case .ready:
                 Text("Waiting for opponent")
-                    .frame(maxHeight: .infinity, alignment: .top)
+                    .frame(maxHeight: .infinity, alignment: .center)
                     .font(.title3)
                     .transition(.blurReplace)
             case .started, .attacked:
