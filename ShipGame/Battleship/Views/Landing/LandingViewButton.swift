@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct LandingViewButton: View {
-    @EnvironmentObject private var viewModel: BattleshipViewModel
     @Binding var shouldShowRoomIdAlert: Bool
+    @Binding var phase: LandingViewPhase
     let buttonType: LandingViewButtonType
     let connectionState: ConnectionState
     
@@ -17,7 +17,7 @@ struct LandingViewButton: View {
         Button {
             switch buttonType {
             case .create:
-                viewModel.connect(from: .host)
+                phase = .choosingDifficulty
             case .join:
                 shouldShowRoomIdAlert = true
             }
@@ -35,5 +35,6 @@ struct LandingViewButton: View {
         .disabled(connectionState.inProgress)
         .buttonStyle(.borderedProminent)
         .fontWeight(.semibold)
+        .animation(.default, value: phase)
     }
 }

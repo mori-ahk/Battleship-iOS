@@ -49,6 +49,8 @@
 		82C5690C2C2F125100A07F0B /* UXMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C5690B2C2F125100A07F0B /* UXMetrics.swift */; };
 		82C5690E2C2F138900A07F0B /* BouncyButtonViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C5690D2C2F138900A07F0B /* BouncyButtonViewModifier.swift */; };
 		82C569102C2F142800A07F0B /* BouncyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C5690F2C2F142800A07F0B /* BouncyButtonStyle.swift */; };
+		82C569122C2F17E100A07F0B /* DifficultyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C569112C2F17E100A07F0B /* DifficultyItemView.swift */; };
+		82C569162C2F34FF00A07F0B /* LandingViewPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C569152C2F34FF00A07F0B /* LandingViewPhase.swift */; };
 		82EFD99C2C0A60A300EAAF86 /* ResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99B2C0A60A300EAAF86 /* ResponseMessage.swift */; };
 		82EFD99E2C0A696D00EAAF86 /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99D2C0A696D00EAAF86 /* Instruction.swift */; };
 		82EFD9A02C0A69D200EAAF86 /* BattleshipDefendGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */; };
@@ -113,6 +115,8 @@
 		82C5690B2C2F125100A07F0B /* UXMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UXMetrics.swift; sourceTree = "<group>"; };
 		82C5690D2C2F138900A07F0B /* BouncyButtonViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncyButtonViewModifier.swift; sourceTree = "<group>"; };
 		82C5690F2C2F142800A07F0B /* BouncyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncyButtonStyle.swift; sourceTree = "<group>"; };
+		82C569112C2F17E100A07F0B /* DifficultyItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyItemView.swift; sourceTree = "<group>"; };
+		82C569152C2F34FF00A07F0B /* LandingViewPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewPhase.swift; sourceTree = "<group>"; };
 		82EFD99B2C0A60A300EAAF86 /* ResponseMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseMessage.swift; sourceTree = "<group>"; };
 		82EFD99D2C0A696D00EAAF86 /* Instruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
 		82EFD99F2C0A69D200EAAF86 /* BattleshipDefendGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipDefendGridView.swift; sourceTree = "<group>"; };
@@ -269,6 +273,7 @@
 				8238E70C2BD5825A00C85144 /* LandingView.swift */,
 				82C568FB2C2F08D300A07F0B /* LandingViewButtonType.swift */,
 				82C568FD2C2F09E500A07F0B /* LandingViewButton.swift */,
+				82C569152C2F34FF00A07F0B /* LandingViewPhase.swift */,
 			);
 			path = Landing;
 			sourceTree = "<group>";
@@ -326,6 +331,7 @@
 			children = (
 				82C569012C2F0E5900A07F0B /* DifficultyView.swift */,
 				82C569042C2F0E6900A07F0B /* Difficulty.swift */,
+				82C569112C2F17E100A07F0B /* DifficultyItemView.swift */,
 			);
 			path = Difficulty;
 			sourceTree = "<group>";
@@ -436,6 +442,7 @@
 				822B2E4A2BA920ED00CCF448 /* BaseView.swift in Sources */,
 				82EFD9B32C0D5D1700EAAF86 /* Player.swift in Sources */,
 				82EFD99C2C0A60A300EAAF86 /* ResponseMessage.swift in Sources */,
+				82C569122C2F17E100A07F0B /* DifficultyItemView.swift in Sources */,
 				8207C1982C1601A800449FFB /* BattleshipDefenceView.swift in Sources */,
 				82F1D2122C18DC4600A600BF /* EndMessage.swift in Sources */,
 				82EFD9A72C0BBC7B00EAAF86 /* ReadyView.swift in Sources */,
@@ -475,6 +482,7 @@
 				82C568E92C2CBDFB00A07F0B /* ToastViewModifier.swift in Sources */,
 				82C569002C2F0B6A00A07F0B /* GameIdView.swift in Sources */,
 				82B37A022C28944A00A52C18 /* Session.swift in Sources */,
+				82C569162C2F34FF00A07F0B /* LandingViewPhase.swift in Sources */,
 				824E76562C25FD9E00857B66 /* ConnectionState.swift in Sources */,
 				82F1D2142C18DCF600A600BF /* GameResult.swift in Sources */,
 				82F305CA2BB461CC00F633FA /* WebSocketManager.swift in Sources */,

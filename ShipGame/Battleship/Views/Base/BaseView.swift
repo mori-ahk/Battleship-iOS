@@ -25,6 +25,7 @@ struct BaseView: View {
                     switch state {
                     case .idle:
                         LandingView()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .transition(.blurReplace)
                     case .created(let game):
                         GameCreatedView(toast: $toast, game: game) {

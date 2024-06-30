@@ -73,12 +73,7 @@ struct BattleshipDefendGridView: View {
     }
    
     private func size(at coordinate: Coordinate) -> CGFloat {
-        switch defenceGrid.state(at: coordinate) {
-        case .hit, .miss: 50
-        case .empty: 40
-        case .occupied: 45
-        case .sunk: 10
-        }
+        defenceGrid.state(at: coordinate).size 
     }
    
     private func coordinateBackgroundColor(at coordinate: Coordinate) -> Color {

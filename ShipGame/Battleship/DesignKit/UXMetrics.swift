@@ -8,6 +8,11 @@
 import Foundation
 
 struct UXMetrics {
+    
+    struct CornerRadius {
+        static let universal: CGFloat = 16
+    }
+    
     /// 4
     static let shadowRedius: CGFloat = 4
     

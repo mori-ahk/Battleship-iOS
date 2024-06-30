@@ -98,7 +98,7 @@ class WebSocketManager: NSObject, ObservableObject {
     }
     
     private func processCreateMessage(_ data: Data) throws {
-        let createMessage = try decoder.decode(Message<CreateMessage>.self, from: data)
+        let createMessage = try decoder.decode(Message<RespCreateMessage>.self, from: data)
         guard let payload = createMessage.payload, let gameInfo = GameInfo(payload) else { return }
         responsePipeline.send(.create(gameInfo))
     }

@@ -80,11 +80,6 @@ struct BattleshipAttackGridView: View {
     }
     
     private func size(at coordinate: Coordinate) -> CGFloat {
-        switch attackGrid.state(at: coordinate) {
-        case .hit, .miss: 50
-        case .empty: 40
-        case .occupied: 45
-        case .sunk: 10
-        }
+        attackGrid.state(at: coordinate).size 
     }
 }
