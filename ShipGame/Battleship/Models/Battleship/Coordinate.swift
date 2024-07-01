@@ -71,6 +71,16 @@ struct Coordinate: Equatable, Decodable {
             default: nil
             }
         }
+        
+        var size: CGFloat {
+            switch self {
+            case .hit: 40
+            case .miss: 30
+            case .empty: 35
+            case .occupied: 40
+            case .sunk: 10
+            }
+        }
     }
 }
 

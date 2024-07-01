@@ -24,7 +24,7 @@ struct BattleshipDefendGridView: View {
                     ForEach(0 ..< defenceGrid.size, id: \.self) { column in
                         let coordinate: Coordinate = Coordinate(x: row, y: column)
                         Button {
-                           handleTap(at: coordinate)
+                            handleTap(at: coordinate)
                         } label: {
                             buttonOverlay(size(at: coordinate), at: coordinate)
                         }
@@ -42,7 +42,7 @@ struct BattleshipDefendGridView: View {
     @ViewBuilder
     private func buttonOverlay(_ size: CGFloat, at coordinate: Coordinate) -> some View {
         let state = defenceGrid.state(at: coordinate)
-        RoundedRectangle(cornerRadius: 16)
+        RoundedRectangle(cornerRadius: UXMetrics.CornerRadius.universal)
             .fill(coordinateBackgroundColor(at: coordinate))
             .frame(width: size, height: size)
             .overlay {
@@ -73,12 +73,7 @@ struct BattleshipDefendGridView: View {
     }
    
     private func size(at coordinate: Coordinate) -> CGFloat {
-        switch defenceGrid.state(at: coordinate) {
-        case .hit, .miss: 50
-        case .empty: 40
-        case .occupied: 45
-        case .sunk: 10
-        }
+        defenceGrid.state(at: coordinate).size 
     }
    
     private func coordinateBackgroundColor(at coordinate: Coordinate) -> Color {

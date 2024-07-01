@@ -20,6 +20,8 @@ struct BattleshipAttackView: View {
                 self.selectedAttackCoordinate = nil
             } label: {
                 Text("Attack")
+                    .fontWeight(.semibold)
+                    .padding(.horizontal, 16)
             }
             .buttonStyle(.borderedProminent)
             .disabled(!viewModel.isTurn || selectedAttackCoordinate == nil)

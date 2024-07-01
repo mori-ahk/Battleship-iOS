@@ -31,6 +31,7 @@ class BattleshipViewModel: ObservableObject {
     var previousState: GameState?
     var session: Session?
     var connectionSource: ConnectionSource = .host
+    var gameDifficulty: Difficulty = .easy
     var gameToJoin: Game?
     
     init() {
@@ -65,6 +66,10 @@ class BattleshipViewModel: ObservableObject {
                         gameInfo = message
                         state = .created(message.game)
                     case .join(let message):
+                        DispatchQueue.main.async {
+                            self.defenceGrid = GameGrid(size: message.gameDifficulty.size)
+                            self.attackGrid = GameGrid(size: message.gameDifficulty.size)
+                        }
                         let joinedPlayer = Player(id: message.playerId!, isHost: false)
                         gameInfo?.player = joinedPlayer
                     case .select:
@@ -168,14 +173,22 @@ extension BattleshipViewModel: BattleshipInterface {
         webSocket.disconnect()
     }
     
-    func create() {
-        let message = Message<Code>(code: .create)
+    func create(difficulty: Difficulty) {
+        DispatchQueue.main.async {
+            self.defenceGrid = GameGrid(size: difficulty.size)
+            self.attackGrid = GameGrid(size: difficulty.size)
+        }
+        
+        let message = Message<ReqCreateMessage>(
+            code: .create,
+            payload: ReqCreateMessage(gameDifficulty: difficulty.value)
+        )
         webSocket.send(message)
     }
     
     func join(game: Game) {
         gameInfo = GameInfo(gameId: game.id)
-        let payload = JoinMessage(gameId: game.id, playerId: nil)
+        let payload = JoinMessage(gameId: game.id)
         let message = Message<JoinMessage>(code: .join, payload: payload)
         webSocket.send(message)
     }
@@ -209,7 +222,7 @@ extension BattleshipViewModel: WebSocketManagerDelegate {
     func didConnect() {
         guard session == nil else { return }
         if connectionSource == .host {
-            self.create()
+            self.create(difficulty: gameDifficulty)
         } else {
             if let gameToJoin {
                 self.join(game: gameToJoin)

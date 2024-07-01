@@ -17,6 +17,7 @@ struct BaseView: View {
     @State private var state: GameState = .idle
     @State private var shouldShowInstructions: Bool = false
     @State private var toast: Toast?
+    @State private var shouldShowAlert: Bool = false
     
     var body: some View {
         ZStack {
@@ -25,10 +26,11 @@ struct BaseView: View {
                     switch state {
                     case .idle:
                         LandingView()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .transition(.blurReplace)
                     case .created(let game):
                         GameCreatedView(toast: $toast, game: game) {
-                            viewModel.disconnect()
+                            shouldShowAlert = true
                         }
                         .transition(.blurReplace)
                     case .ended(let gameResult):
@@ -59,6 +61,15 @@ struct BaseView: View {
         .onReceive(viewModel.$state) { gameState in
             self.state = gameState
         }
+        .alert("Wait!", isPresented: $shouldShowAlert) {
+            Button("Disconnect", role: .destructive) {
+                viewModel.disconnect()
+            }
+            
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Are you sure you want to go back? This will disconnect you from the server.")
+        }
         .overlay(alignment: .topTrailing) {
             Button {
                 shouldShowInstructions.toggle()
@@ -67,7 +78,7 @@ struct BaseView: View {
             }
             .frame(width: 32, height: 32)
             .background(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .clipShape(RoundedRectangle(cornerRadius: UXMetrics.CornerRadius.universal))
             .shadow(radius: 4)
         }
         .toastView(toast: $toast)

@@ -25,7 +25,7 @@ struct ToastView: View {
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .background(
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: UXMetrics.CornerRadius.universal)
                 .fill(toast.style.color.opacity(0.1))
                 .stroke(toast.style.color, lineWidth: 1)
         )

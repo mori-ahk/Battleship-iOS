@@ -23,14 +23,14 @@ struct GameIdView: View {
             }) {
                 Image(systemName: "doc.on.doc")
                     .padding(8)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .clipShape(RoundedRectangle(cornerRadius: UXMetrics.CornerRadius.universal))
             }
             .buttonStyle(.bordered)
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .padding()
         .background {
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: UXMetrics.CornerRadius.universal)
                 .fill(.prussianBlue.opacity(0.1))
                 .stroke(.prussianBlue)
         }

@@ -13,18 +13,31 @@ struct LandingView: View {
     @State private var shouldShowRoomIdAlert: Bool = false
     @State private var gameId: String = String()
     @State private var connectionState: ConnectionState = .idle
-
+    @State private var phase: LandingViewPhase = .idle
+    
     var body: some View {
         VStack(spacing: 16) {
-            Text("Welcome to Battleship")
-                .font(.title)
-                .fontWeight(.heavy)
-            ForEach(LandingViewButtonType.allCases) { buttonType in
-                LandingViewButton(
-                    shouldShowRoomIdAlert: $shouldShowRoomIdAlert,
-                    buttonType: buttonType,
-                    connectionState: connectionState
-                )
+            switch phase {
+            case .idle:
+                VStack {
+                    Text("Welcome to Battleship")
+                        .font(.title)
+                        .fontWeight(.heavy)
+                    ForEach(LandingViewButtonType.allCases) { buttonType in
+                        LandingViewButton(
+                            shouldShowRoomIdAlert: $shouldShowRoomIdAlert,
+                            phase: $phase,
+                            buttonType: buttonType,
+                            connectionState: connectionState
+                        )
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                .transition(.move(edge: .top))
+            case .choosingDifficulty:
+                DifficultyView(connectionState: connectionState)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    .transition(.move(edge: .bottom))
             }
         }
         .alert("Enter game Id", isPresented: $shouldShowRoomIdAlert) {
@@ -39,5 +52,6 @@ struct LandingView: View {
             self.connectionState = newConnectionState
         }
         .animation(.default, value: connectionState)
+        .animation(.default, value: phase)
     }
 }
