@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct DifficultyItemView: View {
+    @Environment(\.horizontalSizeClass) var sizeClass
     @Binding var isSelected: Bool
     let difficulty: Difficulty
     var body: some View {
         Button {
             isSelected = true
         } label: {
-            VStack {
+            VStack(alignment: .leading) {
                 HStack {
                     Text(difficulty.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -23,6 +24,11 @@ struct DifficultyItemView: View {
                     Text(difficulty.sizeText)
                         .font(.title2)
                         .fontWeight(.bold)
+                }
+                
+                if shouldDisableHard {
+                    Text("Only available in larger screens")
+                        .font(.footnote)
                 }
             }
             .padding()
@@ -36,11 +42,16 @@ struct DifficultyItemView: View {
                     }
             )
         }
+        .disabled(shouldDisableHard)
         .buttonStyle(BouncyButtonStyle())
     }
     
     private var strokedBackground: some View {
         RoundedRectangle(cornerRadius: UXMetrics.CornerRadius.universal)
             .stroke(.aqua, lineWidth: 2.5)
+    }
+    
+    private var shouldDisableHard: Bool {
+        sizeClass == .compact && difficulty == .hard
     }
 }
