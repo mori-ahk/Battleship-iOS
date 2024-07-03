@@ -14,6 +14,7 @@ enum ConnectionState: Int, Identifiable, Equatable {
     case connected
     case disconnecting
     case disconnected
+    case failed
     
     var inProgress: Bool {
         switch self {
