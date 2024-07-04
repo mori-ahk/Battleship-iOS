@@ -48,6 +48,7 @@ struct LandingView: View {
             )
         ) {
             Button("OK", role: .cancel) {
+                viewModel.disconnect()
                 viewModel.resetConnectionState()
             }
         } message: {
