@@ -106,7 +106,7 @@ class WebSocketManager: NSObject, ObservableObject {
     private func processJoinMessage(_ data: Data) throws {
         let joinMessage = try decoder.decode(Message<JoinMessage>.self, from: data)
         guard let payload = joinMessage.payload else { return }
-        responsePipeline.send(.join(payload))
+        responsePipeline.send(.join(payload, joinMessage.error))
     }
     
     private func processAttackMessage(_ data: Data) throws {

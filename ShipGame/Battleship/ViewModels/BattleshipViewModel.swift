@@ -65,7 +65,13 @@ class BattleshipViewModel: ObservableObject {
                     case .create(let message):
                         gameInfo = message
                         state = .created(message.game)
-                    case .join(let message):
+                    case .join(let message, let error):
+                        guard error == nil else {
+                            DispatchQueue.main.async {
+                                self.connectionState = .failed
+                            }
+                            break
+                        }
                         DispatchQueue.main.async {
                             self.defenceGrid = GameGrid(size: message.gameDifficulty.size)
                             self.attackGrid = GameGrid(size: message.gameDifficulty.size)
@@ -150,6 +156,10 @@ class BattleshipViewModel: ObservableObject {
         shouldEnableReady = false
         isTurn = false
         session = nil
+    }
+    
+    func resetConnectionState() {
+        connectionState = .idle
     }
 }
 

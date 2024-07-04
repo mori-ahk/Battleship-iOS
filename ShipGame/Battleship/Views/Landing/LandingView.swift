@@ -40,6 +40,20 @@ struct LandingView: View {
                     .transition(.move(edge: .bottom))
             }
         }
+        .alert(
+            "Unable to Join",
+            isPresented: Binding(
+                get: { connectionState == .failed },
+                set: { _ in /* no op */ }
+            )
+        ) {
+            Button("OK", role: .cancel) {
+                viewModel.disconnect()
+                viewModel.resetConnectionState()
+            }
+        } message: {
+            Text("The game ID you entered does not exist. Please check the ID and try again.")
+        }
         .alert("Enter game Id", isPresented: $shouldShowRoomIdAlert) {
             TextField("Enter game Id", text: $gameId)
             Button("join") {
