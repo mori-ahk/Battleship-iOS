@@ -22,6 +22,9 @@ enum Code: Int, Codable {
     case opponentDisconnected
     case opponentReconnected
     case gracePeriod
+    case rematch
+    case rematchAccepted
+    case rematchRejected
 
     enum CodingKeys: String, CodingKey {
         case code
