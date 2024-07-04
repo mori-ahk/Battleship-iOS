@@ -83,6 +83,12 @@ class WebSocketManager: NSObject, ObservableObject {
                 responsePipeline.send(.opponentStatus(.reconnected))
             case .gracePeriod:
                 responsePipeline.send(.opponentStatus(.gracePeriod))
+            case .rematch:
+                responsePipeline.send(.rematchRequest)
+            case .rematchAccepted:
+                responsePipeline.send(.rematchResult(.accepted))
+            case .rematchRejected:
+                responsePipeline.send(.rematchResult(.rejected))
             default:
                 break
             }
