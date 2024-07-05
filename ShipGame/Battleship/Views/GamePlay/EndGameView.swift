@@ -9,7 +9,8 @@ import SwiftUI
 
 struct EndGameView: View {
     var gameResult: GameResult
-    var action: () -> Void
+    var onBack: () -> Void
+    var onRematch: () -> Void
     var body: some View {
         VStack {
             Group {
@@ -22,11 +23,21 @@ struct EndGameView: View {
             }
             .font(.title3)
             .fontWeight(.bold)
-            Button {
-                action()
-            } label: {
-                Text("Go back")
-                    .padding(8)
+           
+            Group {
+                Button {
+                    onRematch()
+                } label: {
+                    Text("Rematch")
+                        .padding(8)
+                }
+                
+                Button {
+                    onBack()
+                } label: {
+                    Text("Go back")
+                        .padding(8)
+                }
             }
             .buttonStyle(.borderedProminent)
             .fontWeight(.semibold)

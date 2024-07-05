@@ -24,10 +24,6 @@ class BattleshipViewModel: ObservableObject {
     @Published private(set) var shouldEnableReady: Bool = false
     @Published private(set) var isTurn: Bool = false
     
-    var isPlayerHost: Bool {
-        gameInfo?.player?.isHost ?? false
-    }
-    
     var previousState: GameState?
     var session: Session?
     var connectionSource: ConnectionSource = .host
@@ -81,7 +77,6 @@ class BattleshipViewModel: ObservableObject {
                     case .select:
                         state = .select
                     case .ready:
-                        gameInfo?.player?.isReady = true
                         state = .ready
                     case .start:
                         state = .started
@@ -92,6 +87,18 @@ class BattleshipViewModel: ObservableObject {
                         state = .ended(gameResult)
                     case .opponentStatus(let opponentStatus):
                         handleOpponentStatusChange(opponentStatus)
+                    case .rematchStatus(let rematchStatus):
+                        state = .rematch(rematchStatus)
+                        switch rematchStatus {
+                        case .rejected:
+                            disconnect()
+                        default: break
+                        }
+                    case .rematch(let message):
+                        DispatchQueue.main.async {
+                            self.isTurn = message.isTurn
+                            self.prepareForRematch()
+                        }
                     default: break
                     }
                 }
@@ -158,8 +165,16 @@ class BattleshipViewModel: ObservableObject {
         session = nil
     }
     
+    @MainActor
     func resetConnectionState() {
         connectionState = .idle
+    }
+    
+    func prepareForRematch() {
+        state = .select
+        defenceGrid.clear()
+        attackGrid.clear()
+        shouldEnableReady = false
     }
 }
 
@@ -224,6 +239,21 @@ extension BattleshipViewModel: BattleshipInterface {
         )
         
         let message = Message<ReqAttackMessage>(code: .attack, payload: payload)
+        webSocket.send(message)
+    }
+    
+    func rematch(is result: RematchStatus) {
+        var code: Code?
+        switch result {
+        case .requested:
+            code = .rematchRequested
+        case .accepted:
+            code = .rematchAccepted
+        case .rejected:
+            code = .rematchRejected
+        }
+        guard let code = code else { return }
+        let message = Message<Code>(code: code)
         webSocket.send(message)
     }
 }

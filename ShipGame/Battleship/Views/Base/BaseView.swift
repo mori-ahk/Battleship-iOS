@@ -36,11 +36,21 @@ struct BaseView: View {
                     case .ended(let gameResult):
                         EndGameView(gameResult: gameResult) {
                             viewModel.disconnect()
+                        } onRematch: {
+                            viewModel.rematch(is: .requested)
                         }
                         .transition(.blurReplace)
                     case .paused(let opponentStatus):
                         PausedView(opponentStatus: opponentStatus)
                             .transition(.blurReplace)
+                    case .rematch(let rematchStatus):
+                        RematchView(status: rematchStatus) {
+                            viewModel.rematch(is: .accepted)
+                        } onReject: {
+                            viewModel.rematch(is: .rejected)
+                            viewModel.disconnect()
+                        }
+                        .transition(.blurReplace)
                     default:
                         GameplayView(state: state)
                             .transition(.blurReplace)
@@ -83,5 +93,13 @@ struct BaseView: View {
         }
         .toastView(toast: $toast)
         .padding()
+    }
+    
+    private var shouldShowRematch: Bool {
+        switch state {
+        case .rematch(let status):
+            return status == .requested
+        default: return false
+        }
     }
 }

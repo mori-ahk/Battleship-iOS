@@ -15,4 +15,5 @@ protocol BattleshipInterface {
     func join(game: Game)
     func ready()
     func attack(coordinate: Coordinate)
+    func rematch(is result: RematchStatus)
 }
