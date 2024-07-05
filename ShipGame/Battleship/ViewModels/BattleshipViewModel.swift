@@ -80,7 +80,9 @@ class BattleshipViewModel: ObservableObject {
                         state = .rematch(rematchStatus)
                         switch rematchStatus {
                         case .rejected:
-                            disconnect()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                self.disconnect()
+                            }
                         default: break
                         }
                     case .rematch(let message):

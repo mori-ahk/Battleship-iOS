@@ -39,6 +39,7 @@ struct BaseView: View {
                         } onRematch: {
                             viewModel.rematch(is: .requested)
                         }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .transition(.blurReplace)
                     case .paused(let opponentStatus):
                         PausedView(opponentStatus: opponentStatus)
@@ -93,13 +94,5 @@ struct BaseView: View {
         }
         .toastView(toast: $toast)
         .padding()
-    }
-    
-    private var shouldShowRematch: Bool {
-        switch state {
-        case .rematch(let status):
-            return status == .requested
-        default: return false
-        }
     }
 }

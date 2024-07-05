@@ -20,35 +20,41 @@ struct RematchView: View {
             case .accepted:
                 Text("starting a new game")
             case .rejected:
-                Text("rematch rejected, redirecting to home page")
+                Text("Rematch request rejected, ending this game...")
+                    .font(.title3)
+                    .fontWeight(.semibold)
             }
         }
+        .padding()
     }
     
     @ViewBuilder
     private var requestedView: some View {
-        Text("Rematch request")
-            .font(.title)
-            .fontWeight(.heavy)
-        
-        Text("Your opponent has requested a rematch. Would you like to play again?")
-            .font(.title3)
-            .fontWeight(.semibold)
-        HStack {
-            Button {
-                onAccept()
-            } label: {
-                Text("Sure!")
-                    .padding(8)
-            }
+        VStack(spacing: 16) {
+            Text("Rematch request")
+                .font(.title)
+                .fontWeight(.heavy)
             
-            Button {
-                onReject()
-            } label: {
-                Text("No")
-                    .padding(8)
+            Text("Your opponent has requested a rematch. Would you like to play again?")
+                .font(.title3)
+                .fontWeight(.semibold)
+            HStack {
+                Button {
+                    onAccept()
+                } label: {
+                    Text("Sure!")
+                        .padding(8)
+                }
+                
+                Button {
+                    onReject()
+                } label: {
+                    Text("Nope")
+                        .padding(8)
+                }
             }
+            .buttonStyle(.borderedProminent)
         }
-        .buttonStyle(.borderedProminent)
+        .multilineTextAlignment(.center)
     }
 }
