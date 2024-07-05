@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EndGameView: View {
     @State private var didRequestRematch: Bool = true
+    @State private var shouldShowEndGame: Bool = false
     var gameResult: GameResult
     var onBack: () -> Void
     var onRematch: () -> Void
@@ -39,19 +40,27 @@ struct EndGameView: View {
                         .padding(8)
                 }
                 .disabled(!didRequestRematch)
+               
                 
                 Button {
                     onBack()
-                    didRequestRematch = true
                 } label: {
-                    Text("Go back")
+                    Text("End game")
                         .padding(8)
                 }
+                .opacity(shouldShowEndGame ? 1 : 0)
+                .blur(radius: shouldShowEndGame ? 0 : 16)
             }
             .buttonStyle(.borderedProminent)
             .fontWeight(.semibold)
         }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.shouldShowEndGame = true
+            }
+        }
         .padding()
         .animation(.default, value: didRequestRematch)
+        .animation(.default, value: shouldShowEndGame)
     }
 }

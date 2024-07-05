@@ -14,8 +14,7 @@ enum Endpoint {
     var url: String {
         switch self {
         case .debug:
-//            return "wss://battleship-go-ios-staging.fly.dev/battleship"
-            return "ws://localhost:8080/battleship"
+            return "wss://battleship-go-ios-staging.fly.dev/battleship"
         case .production:
             return "wss://battleship-go-ios.fly.dev/battleship"
         }
