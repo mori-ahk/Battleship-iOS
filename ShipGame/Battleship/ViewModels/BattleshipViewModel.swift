@@ -62,18 +62,7 @@ class BattleshipViewModel: ObservableObject {
                         gameInfo = message
                         state = .created(message.game)
                     case .join(let message, let error):
-                        guard error == nil else {
-                            DispatchQueue.main.async {
-                                self.connectionState = .failed
-                            }
-                            break
-                        }
-                        DispatchQueue.main.async {
-                            self.defenceGrid = GameGrid(size: message.gameDifficulty.size)
-                            self.attackGrid = GameGrid(size: message.gameDifficulty.size)
-                        }
-                        let joinedPlayer = Player(id: message.playerId!, isHost: false)
-                        gameInfo?.player = joinedPlayer
+                        handleJoin(message, error)
                     case .select:
                         state = .select
                     case .ready:
@@ -130,6 +119,21 @@ class BattleshipViewModel: ObservableObject {
         }
     }
    
+    private func handleJoin(_ message: JoinMessage, _ error: MessageError?) {
+        guard error == nil else {
+            DispatchQueue.main.async {
+                self.connectionState = .failed
+            }
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.defenceGrid = GameGrid(size: message.gameDifficulty.size)
+            self.attackGrid = GameGrid(size: message.gameDifficulty.size)
+        }
+        gameInfo?.player = Player(id: message.playerId!, isHost: false)
+    }
+    
     private func handleOpponentStatusChange(_ opponentStatus: OpponentStatus) {
         switch opponentStatus {
         case .gracePeriod:
