@@ -83,6 +83,14 @@ class WebSocketManager: NSObject, ObservableObject {
                 responsePipeline.send(.opponentStatus(.reconnected))
             case .gracePeriod:
                 responsePipeline.send(.opponentStatus(.gracePeriod))
+            case .rematchRequested:
+                responsePipeline.send(.rematchStatus(.requested))
+            case .rematchAccepted:
+                responsePipeline.send(.rematchStatus(.accepted))
+            case .rematchRejected:
+                responsePipeline.send(.rematchStatus(.rejected))
+            case .rematch:
+                try processRematchMessage(data)
             default:
                 break
             }
@@ -119,6 +127,12 @@ class WebSocketManager: NSObject, ObservableObject {
         let endMessage = try decoder.decode(Message<EndMessage>.self, from: data)
         guard let payload = endMessage.payload else { return }
         responsePipeline.send(.end(payload))
+    }
+    
+    private func processRematchMessage(_ data: Data) throws {
+        let rematchMessage = try decoder.decode(Message<RematchMessage>.self, from: data)
+        guard let payload = rematchMessage.payload else { return }
+        responsePipeline.send(.rematch(payload))
     }
 }
 

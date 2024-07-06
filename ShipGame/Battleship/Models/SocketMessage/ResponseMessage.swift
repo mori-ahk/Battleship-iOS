@@ -17,10 +17,18 @@ enum ResponseMessage {
     case attack(RespAttackMessage)
     case end(EndMessage)
     case opponentStatus(OpponentStatus)
+    case rematchStatus(RematchStatus)
+    case rematch(RematchMessage)
 }
 
 enum OpponentStatus {
     case disconnected
     case reconnected
     case gracePeriod
+}
+
+enum RematchStatus {
+    case requested
+    case accepted
+    case rejected
 }

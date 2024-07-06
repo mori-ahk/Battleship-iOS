@@ -29,6 +29,8 @@
 		823C5BD52BE95B2400112962 /* Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823C5BD42BE95B2400112962 /* Code.swift */; };
 		823C5BD92BF124BD00112962 /* JoinMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823C5BD82BF124BD00112962 /* JoinMessage.swift */; };
 		824E76562C25FD9E00857B66 /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824E76552C25FD9E00857B66 /* ConnectionState.swift */; };
+		82AD523F2C375FAC00B7AF69 /* RematchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD523E2C375FAC00B7AF69 /* RematchView.swift */; };
+		82AD52422C38670A00B7AF69 /* RematchMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD52412C38670A00B7AF69 /* RematchMessage.swift */; };
 		82B37A002C2893DE00A52C18 /* SessionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B379FF2C2893DE00A52C18 /* SessionMessage.swift */; };
 		82B37A022C28944A00A52C18 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B37A012C28944A00A52C18 /* Session.swift */; };
 		82C568DE2C2A146000A07F0B /* PausedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C568DD2C2A146000A07F0B /* PausedView.swift */; };
@@ -95,6 +97,8 @@
 		823C5BD42BE95B2400112962 /* Code.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Code.swift; sourceTree = "<group>"; };
 		823C5BD82BF124BD00112962 /* JoinMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinMessage.swift; sourceTree = "<group>"; };
 		824E76552C25FD9E00857B66 /* ConnectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
+		82AD523E2C375FAC00B7AF69 /* RematchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RematchView.swift; sourceTree = "<group>"; };
+		82AD52412C38670A00B7AF69 /* RematchMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RematchMessage.swift; sourceTree = "<group>"; };
 		82B379FF2C2893DE00A52C18 /* SessionMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMessage.swift; sourceTree = "<group>"; };
 		82B37A012C28944A00A52C18 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		82C568DD2C2A146000A07F0B /* PausedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PausedView.swift; sourceTree = "<group>"; };
@@ -159,6 +163,7 @@
 				82EFD9AE2C0D312F00EAAF86 /* AttackMessage.swift */,
 				82F1D2112C18DC4600A600BF /* EndMessage.swift */,
 				82B379FF2C2893DE00A52C18 /* SessionMessage.swift */,
+				82AD52412C38670A00B7AF69 /* RematchMessage.swift */,
 			);
 			path = SocketMessage;
 			sourceTree = "<group>";
@@ -253,6 +258,14 @@
 				8207C1842C0E1D8800449FFB /* SocketMessage */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		82AD52402C375FB000B7AF69 /* Rematch */ = {
+			isa = PBXGroup;
+			children = (
+				82AD523E2C375FAC00B7AF69 /* RematchView.swift */,
+			);
+			path = Rematch;
 			sourceTree = "<group>";
 		};
 		82C568E72C2CBDD300A07F0B /* Toast */ = {
@@ -357,6 +370,7 @@
 				82C568F52C2F066A00A07F0B /* GameCreated */,
 				82C568F92C2F084100A07F0B /* GamePlay */,
 				82C569032C2F0E5E00A07F0B /* Difficulty */,
+				82AD52402C375FB000B7AF69 /* Rematch */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -444,6 +458,7 @@
 				82EFD99C2C0A60A300EAAF86 /* ResponseMessage.swift in Sources */,
 				82C569122C2F17E100A07F0B /* DifficultyItemView.swift in Sources */,
 				8207C1982C1601A800449FFB /* BattleshipDefenceView.swift in Sources */,
+				82AD52422C38670A00B7AF69 /* RematchMessage.swift in Sources */,
 				82F1D2122C18DC4600A600BF /* EndMessage.swift in Sources */,
 				82EFD9A72C0BBC7B00EAAF86 /* ReadyView.swift in Sources */,
 				823C5BD12BE95AF100112962 /* CreateMessage.swift in Sources */,
@@ -454,6 +469,7 @@
 				82EFD9A92C0D08AA00EAAF86 /* ReadyMessage.swift in Sources */,
 				8207C18E2C0F8E4000449FFB /* WebSocketService.swift in Sources */,
 				8207C1922C124F2800449FFB /* BattleshipInterface.swift in Sources */,
+				82AD523F2C375FAC00B7AF69 /* RematchView.swift in Sources */,
 				82C568E02C2A1A1D00A07F0B /* GameplayView.swift in Sources */,
 				82C569022C2F0E5900A07F0B /* DifficultyView.swift in Sources */,
 				82EFD9AB2C0D09A400EAAF86 /* GameInfo.swift in Sources */,
