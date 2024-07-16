@@ -8,6 +8,6 @@
 import Foundation
 
 enum GameResult: Int {
-    case lost = -1
-    case won = 1
+    case lost = 1
+    case won = 2
 }
