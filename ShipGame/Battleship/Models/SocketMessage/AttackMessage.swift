@@ -37,9 +37,9 @@ struct RespAttackMessage: Codable {
         let positionStateRawValue = try container.decode(Int.self, forKey: CodingKeys.positionState)
         switch positionStateRawValue {
         case 1:
-            self.positionState = .hit
-        case -1:
             self.positionState = .miss
+        case 2:
+            self.positionState = .hit
         default:
             self.positionState = nil
         }

@@ -12,7 +12,6 @@ struct GameplayView: View {
     var body: some View {
         VStack {
             BattleshipDefenceView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             Divider()
             switch state {
             case .select:
@@ -20,7 +19,7 @@ struct GameplayView: View {
                     .transition(.blurReplace)
             case .ready:
                 Text("Waiting for opponent")
-                    .frame(maxHeight: .infinity, alignment: .center)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     .font(.title3)
                     .transition(.blurReplace)
             case .started, .attacked:

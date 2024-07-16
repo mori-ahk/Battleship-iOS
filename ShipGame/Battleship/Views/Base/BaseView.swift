@@ -32,6 +32,7 @@ struct BaseView: View {
                         GameCreatedView(toast: $toast, game: game) {
                             shouldShowAlert = true
                         }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .transition(.blurReplace)
                     case .ended(let gameResult):
                         EndGameView(gameResult: gameResult) {
@@ -43,6 +44,7 @@ struct BaseView: View {
                         .transition(.blurReplace)
                     case .paused(let opponentStatus):
                         PausedView(opponentStatus: opponentStatus)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .transition(.blurReplace)
                     case .rematch(let rematchStatus):
                         RematchView(status: rematchStatus) {
@@ -51,6 +53,7 @@ struct BaseView: View {
                             viewModel.rematch(is: .rejected)
                             viewModel.disconnect()
                         }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .transition(.blurReplace)
                     default:
                         GameplayView(state: state)
