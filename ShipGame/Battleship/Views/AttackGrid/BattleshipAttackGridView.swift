@@ -52,18 +52,22 @@ struct BattleshipAttackGridView: View {
     ) -> some View {
         let state = attackGrid.state(at: coordinate)
         RoundedRectangle(cornerRadius: UXMetrics.CornerRadius.universal)
-            .fill(coordinateBackgroundColor(at: coordinate))
+            .fill(coordinateBackgroundColor(at: coordinate).opacity(0.2))
+            .stroke(coordinateBackgroundColor(at: coordinate), lineWidth: 1.5)
             .frame(width: size, height: size)
             .overlay {
                 if let sign = state.sign {
                     Text(sign)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .id(sign)
+                        .transition(.blurReplace)
                 }
             }
     }
    
     private func coordinateBackgroundColor(at coordinate: Coordinate) -> Color {
         if selectedAttackCoordinate == coordinate {
-            return .bittersweet
+            return .engineRed
         } else {
             switch attackGrid.state(at: coordinate) {
             case .occupied(let ship):
@@ -74,7 +78,7 @@ struct BattleshipAttackGridView: View {
                 return .gray
             case .sunk:
                 return .columbiaBlue.opacity(0.2)
-            default: return .bittersweet.opacity(0.5)
+            default: return .bittersweet
             }
         }
     }
