@@ -42,14 +42,19 @@ struct BattleshipDefendGridView: View {
     @ViewBuilder
     private func buttonOverlay(_ size: CGFloat, at coordinate: Coordinate) -> some View {
         let state = defenceGrid.state(at: coordinate)
+        let coordinateColor = coordinateBackgroundColor(at: coordinate)
         RoundedRectangle(cornerRadius: UXMetrics.CornerRadius.universal)
-            .fill(coordinateBackgroundColor(at: coordinate))
+            .fill(coordinateColor.opacity(0.2))
+            .stroke(coordinateColor, lineWidth: 1.5)
             .frame(width: size, height: size)
             .overlay {
                 if let sign = state.sign {
                     Text(sign)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .id(sign)
                         .fontWeight(.semibold)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(coordinateColor)
+                        .transition(.blurReplace)
                 }
             }
     }
