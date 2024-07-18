@@ -56,7 +56,8 @@ struct LandingView: View {
         }
         .alert("Enter game Id", isPresented: $shouldShowRoomIdAlert) {
             TextField("Enter game Id", text: $gameId)
-            Button("join") {
+            Button("Cancel", role: .cancel) { /* no op */ }
+            Button("Join") {
                 guard !gameId.isEmpty else { return }
                 viewModel.gameToJoin = Game(id: gameId)
                 viewModel.connect(from: .join)

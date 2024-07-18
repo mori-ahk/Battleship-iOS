@@ -10,7 +10,7 @@ import SwiftUI
 struct GameplayView: View {
     let state: GameState
     var body: some View {
-        VStack {
+        VStack(spacing: 12) {
             BattleshipDefenceView()
             Divider()
             switch state {
@@ -24,7 +24,8 @@ struct GameplayView: View {
                     .transition(.blurReplace)
             case .started, .attacked:
                 BattleshipAttackView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    .layoutPriority(1)
                     .transition(.blurReplace)
             default: EmptyView()
             }
