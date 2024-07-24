@@ -11,6 +11,7 @@ struct BattleshipAttackView: View {
     @EnvironmentObject private var viewModel: BattleshipViewModel
     @State private var selectedAttackCoordinate: Coordinate?
     @State private var isTurn: Bool = false
+    
     var body: some View {
         VStack(spacing: 12) {
             RoundedRectangle(cornerRadius: UXMetrics.CornerRadius.universal)
@@ -44,7 +45,7 @@ struct BattleshipAttackView: View {
         .onReceive(viewModel.$isTurn) { isTurn in
             self.isTurn = isTurn
         }
-        .animation(.bouncy(extraBounce: 0.35), value: turnStatusMessage)
+        .animation(.bouncy(extraBounce: 0.15), value: turnStatusMessage)
         .animation(.default, value: isTurn)
     }
     

@@ -19,13 +19,12 @@ struct GameplayView: View {
                     .transition(.blurReplace)
             case .ready:
                 Text("Waiting for opponent")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .font(.title3)
                     .transition(.blurReplace)
             case .started, .attacked:
                 BattleshipAttackView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                    .layoutPriority(1)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .transition(.blurReplace)
             default: EmptyView()
             }

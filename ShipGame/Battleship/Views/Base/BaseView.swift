@@ -21,55 +21,57 @@ struct BaseView: View {
     
     var body: some View {
         ZStack {
-            if !shouldShowInstructions {
-                VStack(spacing: 24) {
-                    switch state {
-                    case .idle:
-                        LandingView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .transition(.blurReplace)
-                    case .created(let game):
-                        GameCreatedView(toast: $toast, game: game) {
-                            shouldShowAlert = true
-                        }
+            VStack(spacing: 24) {
+                switch state {
+                case .idle:
+                    LandingView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .transition(.blurReplace)
-                    case .ended(let gameResult):
-                        EndGameView(gameResult: gameResult) {
-                            viewModel.disconnect()
-                        } onRematch: {
-                            viewModel.rematch(is: .requested)
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .transition(.blurReplace)
-                    case .paused(let opponentStatus):
-                        PausedView(opponentStatus: opponentStatus)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .transition(.blurReplace)
-                    case .rematch(let rematchStatus):
-                        RematchView(status: rematchStatus) {
-                            viewModel.rematch(is: .accepted)
-                        } onReject: {
-                            viewModel.rematch(is: .rejected)
-                            viewModel.disconnect()
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .transition(.blurReplace)
-                    default:
-                        GameplayView(state: state)
-                            .transition(.blurReplace)
+                case .created(let game):
+                    GameCreatedView(toast: $toast, game: game) {
+                        shouldShowAlert = true
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .transition(.blurReplace)
+                case .ended(let gameResult):
+                    EndGameView(gameResult: gameResult) {
+                        viewModel.disconnect()
+                    } onRematch: {
+                        viewModel.rematch(is: .requested)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .transition(.blurReplace)
+                case .paused(let opponentStatus):
+                    PausedView(opponentStatus: opponentStatus)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .transition(.blurReplace)
+                case .rematch(let rematchStatus):
+                    RematchView(status: rematchStatus) {
+                        viewModel.rematch(is: .accepted)
+                    } onReject: {
+                        viewModel.rematch(is: .rejected)
+                        viewModel.disconnect()
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .transition(.blurReplace)
+                default:
+                    GameplayView(state: state)
+                        .transition(.blurReplace)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                .transition(.blurReplace)
             }
-            
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            .transition(.blurReplace)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay {
             if shouldShowInstructions {
                 InstructionsView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding()
+                    .background()
                     .transition(.blurReplace)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .animation(.spring(duration: 0.75), value: state)
         .animation(.spring, value: shouldShowInstructions)
         .onReceive(viewModel.$state) { gameState in

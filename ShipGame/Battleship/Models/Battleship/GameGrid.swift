@@ -7,7 +7,7 @@
 
 import Foundation
 
-fileprivate let GRID_SIZE: Int = 0
+fileprivate let GRID_SIZE: Int = 7
 
 struct GameGrid: Equatable {
     let size: Int
