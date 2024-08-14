@@ -27,20 +27,20 @@ cd Battleship-iOS/ShipGame
 
 ### Step 2: Set the Bundle Identifier
 
-    1.    Open the Battleship.xcodeproj in Xcode.
-    2.    Go to the General tab.
-    3.    In the Identity section, set the Bundle Identifier to a unique string (e.g., com.yourname.battleship).
+1.    Open the Battleship.xcodeproj in Xcode.
+2.    Go to the General tab.
+3.    In the Identity section, set the Bundle Identifier to a unique string (e.g., com.yourname.battleship).
 
 ### Step 3: Set the WebSocket Server URL
 
-    1.    Set the value to the URL of your WebSocket server [here]()
+1.    Set the value to the URL of your WebSocket server [here]()
 
 ### Step 4: Build and Run
 
-    1.    Select your target device (Simulator or physical device).
-    2.    Press Cmd + R to build and run the app.
+1.    Select your target device (Simulator or physical device).
+2.    Press Cmd + R to build and run the app.
 
 ### Usage
 
-    1.    Launch the app on your iOS device.
-    2.    Start a new game or join an existing one.
+1.    Launch the app on your iOS device.
+2.    Start a new game or join an existing one.
