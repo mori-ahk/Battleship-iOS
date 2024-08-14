@@ -1,4 +1,8 @@
+
+![alt text]([https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true](https://github.com/mori-ahk/Battleship-iOS/blob/main/ShipGame/Battleship/Assets.xcassets/AppIcon.appiconset/Battleship%20Logo%20v1%20iOS%402x%20alpha.png))
+
 # Battleship
+
 
 **Battleship** is an open-source iOS game where you can play the classic game of Battleship. This app allows players to connect with a web socket server for real-time gameplay. 
 
