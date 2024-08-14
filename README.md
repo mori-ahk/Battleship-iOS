@@ -12,6 +12,16 @@
 - Real-time multiplayer using WebSocket
 - Customizable game settings
 
+## Screenshots
+
+| Waiting Room | Choose Difficulty | Place Ships | Game Play I |
+|--------------|--------------|--------------|--------------|
+| <img src="Screenshots/1.jpeg" width="200"/> | <img src="Screenshots/2.jpeg" width="200"/> | <img src="Screenshots/3.jpeg" width="200"/> | <img src="Screenshots/4.jpeg" width="200"/> |
+
+| Game Play II | End Match | Rematch |              |
+|--------------|--------------|--------------|--------------|
+| <img src="Screenshots/5.jpeg" width="200"/> | <img src="Screenshots/6.jpeg" width="200"/> | <img src="Screenshots/7.jpeg" width="200"/> |              |
+
 ## Installation
 
 To install and run the Battleship app, follow these steps:
