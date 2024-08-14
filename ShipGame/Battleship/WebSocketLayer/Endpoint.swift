@@ -11,12 +11,13 @@ enum Endpoint {
     case debug
     case production
     
+    #error("Make sure to place the correct server URL below. Note that the URL should start with 'ws' or 'wss'")
     var url: String {
         switch self {
         case .debug:
-            return "wss://battleship-go-ios-staging.fly.dev/battleship"
+            return "" // Debug URL
         case .production:
-            return "wss://battleship-go-ios.fly.dev/battleship"
+            return "" // Production URL
         }
     }
 }
