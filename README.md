@@ -33,7 +33,7 @@ cd Battleship-iOS/ShipGame
 
 ### Step 3: Set the WebSocket Server URL
 
-1.    Set the value to the URL of your WebSocket server [here]()
+1.    Set the value to the URL of your WebSocket server [here](https://github.com/mori-ahk/Battleship-iOS/blob/6e4c7658229d43ca9ae1ad2b4741c4543ab4012a/ShipGame/Battleship/WebSocketLayer/Endpoint.swift#L18)
 
 ### Step 4: Build and Run
 
