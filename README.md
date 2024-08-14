@@ -1,5 +1,8 @@
 
-<img src="https://github.com/mori-ahk/Battleship-iOS/blob/main/ShipGame/Battleship/Assets.xcassets/AppIcon.appiconset/Battleship%20Logo%20v1%20iOS%402x%20alpha.png" alt="drawing" width="200" height="200"/>
+<div style="text-align: center">
+  <img src="https://github.com/mori-ahk/Battleship-iOS/blob/main/ShipGame/Battleship/Assets.xcassets/AppIcon.appiconset/Battleship%20Logo%20v1%20iOS%402x%20alpha.png" alt="drawing" width="200" height="200"/>
+</div>
+
 
 
 # Battleship
