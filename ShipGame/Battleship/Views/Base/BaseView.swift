@@ -95,7 +95,7 @@ struct BaseView: View {
             .frame(width: 32, height: 32)
             .background(.white)
             .clipShape(RoundedRectangle(cornerRadius: UXMetrics.CornerRadius.universal))
-            .shadow(radius: 4)
+            .shadow(radius: UXMetrics.shadowRedius)
         }
         .toastView(toast: $toast)
         .padding()

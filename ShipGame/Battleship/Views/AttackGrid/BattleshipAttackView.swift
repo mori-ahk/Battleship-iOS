@@ -17,7 +17,7 @@ struct BattleshipAttackView: View {
             RoundedRectangle(cornerRadius: UXMetrics.CornerRadius.universal)
                 .fill(turnBackground)
                 .stroke(isTurn ? .green : .columbiaBlue.opacity(0.5), lineWidth: isTurn ? 2 : 1)
-                .shadow(color: isTurn ? .green : .green.opacity(0), radius: 4)
+                .shadow(color: isTurn ? .green : .green.opacity(0), radius: UXMetrics.shadowRedius)
                 .frame(width: 256, height: 40)
                 .overlay {
                     Text(turnStatusMessage)

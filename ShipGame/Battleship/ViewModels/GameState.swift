@@ -33,17 +33,19 @@ extension GameState: Identifiable {
         case .rematch: 8
         }
     }
-    
-    var modificationAllowed: Bool {
-        switch self {
-        case .ready, .started, .attacked: false
-        default: true
-        }
-    }
 }
 
 extension GameState: Equatable {
     static func == (lhs: GameState, rhs: GameState) -> Bool {
         lhs.id == rhs.id
+    }
+}
+
+extension GameState {
+    var modificationAllowed: Bool {
+        switch self {
+        case .ready, .started, .attacked: false
+        default: true
+        }
     }
 }

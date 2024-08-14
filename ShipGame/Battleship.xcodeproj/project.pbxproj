@@ -83,6 +83,7 @@
 		8207C1972C1601A800449FFB /* BattleshipDefenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipDefenceView.swift; sourceTree = "<group>"; };
 		8207C1992C1602DA00449FFB /* GameCreatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCreatedView.swift; sourceTree = "<group>"; };
 		8207C1A12C1613E000449FFB /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		82162F172C6C4B03006D34C4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		822B2E442BA920ED00CCF448 /* Battleship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Battleship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		822B2E472BA920ED00CCF448 /* ShipGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipGameApp.swift; sourceTree = "<group>"; };
 		822B2E492BA920ED00CCF448 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
@@ -238,6 +239,7 @@
 				82C568E32C2C85C100A07F0B /* Util.swift */,
 				82C568E72C2CBDD300A07F0B /* Toast */,
 				82C5690A2C2F122700A07F0B /* DesignKit */,
+				82162F172C6C4B03006D34C4 /* README.md */,
 			);
 			name = Battleship;
 			path = "/Users/moriahmadi/Dev/Battleship-iOS/ShipGame/Battleship";
@@ -638,7 +640,7 @@
 				CURRENT_PROJECT_VERSION = 9;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Battleship/Preview Content\"";
-				DEVELOPMENT_TEAM = V8MTN2VWRH;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -657,7 +659,6 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mori-ahk.battleship";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -677,7 +678,7 @@
 				CURRENT_PROJECT_VERSION = 9;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Battleship/Preview Content\"";
-				DEVELOPMENT_TEAM = V8MTN2VWRH;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -696,7 +697,6 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mori-ahk.battleship";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
