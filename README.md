@@ -1,4 +1,3 @@
-#  <#Title#>
 # Battleship
 
 **Battleship** is an open-source iOS game where you can play the classic game of Battleship. This app allows players to connect with a web socket server for real-time gameplay. 
